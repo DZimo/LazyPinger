@@ -1,0 +1,29 @@
+# .github/workflows/dummy-action.yml
+
+name: Dummy CI on feat/dummy
+
+on:
+  
+  push:
+    branches: [ "feat/dummy" ]
+
+
+jobs:
+  # We'll define a single job called 'build'.
+  build:
+    runs-on: ubuntu-latest
+
+    
+    steps:
+ 
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo "Hello from the feat/dummy branch!"
+
+      - name: Run a multi-line script
+        run: |
+          echo "This is a test."
+          echo "Listing files in the directory:"
+          ls -la
