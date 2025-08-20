@@ -18,6 +18,7 @@ namespace LazyPinger.Core.Services
         {
 
         }
+
         public async Task InitNetworkSettings()
         {
             var res = await GetHostIPs();

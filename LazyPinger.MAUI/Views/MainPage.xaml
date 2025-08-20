@@ -12,17 +12,8 @@
 
     <Grid RowDefinitions="125, *">
 
-        <VerticalStackLayout Grid.Row="0" 
-                         VerticalOptions="Fill"
-                         HorizontalOptions="Fill"
-                         Background="{StaticResource Tertiary}">
-            <Label Style="{StaticResource Headline}" 
-                   TextColor="{StaticResource Primary}"
-                   Margin="0, 50, 0, 0"
-                   Text="{x:Static strings:AppResources.LazySlogan}">
-            </Label>
-        </VerticalStackLayout>
-        
+        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"/>
+
         <!-- MAIN -->
 
         <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">

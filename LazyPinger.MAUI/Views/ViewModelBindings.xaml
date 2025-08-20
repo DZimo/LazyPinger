@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:strings="clr-namespace:LazyPinger.Base.Localization;assembly=LazyPinger.Base"
              x:Class="LazyPingerMAUI.Views.ViewModelBindings">
-
 
     <ControlTemplate x:Key="DeviceCustomView">
         <Grid>
@@ -33,5 +33,21 @@
             <Label Text="{Binding Type}"></Label>
         </Grid>
     </ControlTemplate>
-    
+
+    <ControlTemplate x:Key="LazyPingerHeader">
+        
+        <VerticalStackLayout Grid.Row="0" 
+                   VerticalOptions="Fill"
+                   HorizontalOptions="Fill"
+                   Background="{StaticResource BlueGradient}">
+            <Label Style="{StaticResource Headline}" 
+             TextColor="{StaticResource Primary}"
+             Margin="0, 50, 0, 0"
+             Text="{x:Static strings:AppResources.LazySlogan}">
+            </Label>
+        </VerticalStackLayout>
+        
+    </ControlTemplate>
+
+
 </ResourceDictionary>

@@ -33,7 +33,6 @@ public class ArpDetectorService : IArpDetectorService
         ArpType.Type = TypeFinder();
     }
 
-
     private string TypeFinder()
     {
         string foundType = "Unknown";
