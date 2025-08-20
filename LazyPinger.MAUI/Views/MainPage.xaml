@@ -132,8 +132,9 @@
 
             <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"> 
                 <Label HorizontalOptions="Center" 
-                   VerticalOptions="Center" 
-                   Text="{x:Static strings:AppResources.SplashEntry}"/>
+                       VerticalOptions="Center" 
+                       TextColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray100}}"
+                       Text="{x:Static strings:AppResources.SplashEntry}"/>
                 <ActivityIndicator HorizontalOptions="Center" IsRunning="true" />
             </VerticalStackLayout>
         </Grid>
@@ -141,7 +142,7 @@
         <Grid IsVisible="{Binding AnimationHandler.IsSplashVisible}"
               Grid.Row="0"
               Grid.RowSpan="2"
-              BackgroundColor="{StaticResource Gray950}">
+              BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
 
             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <Label VerticalOptions="Center" 
