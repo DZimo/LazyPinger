@@ -9,8 +9,10 @@
     <Color x:Key="Primary">#ffc300</Color>
     <Color x:Key="PrimaryDark">#ffc300</Color>
     <Color x:Key="PrimaryDarkBlack">#d2a100</Color>
+    <Color x:Key="PrimaryLighter">#ffee00</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#001930</Color>
+    <Color x:Key="SecondaryLighter">#001930</Color>
     <Color x:Key="SecondaryDarkText">#003566</Color>
     <Color x:Key="Tertiary">#000814</Color>
     <Color x:Key="PrimaryDarkAlternative">#709e7900</Color>
@@ -51,6 +53,12 @@
         <GradientStop Color="{StaticResource Tertiary}" Offset="0.0" />
         <GradientStop Color="{StaticResource Secondary}" Offset="0.5" />
         <GradientStop Color="{StaticResource Tertiary}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GoldenGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource PrimaryLighter}" Offset="0.0" />
+        <GradientStop Color="{StaticResource PrimaryDarkBlack}" Offset="0.5" />
+        <GradientStop Color="{StaticResource PrimaryDark}" Offset="1.0" />
     </LinearGradientBrush>
 
     <!-- Brushes -->

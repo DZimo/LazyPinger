@@ -26,7 +26,7 @@
 
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource PrimaryDarkText}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryDarkText}, Dark={StaticResource PrimaryDark}}" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BlueGradient}, Dark={StaticResource GoldenGradient}}" />
         <Setter Property="FontFamily" Value="NotoSansItalic"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="BorderWidth" Value="1"/>
@@ -38,23 +38,24 @@
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
+
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
-                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="PointerOver">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
-                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource PrimaryDarkBlack}}" />
+                            <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource PrimaryDarkBlack}}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Pressed">
                         <VisualState.Setters>
+                            <Setter Property="Background" Value="Transparent" />
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}" />
                             <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource SecondaryDarkText}, Dark={StaticResource Secondary}}" />
-                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDarkText}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

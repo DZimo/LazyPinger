@@ -71,7 +71,7 @@
                 <FlexLayout Grid.Row="2">
                     <Button Margin="5"
                             IsEnabled="{Binding UserSelection.IsAutoRunDisabled}"
-                            Command="{Binding PingAllCommand}"
+                            Command="{Binding PingAllCommand}"      
                             Text="Ping"
                             FlexLayout.Grow="1">
                         <Button.CommandParameter>
