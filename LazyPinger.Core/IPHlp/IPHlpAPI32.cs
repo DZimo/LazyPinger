@@ -1,6 +1,7 @@
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using LazyPinger.Base.Localization;
 
 namespace LazyPinger.Core.IPHlp
 {
@@ -241,7 +242,7 @@ namespace LazyPinger.Core.IPHlp
 				strgError=strgError.Substring(0,strgError.Length-2);
 				return strgError+" ("+ApiErrNumber.ToString()+")";
 			}
-			return "none";
+			return AppResources.None;
 		}
 	}
 }

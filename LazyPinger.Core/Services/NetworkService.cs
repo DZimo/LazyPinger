@@ -1,4 +1,5 @@
 ﻿using LazyPinger.Base.IServices;
+using LazyPinger.Base.Localization;
 using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.Network;
 using LazyPinger.Core.ViewModels;
@@ -108,7 +109,7 @@ namespace LazyPinger.Core.Services
                 foundDevices.Add(new DevicePing()
                 {
                     ID = foundDevices.Count,
-                    Name = (found is null ) ? "Device" + i : found.Name,
+                    Name = (found is null ) ? AppResources.Device+ i : found.Name,
                     IP = foundIP,
                     Description = found?.Description,
                     MacAddress = "XX:XX:XX:XX:XX",

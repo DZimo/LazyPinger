@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HeaderTitle" xml:space="preserve">
-    <value>LazyPinger, as lazy as possible</value>
+    <value>LazyPinger, aussi paresseux que possible</value>
   </data>
   <data name="LazySlogan" xml:space="preserve">
-    <value>Hola senior</value>
+    <value>Salut senior</value>
   </data>
   <data name="SplashEntry" xml:space="preserve">
-    <value>Made by lazy people for faster processing..</value>
+    <value>Fait par des gens paresseux pour un traitement plus rapide..</value>
   </data>
   <data name="IpHostFinder" xml:space="preserve">
-    <value>IP HOST FINDER : </value>
+    <value>CHERCHEUR D'IP :</value>
   </data>
   <data name="StartSerFail" xml:space="preserve">
-    <value>StartServer failed in NetworkService :</value>
+    <value>StartServer a échoué dans NetworkService :</value>
   </data>
   <data name="FoundHost" xml:space="preserve">
-    <value>Found Host</value>
+    <value>Hôte trouvé</value>
   </data>
   <data name="PingIpFail" xml:space="preserve">
-    <value>PingIP in NetworkService Failed : </value>
+    <value>Échec de PingIP dans NetworkService :</value>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>Inconnu</value>
   </data>
   <data name="Device" xml:space="preserve">
-    <value>Device</value>
+    <value>Appareil</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>none</value>
+    <value>Aucun</value>
   </data>
   <data name="PingFast" xml:space="preserve">
-    <value>Want to ping fast ?</value>
+    <value>Envoyer un ping rapidement ?</value>
   </data>  
 </root>

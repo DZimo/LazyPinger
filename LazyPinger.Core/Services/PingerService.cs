@@ -6,6 +6,7 @@ using System.Text;
 using LazyPinger.Base.Services;
 using LazyPinger.Base.IServices;
 using LazyPinger.Base.Models.Devices;
+using LazyPinger.Base.Localization;
 
 namespace LazyPinger.Core.Services
 {
@@ -47,7 +48,7 @@ namespace LazyPinger.Core.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine("StartServer failed in NetworkService :" + e);
+                Console.WriteLine(AppResources.StartSerFail + e);
             }
             return null!;
         }
@@ -96,7 +97,7 @@ namespace LazyPinger.Core.Services
                     {
                         await _arpDetectorService.ArpInit();
 
-                        Console.WriteLine("Found Host : " + _arpDetectorService.ArpType.Host + " On IP : " + ipAddressToPing);
+                        Console.WriteLine(AppResources.FoundHost + _arpDetectorService.ArpType.Host + " On IP : " + ipAddressToPing);
 
                         //foundDevices.Add(new DevicePing()
                         //{
@@ -110,7 +111,7 @@ namespace LazyPinger.Core.Services
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("PingIP in NetworkService Failed : " + e);
+                    Console.WriteLine(AppResources.PingIpFail + e);
                 }
             }
         }

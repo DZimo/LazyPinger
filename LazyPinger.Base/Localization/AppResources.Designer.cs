@@ -10,8 +10,8 @@
 
 namespace LazyPinger.Base.Localization {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,68 +22,170 @@ namespace LazyPinger.Base.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AppResources {
-        
+    public class AppResources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppResources() {
+        internal AppResources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LazyPinger.Base.Localization.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to LazyPinger, as lazy as possible.
         /// </summary>
-        public static string HeaderTitle {
-            get {
+        public static string HeaderTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("HeaderTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hola senior.
         /// </summary>
-        public static string LazySlogan {
-            get {
+        public static string LazySlogan
+        {
+            get
+            {
                 return ResourceManager.GetString("LazySlogan", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Made by lazy people for faster processing...
+        /// </summary>
+        public static string SplashEntry
+        {
+            get
+            {
+                return ResourceManager.GetString("SplashEntry", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IP HOST FINDER
+        /// </summary>
+        public static string IpHostFinder
+        {
+            get
+            {
+                return ResourceManager.GetString("IpHostFinder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to StartServer failed in NetworkService
+        /// </summary>
+        public static string StartSerFail
+        {
+            get
+            {
+                return ResourceManager.GetString("StartSerFail", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to FoundHost
+        /// </summary>
+        public static string FoundHost
+        {
+            get
+            {
+                return ResourceManager.GetString("FoundHost", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to PingIpFail
+        /// </summary>
+        public static string PingIpFail
+        {
+            get
+            {
+                return ResourceManager.GetString("PingIpFail", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown
+        /// </summary>
+        public static string Unknown
+        {
+            get
+            {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Device
+        /// </summary>
+        public static string Device
+        {
+            get
+            {
+                return ResourceManager.GetString("Device", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to None
+        /// </summary>
+        public static string None
+        {
+            get
+            {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Made by lazy people for faster processing...
+        ///   Looks up a localized string similar to PingFast
         /// </summary>
-        public static string SplashEntry {
-            get {
-                return ResourceManager.GetString("SplashEntry", resourceCulture);
+        public static string PingFast
+        {
+            get
+            {
+                return ResourceManager.GetString("PingFast", resourceCulture);
             }
         }
     }

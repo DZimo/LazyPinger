@@ -1,4 +1,5 @@
 ﻿using LazyPinger.Base.IServices;
+using LazyPinger.Base.Localization;
 using LazyPinger.Base.Models.Network;
 using LazyPinger.Base.Services;
 using LazyPinger.Core.IPHlp;
@@ -35,7 +36,7 @@ public class ArpDetectorService : IArpDetectorService
 
     private string TypeFinder()
     {
-        string foundType = "Unknown";
+        string foundType = AppResources.Unknown;
         string pattern = MacFinder().Substring(0, 8).Replace("-", ":") + ".*";
 
         MacList.ForEach(o =>
@@ -53,7 +54,7 @@ public class ArpDetectorService : IArpDetectorService
     {
         try
         {
-            Console.WriteLine("IP HOST FINDER : "+ IpAddressToPing);
+            Console.WriteLine(AppResources.IpHostFinder + IpAddressToPing);
 
             var foundIP = IpAddressToPing;
             var res = Dns.GetHostByAddress(foundIP);
@@ -64,7 +65,7 @@ public class ArpDetectorService : IArpDetectorService
 
         }
 
-        return "Unknown";
+        return AppResources.Unknown;
     }
     
     private List<string> MacLoader(string filename)

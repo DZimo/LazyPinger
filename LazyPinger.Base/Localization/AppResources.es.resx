@@ -118,12 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HeaderTitle" xml:space="preserve">
-    <value>LazyPinger, soy algerino</value>
-  </data>
-  <data name="LazySlogan" xml:space="preserve">
-    <value>LazyPinger, as lazy as possible</value>
-  </data>
-  <data name="SplashEntry" xml:space="preserve">
-    <value>Made by lazy people for faster processing..</value>
-  </data>
+  <value>LazyPinger, tan perezoso como sea posible</value>
+</data>
+<data name="LazySlogan" xml:space="preserve">
+  <value>Hola señor</value>
+</data>
+<data name="SplashEntry" xml:space="preserve">
+  <value>Hecho por gente perezosa para un procesamiento más rápido..</value>
+</data>
+<data name="IpHostFinder" xml:space="preserve">
+  <value>BUSCADOR DE IPs :</value>
+</data>
+<data name="StartSerFail" xml:space="preserve">
+  <value>StartServer falló en NetworkService :</value>
+</data>
+<data name="FoundHost" xml:space="preserve">
+  <value>Host encontrado</value>
+</data>
+<data name="PingIpFail" xml:space="preserve">
+  <value>PingIP falló en NetworkService :</value>
+</data>
+<data name="Unknown" xml:space="preserve">
+  <value>Desconocido</value>
+</data>
+<data name="Device" xml:space="preserve">
+  <value>Dispositivo</value>
+</data>
+<data name="None" xml:space="preserve">
+  <value>Ninguno</value>
+</data>
+<data name="PingFast" xml:space="preserve">
+  <value>¿Quieres hacer ping rápidamente?</value>
+</data> 
 </root>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LazyPinger.Base.Localization;
 
 namespace LazyPinger.Core.Utils
 {
@@ -25,6 +26,6 @@ namespace LazyPinger.Core.Utils
 
         public int DevicesRowSpan { get; set; } = 1;
 
-        public string SplashRandomText { get; set; } = "Want to ping fast ?";
+        public string SplashRandomText { get; set; } = AppResources.PingFast;
     }
 }

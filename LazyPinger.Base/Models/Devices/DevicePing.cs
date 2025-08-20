@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LazyPinger.Base.Localization;
 
 namespace LazyPinger.Base.Models.Devices
 {
@@ -25,7 +26,7 @@ namespace LazyPinger.Base.Models.Devices
         public string? MacAddress { get; set; }
 
         [Required]
-        public string Type { get; set; } = "Unknown";
+        public string Type { get; set; } = AppResources.Unknown;
 
         [Required]
         public string Color { get; set; } = "#212121";
