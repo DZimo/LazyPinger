@@ -12,7 +12,8 @@
 
     <Grid RowDefinitions="125, *">
 
-        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"/>
+        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
+                     BindingContext="{Binding SloganRandomText}"/>
 
         <!-- MAIN -->
 

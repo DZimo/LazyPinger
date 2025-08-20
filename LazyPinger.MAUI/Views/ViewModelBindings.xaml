@@ -35,18 +35,24 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="LazyPingerHeader">
-        
-        <VerticalStackLayout Grid.Row="0" 
-                   VerticalOptions="Fill"
-                   HorizontalOptions="Fill"
-                   Background="{StaticResource BlueGradient}">
-            <Label Style="{StaticResource Headline}" 
-             TextColor="{StaticResource Primary}"
-             Margin="0, 50, 0, 0"
-             Text="{x:Static strings:AppResources.LazySlogan}">
-            </Label>
-        </VerticalStackLayout>
-        
+        <Grid Background="{StaticResource BlueGradient}">
+            <HorizontalStackLayout VerticalOptions="Center" 
+                                   Margin="0, 25, 0, 25"
+                                   HorizontalOptions="Center">
+                <Label  Style="{StaticResource Headline}" 
+                                                VerticalOptions="Center" 
+
+                        TextColor="{StaticResource Primary}"
+                        Text="{Binding }">
+                </Label>
+                <Image  Source="lazy_pinger_logo.png" 
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center"
+                        Aspect="AspectFill"
+                        WidthRequest="75"
+                        HeightRequest="75"/>
+            </HorizontalStackLayout>
+        </Grid>
     </ControlTemplate>
 
 

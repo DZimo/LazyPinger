@@ -33,6 +33,11 @@ namespace LazyPingerMAUI.ViewModels
         [ObservableProperty]
         public ObservableCollection<VmDevicePing> devicesPing;
 
+        private string[] listOfRandomText = ["Lazy Pinger - as fast as possible.", "Welcome to the world of pinging..", "Easy, and convenient", "Customize as you wish", "Are you tired of old pingers 😿"];
+
+        [ObservableProperty]
+        public string sloganRandomText = "Lazy Pinger * as fast as possible.";
+
         //[ObservableProperty]
         //public ObservableCollection<VmDevicesGroup> devicesGroup;
 
@@ -42,12 +47,22 @@ namespace LazyPingerMAUI.ViewModels
 
         public INetworkService NetworkService { get; set; }
 
-        private const int Total_Device_Number = 30000; 
+        private const int Total_Device_Number = 30000;
 
         public MainViewModel(INetworkService networkService)
         {
             InitMainVm(networkService);
             _ = InitDatabaseData();
+
+            _ = Task.Run(async () =>
+            {
+                while (true) {
+                    SloganRandomText = listOfRandomText[Random.Shared.Next(listOfRandomText.Count())+1];
+                    await Task.Delay(5000);
+                }
+
+            });
+
             NetworkService = networkService;
             //this.networkService = networkService;
         }

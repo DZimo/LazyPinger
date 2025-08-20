@@ -12,7 +12,8 @@
 
     <Grid RowDefinitions="125, *">
 
-        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"/>
+        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
+                     BindingContext="{Binding MainVm.SloganRandomText}"/>
 
         <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">
                 
