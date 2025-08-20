@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LazyPinger.Base.Models.Devices
 {
-    public class DevicePing
+    public class DevicePing : IValidatableObject
     {
         [Key]
         public int ID { get; set; }
@@ -34,6 +34,18 @@ namespace LazyPinger.Base.Models.Devices
         public byte[]? Image { get; set; }
 
         public string? AnswerTime { get; set; } = "0ms";
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var results = new List<ValidationResult>();
+            Validator.TryValidateProperty(this.Name, new ValidationContext(this, null, null) { MemberName = nameof(Name) }, results);
+            Validator.TryValidateProperty(this.IP, new ValidationContext(this, null, null) { MemberName = nameof(IP) }, results);
+
+            if (Type == string.Empty || Color == string.Empty)
+                results.Add(new ValidationResult("Fields cannot be empty.."));
+
+            return results;
+        }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Base.Models.Devices;
@@ -10,11 +11,59 @@ namespace LazyPingerMAUI.ViewModels
     {
         public MainViewModel MainVm { get; set; }
 
-        public DevicePing DevicePingTemp { get; set; } = new();
+        public DevicePing devicePingTemp { get; set; } = new();
 
-        public DevicesGroup DeviceGroupTemp { get; set; } = new();
+        public DevicePing DevicePingTemp 
+        {
+            get
+            {
+                var res = devicePingTemp.Validate(null);
+
+                if (res.Count() > 0)
+                {
+                    // Notification
+                    return devicePingTemp;
+                }
+                CanCreateDevice = true;
+
+                return devicePingTemp;
+            }
+            set
+            {
+                devicePingTemp = value;
+            }
+        }
+
+
+        private DevicesGroup deviceGroupTemp = new();
+        public DevicesGroup DeviceGroupTemp 
+        {
+            get 
+            {
+                var res = deviceGroupTemp.Validate(null);
+
+                if (res.Count() > 0)
+                {
+                    // Notification
+                    return deviceGroupTemp;
+                }
+                CanCreateDeviceGroup = true;
+
+                return deviceGroupTemp;
+            }
+            set
+            {
+                deviceGroupTemp = value;
+            }
+        }
 
         public VmDevicesGroup VmDeviceGroupTemp { get; set; }
+
+        [ObservableProperty]
+        public bool canCreateDevice;
+
+        [ObservableProperty]
+        public bool canCreateDeviceGroup;
 
         public SettingsViewModel(INetworkService networkService, MainViewModel mainViewModel)
         {
@@ -24,6 +73,7 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public async Task CreateNewDevice()
         {
+
             var db = ListenVm.Instance.dbContext;
             var newDevice = new DevicePing()
             {

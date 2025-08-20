@@ -93,6 +93,7 @@
 
                             <Button Margin="20" 
                                     Text="Create"
+                                    IsEnabled="{Binding CanCreateDevice}"
                                     MaximumWidthRequest="400"
                                     Command="{Binding CreateNewDeviceCommand}"/>
                         </FlexLayout>
@@ -130,6 +131,7 @@
 
                             <Button Margin="20"
                                     MaximumWidthRequest="400" 
+                                    IsEnabled="{Binding CanCreateDeviceGroup}"
                                     Command="{Binding CreateNewDeviceGroupCommand}"
                                     Text="Create">
                             </Button>
