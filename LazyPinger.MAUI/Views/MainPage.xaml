@@ -8,17 +8,15 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="LazyPingerMAUI.Views.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vmcore="clr-namespace:LazyPinger.Core.ViewModels;assembly=LazyPinger.Core"
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:MainViewModel">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="TrueColorBrush">Green</SolidColorBrush>
-            <SolidColorBrush x:Key="FalseColorBrush">Red</SolidColorBrush>
-
             <toolkit:BoolToObjectConverter x:Key="IsValidConverter" 
-                TrueObject="{StaticResource TrueColorBrush}" 
-                FalseObject="{StaticResource FalseColorBrush}"/>
+                TrueObject="False" 
+                FalseObject="True"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -60,6 +58,7 @@
                             <Entry Grid.Column="0"
                                    Keyboard="Numeric" 
                                    IsEnabled="False"
+                                   Margin="2, 0"
                                    MaxLength="3"
                                    Text="{Binding NetworkService.NetworkSettings.MinSubnetRange}"
                                    Placeholder="Min Range - 0" />
@@ -82,7 +81,7 @@
                         <Entry Keyboard="Numeric" 
                                ClearButtonVisibility="WhileEditing"                            
                                Margin="20, 0, 0, 0" 
-                               IsEnabled="{Binding UserSelection.IsAutoRestartEnabled}"
+                               IsEnabled="{Binding UserSelectionsVm.IsAutoRestartEnabled, Source={x:Static vmcore:ListenVm.Instance}}"
                                HorizontalOptions="Fill"                           
                                Text="{Binding UserSelection.Entity.AutoRestartTime}"
                                Grid.Row="1"
@@ -114,7 +113,7 @@
                     </Button>
                     
                     <Button Margin="5"
-                            IsEnabled="{Binding UserSelection.IsAutoRunEnabled, Converter={StaticResource IsValidConverter}}"
+                            IsEnabled="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}, Converter={StaticResource IsValidConverter}}"
                             Command="{Binding PingAllCommand}"
                             Text="Stop"
                             FlexLayout.Grow="1"/>

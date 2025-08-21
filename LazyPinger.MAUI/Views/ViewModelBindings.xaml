@@ -13,6 +13,7 @@
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
+            
             <Image Source="{TemplateBinding IconImageSource}"
                        BackgroundColor="{TemplateBinding IconBackgroundColor}"
                        WidthRequest="100"

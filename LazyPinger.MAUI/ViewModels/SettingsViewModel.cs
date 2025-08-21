@@ -128,7 +128,6 @@ namespace LazyPingerMAUI.ViewModels
 
                 ListenVm.Instance.dbContext.Update(res);
                 await ListenVm.Instance.dbContext.SaveChangesAsync();
-                ListenVm.ReloadFromDatabase(res);
             }
             catch
             {

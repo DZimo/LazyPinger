@@ -19,14 +19,14 @@
                     <VerticalStackLayout>
                         <Image WidthRequest="125"
                            HeightRequest="125" 
-                           Source="{Binding Image}"/>
+                           Source="pcb_default.png"/>
 
                         <Line StrokeThickness="5" 
                               X1="0"
                               Y1="0"
                               X2="2000"
                               Y2="0"
-                              Stroke="{StaticResource SecondaryDarkText}">
+                              Stroke="{StaticResource GoldenGradient}">
                         </Line>
                     </VerticalStackLayout>
                 </Border>
