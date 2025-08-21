@@ -13,7 +13,7 @@ namespace LazyPinger.Base.IServices
 
         public Task<TcpListener?> StartServer(string selectedIP, int selectedPort);
 
-        public Task<bool> PingAll(ref ObservableCollection<DevicePing> foundDevices);
+        public Task<bool> PingAll( ObservableCollection<DevicePing> foundDevices);
 
         public Task<bool> PingAllAsync(ObservableCollection<DevicePing> foundDevices);
 

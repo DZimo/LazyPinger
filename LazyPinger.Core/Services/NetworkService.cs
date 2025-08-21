@@ -44,10 +44,10 @@ namespace LazyPinger.Core.Services
             return null;
         }
 
-        public Task<bool> PingAll(ref ObservableCollection<DevicePing> foundDevices)
+        public async Task<bool> PingAll(ObservableCollection<DevicePing> foundDevices)
         {
-            _ = PingAllAsync(foundDevices);
-            return Task.FromResult(true);
+            await PingAllAsync(foundDevices);
+            return true;
         }
 
         public List<string> GetMacAddresses()

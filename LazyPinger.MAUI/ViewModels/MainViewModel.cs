@@ -60,7 +60,6 @@ namespace LazyPingerMAUI.ViewModels
                     SloganRandomText = listOfRandomText[Random.Shared.Next(listOfRandomText.Count())+1];
                     await Task.Delay(5000);
                 }
-
             });
 
             NetworkService = networkService;
@@ -109,32 +108,16 @@ namespace LazyPingerMAUI.ViewModels
             });
         }
 
-        private async Task InitDummyDevices()
-        {
-            var temp = new DevicePing
-            {
-                ID = 0,
-                Description = "Dummy Device",
-                IP = "192.168.0.1",
-                MacAddress = "FF:FF:FF:FF",
-                Name = "DummyDevice",
-                Port = "50",
-            };
-
-            for (int i = 0; i < Total_Device_Number; i++) {
-                DetectedDevices.Add(temp);
-                await Task.Delay(1);
-            }
-        }
-
         [RelayCommand]
         public void PingAll(bool isRestart)
         {
             MainThread.InvokeOnMainThreadAsync(async () => {
+
                 if (isRestart)
                     DetectedDevices.Clear();
 
-                await NetworkService.PingAll(ref detectedDevices);
+                await NetworkService.PingAll(DetectedDevices);
+                OrderDevices();
             });
         }
 
@@ -150,7 +133,8 @@ namespace LazyPingerMAUI.ViewModels
             NetworkService.NetworkSettings.SubnetAddress = res;
 
             MainThread.InvokeOnMainThreadAsync(async () => {
-                await NetworkService.PingAll(ref detectedDevices);
+                await NetworkService.PingAll(DetectedDevices);
+                OrderDevices();
             });
         }
 
@@ -160,6 +144,13 @@ namespace LazyPingerMAUI.ViewModels
             var subnet = "";
             list.Take(list.Count - 1).ToList().ForEach(o => subnet += $"{o}.");
             return subnet;
+        }
+
+        private void OrderDevices()
+        {
+            var order = new ObservableCollection<DevicePing>(DetectedDevices.OrderBy(o => o.IP));
+            DetectedDevices.Clear();
+            order.ToList().ForEach(o => { DetectedDevices.Add(o); });
         }
 
     }
