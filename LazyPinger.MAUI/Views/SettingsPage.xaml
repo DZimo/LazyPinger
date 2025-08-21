@@ -16,14 +16,14 @@
                      BindingContext="{Binding MainVm.SloganRandomText}"/>
 
         <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">
-                
-                <Grid RowDefinitions="Auto, *" 
+
+            <Grid RowDefinitions="Auto, *" 
                       ColumnDefinitions="*, *" 
                       HorizontalOptions="Center">
 
-                    <!-- User Selection -->
-                    
-                    <FlexLayout   Direction="Column"
+                <!-- User Selection -->
+
+                <FlexLayout   Direction="Column"
                                   JustifyContent="Center"
                                   Grid.Row="0"
                                   Grid.Column="0"
@@ -31,31 +31,35 @@
                                   AlignItems="Stretch"
                                   Margin="20">
 
-                        <Border Stroke="{StaticResource Primary}">
-                            <VerticalStackLayout Margin="20">
-                                <Label Style="{StaticResource SubHeadlineAlternative}">Set your settings</Label>
+                    <Border Stroke="{StaticResource Primary}">
+                        <VerticalStackLayout Margin="20">
+                            <Label Style="{StaticResource SubHeadlineAlternative}">Set your settings</Label>
 
-                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                                    <HorizontalStackLayout Margin="0, 20, 0, 20" >
-                                        <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Fast Ping Mode"/>
-                                        <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsFastPingDisabled}"/>
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout Margin="0, 20, 0, 20">
-                                        <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Auto Run Mode"/>
-                                        <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsAutoRunDisabled}"/>
-                                    </HorizontalStackLayout>
+                            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                <HorizontalStackLayout Margin="0, 20, 0, 20" >
+                                    <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Fast Ping Mode"/>
+                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsFastPingDisabled}"/>
                                 </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0, 20, 0, 20">
+                                    <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Auto Run Mode"/>
+                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsAutoRunDisabled}"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0, 20, 0, 20">
+                                    <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Auto Run Mode"/>
+                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsAutoRestartDisabled}"/>
+                                </HorizontalStackLayout>
+                            </HorizontalStackLayout>
 
-                                <Button Margin="20" 
+                            <Button Margin="20" 
                                         MaximumWidthRequest="400" 
                                         Command="{Binding ApplyUserSelectionCommand}" 
                                         Text="Apply"/>
 
-                            </VerticalStackLayout>
-                        </Border>
-                    </FlexLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </FlexLayout>
 
-                    <!-- Device Ping  -->
+                <!-- Device Ping  -->
                     
                     <Border    Grid.Row="1"
                                Grid.Column="0" 

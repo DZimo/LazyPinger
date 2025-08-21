@@ -37,10 +37,12 @@
                         </Picker>
                     </VerticalStackLayout>
 
-                    <Grid FlexLayout.Grow="1" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *" FlexLayout.AlignSelf="Stretch">
+                    <Grid FlexLayout.Grow="1" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *, *" FlexLayout.AlignSelf="Stretch">
                         <Label Grid.Row="0" Grid.Column="0" Text="Range" Margin="10, 0, 20, 20"/>
 
                         <Label Grid.Row="0" Grid.Column="1"  Text="Timeout (ms)" Margin="20, 0, 0, 20"/>
+
+                        <Label Grid.Row="0" Grid.Column="2"  Text="Restart Time (ms)" Margin="20, 0, 0, 20"/>
 
                         <Grid RowDefinitions="Auto, Auto" Margin="10, 0, 20, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
                             <Entry Grid.Column="0"
@@ -64,7 +66,16 @@
                                Grid.Row="1"
                                Grid.Column="1"
                                Placeholder="10" />
-                        
+
+                        <Entry Keyboard="Numeric" 
+                               Margin="20, 0, 0, 0" 
+                               IsEnabled="{Binding UserSelection.IsAutoRestartDisabled}"
+                               HorizontalOptions="Fill"
+                               Text="{Binding UserSelection.Entity.AutoRestartTime}"
+                               Grid.Row="1"
+                               Grid.Column="2"
+                               Placeholder="10" />
+
                     </Grid>
                 </FlexLayout>
 

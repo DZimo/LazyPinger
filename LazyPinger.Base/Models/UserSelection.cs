@@ -15,5 +15,9 @@ namespace LazyPinger.Base.Models
 
         public bool FastnessLevel { get; set; }
 
+        public bool AutoRestart { get; set; }
+
+        public int AutoRestartTime { get; set; }
+
     }
 }
