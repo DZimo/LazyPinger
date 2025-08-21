@@ -87,7 +87,7 @@ namespace LazyPingerMAUI.ViewModels
 
                     if (!ListenVm.Instance.UserSelectionsVm.IsAutoRestartEnabled)
                     {
-                        await Task.Delay(1000);
+                        await Task.Delay(5000);
                         continue;
                     }
 
@@ -110,37 +110,48 @@ namespace LazyPingerMAUI.ViewModels
 
             try {
 
-                var devicesPing = db.DevicePings.Include(o => o.DevicesGroup).ToList().Select((o) => new VmDevicePing(o)
+                _ = Task.Run(() =>
                 {
-                    Name = o.Name,
-                    Image = o.Image,
-                    Group = o.DevicesGroup,
-                    Ip = o?.IP,
-                }).ToList();
+                    var devicesPing = db.DevicePings.Include(o => o.DevicesGroup).ToList().Select((o) => new VmDevicePing(o)
+                    {
+                        Name = o.Name,
+                        Image = o.Image,
+                        Group = o.DevicesGroup,
+                        Ip = o?.IP,
+                    }).ToList();
 
-                DevicesPing = new ObservableCollection<VmDevicePing>(devicesPing);
+                    DevicesPing = new ObservableCollection<VmDevicePing>(devicesPing);
+                });
 
-                var userSelection = db.UserSelections.FirstOrDefault();
 
-                if (userSelection is not null)
-                    ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
-
-                if (userSelection is null)
+                _ = Task.Run(async () =>
                 {
-                    var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
-                    db.Add(user);
-                    ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
-                    await db.SaveChangesAsync();
-                }
+                    var userSelection = db.UserSelections.FirstOrDefault();
 
-                var res = ListenVm.Instance.DevicesGroupVm.First().Entity;
+                    if (userSelection is not null)
+                        ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
 
-                userSelection = db.UserSelections.FirstOrDefault();
+                    if (userSelection is null)
+                    {
+                        var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
+                        db.Add(user);
+                        ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
+                        await db.SaveChangesAsync();
+                    }
+                });
 
-                if (userSelection is null)
-                    return;
 
-                UserSelection = new VmUserSelection(userSelection);
+                _ = Task.Run(() =>
+                {
+                    var res = ListenVm.Instance.DevicesGroupVm.First().Entity;
+
+                    var userSelection = db.UserSelections.FirstOrDefault();
+
+                    if (userSelection is null)
+                        return;
+
+                    UserSelection = new VmUserSelection(userSelection);
+                });
             }
             catch { }
         }
@@ -159,36 +170,44 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public void PingAll(bool isRestart)
         {
-            MainThread.InvokeOnMainThreadAsync(async () => {
+            MainThread.InvokeOnMainThreadAsync(async () =>
+            {
                 IsPingIdle = false;
+
                 if (isRestart)
                     DetectedDevices.Clear();
 
-                await NetworkService.PingAll(DetectedDevices);
-                OrderDevices();
-                IsPingIdle = true;
+                try
+                {
+                    await NetworkService.PingAll(DetectedDevices);
+                    OrderDevices();
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    IsPingIdle = true;
+                }
             });
         }
 
-        partial void OnSelectedNetworkInterfaceChanged(string newValue)
+        partial void OnSelectedNetworkInterfaceChanged(string value)
         {
+            if (ListenVm.Instance.UserSelectionsVm is not null && !ListenVm.Instance.UserSelectionsVm.IsAutoRunEnabled)
+                return;
+
             detectedDevices.Clear();
 
-            var res = GetSubnetFromIp(newValue);
+            var res = GetSubnetFromIp(value);
 
             if (res is null)
                 return;
 
             NetworkService.NetworkSettings.SubnetAddress = res;
 
-            MainThread.InvokeOnMainThreadAsync(async () => {
-                IsPingIdle = false;
-
-                await NetworkService.PingAll(DetectedDevices);
-                OrderDevices();
-
-                IsPingIdle = true;
-            });
+            PingAll(true);
         }
 
         private string? GetSubnetFromIp(string ip)

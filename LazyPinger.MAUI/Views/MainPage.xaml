@@ -113,10 +113,11 @@
                     </Button>
                     
                     <Button Margin="5"
-                            IsEnabled="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}, Converter={StaticResource IsValidConverter}}"
                             Command="{Binding PingAllCommand}"
                             Text="Stop"
                             FlexLayout.Grow="1"/>
+
+                    <!--IsEnabled="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}, Converter={StaticResource IsValidConverter}}"-->
 
                 </FlexLayout>
 

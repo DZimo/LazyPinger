@@ -61,7 +61,7 @@ namespace LazyPinger.Core.ViewModels
             }
         }
 
-        private VmUserSelection? userSelectionsVm { get; set; }
+        private VmUserSelection? userSelectionsVm;
         public VmUserSelection? UserSelectionsVm
         {
             get 
