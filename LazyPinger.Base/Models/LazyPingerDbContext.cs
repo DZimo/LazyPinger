@@ -13,6 +13,7 @@ public partial class LazyPingerDbContext : DbContext
 
     public LazyPingerDbContext()
     {
+
     }
 
     public LazyPingerDbContext(DbContextOptions<LazyPingerDbContext> options)

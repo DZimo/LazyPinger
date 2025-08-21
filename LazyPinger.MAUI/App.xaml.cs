@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui.Controls;
+﻿using LazyPinger.Base.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Controls;
 
 namespace LazyPingerMAUI
 {
@@ -12,6 +14,11 @@ namespace LazyPingerMAUI
 
             MainPage = new AppShell();
             Services = services;
+
+            using (var context = new LazyPingerDbContext())
+            {
+                context.Database.Migrate();
+            }
         }
     }
 }

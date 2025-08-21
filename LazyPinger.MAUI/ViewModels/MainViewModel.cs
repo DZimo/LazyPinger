@@ -84,6 +84,10 @@ namespace LazyPingerMAUI.ViewModels
                     }
 
                     PingAll(true);
+
+                    if (UserSelection.Entity.AutoRestartTime < 10)
+                        UserSelection.Entity.AutoRestartTime = 1000;
+
                     await Task.Delay(UserSelection.Entity.AutoRestartTime);
                 }
             });
@@ -93,42 +97,47 @@ namespace LazyPingerMAUI.ViewModels
         {
             var db = ListenVm.Instance.dbContext;
 
-            var devicesPing = db.DevicePings.Include(o => o.DevicesGroup).ToList().Select( (o) => new VmDevicePing(o)
-            { Name = o.Name, 
-              Image = o.Image,
-              Group = o.DevicesGroup,
-              Ip = o?.IP,
-            }).ToList();
+            try {
 
-            DevicesPing = new ObservableCollection<VmDevicePing>(devicesPing);
+                var devicesPing = db.DevicePings.Include(o => o.DevicesGroup).ToList().Select((o) => new VmDevicePing(o)
+                {
+                    Name = o.Name,
+                    Image = o.Image,
+                    Group = o.DevicesGroup,
+                    Ip = o?.IP,
+                }).ToList();
 
-            var userSelection = db.UserSelections.FirstOrDefault();
+                DevicesPing = new ObservableCollection<VmDevicePing>(devicesPing);
 
-            if (userSelection is not null)
-                ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
+                var userSelection = db.UserSelections.FirstOrDefault();
 
-            if (userSelection is null)
-            {
-                var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
-                db.Add(user);
-                ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
-                await db.SaveChangesAsync();
+                if (userSelection is not null)
+                    ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
+
+                if (userSelection is null)
+                {
+                    var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
+                    db.Add(user);
+                    ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
+                    await db.SaveChangesAsync();
+                }
+
+                var res = ListenVm.Instance.DevicesGroupVm.First().Entity;
+
+                userSelection = db.UserSelections.FirstOrDefault();
+
+                if (userSelection is null)
+                    return;
+
+                UserSelection = new VmUserSelection(userSelection);
             }
-
-            var res = ListenVm.Instance.DevicesGroupVm.First().Entity;
-
-            userSelection = db.UserSelections.FirstOrDefault();
-
-            if (userSelection is null)
-                return;
-
-            UserSelection = new VmUserSelection(userSelection);
+            catch { }
         }
 
         private void InitMainVm(INetworkService networkService)
         {
-            MainThread.InvokeOnMainThreadAsync(async () => {
-                 ListenVm.LoadAll();
+            MainThread.InvokeOnMainThreadAsync( async () => {
+                ListenVm.LoadAll();
                  await networkService.InitNetworkSettings();
                  var addresses = networkService.NetworkSettings.HostAddresses.Where(o => o.AddressFamily == AddressFamily.InterNetwork).Select(o => o.ToString());
                  DetectedNetworkInterfaces = new ObservableCollection<string>(addresses);
