@@ -17,6 +17,8 @@
     <Color x:Key="Tertiary">#000814</Color>
     <Color x:Key="PrimaryDarkAlternative">#709e7900</Color>
     <Color x:Key="PrimaryDarkSecondAlternative">#50f5da84</Color>
+    <Color x:Key="TransparentWhiteCustom">#10FFFFFF</Color>
+    <Color x:Key="TransparentDarkCustom">#20000000</Color>
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
@@ -70,6 +72,8 @@
     <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
     <SolidColorBrush x:Key="PrimaryDarkAlternativeBrush" Color="{StaticResource PrimaryDarkAlternative}"/>
     <SolidColorBrush x:Key="PrimaryDarkSecondAlternativeBrush" Color="{StaticResource PrimaryDarkSecondAlternative}"/>
+    <SolidColorBrush x:Key="TransparentWhiteCustomBrush" Color="{StaticResource TransparentWhiteCustom}"/>
+    <SolidColorBrush x:Key="TransparentDarkCustomBrush" Color="{StaticResource TransparentDarkCustom}"/>
 
     <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
     <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>

@@ -68,9 +68,10 @@
                                Placeholder="10" />
 
                         <Entry Keyboard="Numeric" 
+                               ClearButtonVisibility="WhileEditing"                            
                                Margin="20, 0, 0, 0" 
                                IsEnabled="{Binding UserSelection.IsAutoRestartDisabled}"
-                               HorizontalOptions="Fill"
+                               HorizontalOptions="Fill"                           
                                Text="{Binding UserSelection.Entity.AutoRestartTime}"
                                Grid.Row="1"
                                Grid.Column="2"
