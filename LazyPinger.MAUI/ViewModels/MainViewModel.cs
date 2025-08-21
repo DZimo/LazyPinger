@@ -55,12 +55,17 @@ namespace LazyPingerMAUI.ViewModels
         public MainViewModel(INetworkService networkService)
         {
             InitMainVm(networkService);
-            _ = InitDatabaseData();
-            AutoRestart();
+
             _ = Task.Run(async () =>
             {
+                await InitDatabaseData();
+                AutoRestart();
+
                 while (true) {
-                    SloganRandomText = listOfRandomText[Random.Shared.Next(listOfRandomText.Count())+1];
+                    await MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        SloganRandomText = listOfRandomText[Random.Shared.Next(listOfRandomText.Count())];
+                    });
                     await Task.Delay(5000);
                 }
             });
@@ -70,20 +75,26 @@ namespace LazyPingerMAUI.ViewModels
 
         private void AutoRestart()
         {
-            Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 while (true)
                 {
                     if (ListenVm.Instance.UserSelectionsVm is null)
+                    {
+                        await Task.Delay(5000);
                         continue;
+                    }
 
-                    if (ListenVm.Instance.UserSelectionsVm.IsAutoRestartDisabled)
+                    if (!ListenVm.Instance.UserSelectionsVm.IsAutoRestartEnabled)
                     {
                         await Task.Delay(1000);
                         continue;
                     }
 
-                    PingAll(true);
+                    await MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        PingAll(true);
+                    });
 
                     if (UserSelection.Entity.AutoRestartTime < 10)
                         UserSelection.Entity.AutoRestartTime = 1000;

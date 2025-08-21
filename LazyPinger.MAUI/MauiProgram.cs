@@ -4,6 +4,7 @@ using LazyPinger.Core.Services;
 using LazyPingerMAUI.ViewModels;
 using LazyPingerMAUI.Views;
 using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 namespace LazyPingerMAUI
 {
@@ -16,6 +17,7 @@ namespace LazyPingerMAUI
                 .UseMauiApp<App>()
                 .RegisterAppServices()
                 .RegisterViewModels()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("NotoSans-Regular.ttf", "NotoSans");

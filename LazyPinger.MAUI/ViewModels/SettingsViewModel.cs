@@ -121,7 +121,12 @@ namespace LazyPingerMAUI.ViewModels
         {
             try
             {
-                var res = ListenVm.Instance.UserSelectionsVm.Entity;
+                var res = ListenVm.Instance.UserSelectionsVm?.Entity;
+
+                if (res is null)
+                    return;
+
+                ListenVm.Instance.dbContext.Update(res);
                 await ListenVm.Instance.dbContext.SaveChangesAsync();
                 ListenVm.ReloadFromDatabase(res);
             }

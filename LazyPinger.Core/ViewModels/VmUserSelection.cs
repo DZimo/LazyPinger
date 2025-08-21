@@ -11,25 +11,25 @@ namespace LazyPinger.Core.ViewModels
             this.EntityTable = db => db.UserSelections;
             this.EntityID = dbEntity.ID;
 
-            IsAutoRunDisabled = Entity.AutoRun;
-            IsFastPingDisabled = Entity.FastPing;
-            IsAutoRestartDisabled = Entity.AutoRestart;
+            IsAutoRunEnabled = Entity.AutoRun;
+            IsFastPingEnabled = Entity.FastPing;
+            IsAutoRestartEnabled = Entity.AutoRestart;
         }
 
         [ObservableProperty]
-        public bool isAutoRunDisabled;
+        public bool isAutoRunEnabled;
 
         [ObservableProperty]
-        public bool isFastPingDisabled;
+        public bool isFastPingEnabled;
 
         [ObservableProperty]
-        public bool isAutoRestartDisabled;
+        public bool isAutoRestartEnabled;
 
-        partial void OnIsAutoRunDisabledChanged(bool value) =>
+        partial void OnIsAutoRunEnabledChanged(bool value) =>
             this.Entity.AutoRun = value;
-        partial void OnIsFastPingDisabledChanged(bool value) =>
+        partial void OnIsFastPingEnabledChanged(bool value) =>
             this.Entity.FastPing = value;
-        partial void OnIsAutoRestartDisabledChanged(bool value)
+        partial void OnIsAutoRestartEnabledChanged(bool value)
         {
             this.Entity.AutoRestart = value;
 

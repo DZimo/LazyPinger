@@ -36,17 +36,17 @@
                             <Label Style="{StaticResource SubHeadlineAlternative}">Set your settings</Label>
 
                             <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                                <HorizontalStackLayout Margin="0, 20, 0, 20" >
-                                    <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Fast Ping"/>
-                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsFastPingDisabled}"/>
-                                </HorizontalStackLayout>
                                 <HorizontalStackLayout Margin="0, 20, 0, 20">
                                     <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Auto Run"/>
-                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsAutoRunDisabled}"/>
+                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}}"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0, 20, 0, 20" >
+                                    <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Fast Ping"/>
+                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding UserSelectionsVm.IsFastPingEnabled, Source={x:Static vmcore:ListenVm.Instance}}"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Margin="0, 20, 0, 20">
                                     <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Auto Restart"/>
-                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding MainVm.UserSelection.IsAutoRestartDisabled}"/>
+                                    <CheckBox VerticalOptions="Center" IsChecked="{Binding UserSelectionsVm.IsAutoRestartEnabled, Source={x:Static vmcore:ListenVm.Instance}}"/>
                                 </HorizontalStackLayout>
                             </HorizontalStackLayout>
 

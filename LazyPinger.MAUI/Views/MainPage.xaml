@@ -7,8 +7,20 @@
              xmlns:strings="clr-namespace:LazyPinger.Base.Localization;assembly=LazyPinger.Base"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="LazyPingerMAUI.Views.MainPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:MainViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="TrueColorBrush">Green</SolidColorBrush>
+            <SolidColorBrush x:Key="FalseColorBrush">Red</SolidColorBrush>
+
+            <toolkit:BoolToObjectConverter x:Key="IsValidConverter" 
+                TrueObject="{StaticResource TrueColorBrush}" 
+                FalseObject="{StaticResource FalseColorBrush}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="125, *">
 
@@ -70,7 +82,7 @@
                         <Entry Keyboard="Numeric" 
                                ClearButtonVisibility="WhileEditing"                            
                                Margin="20, 0, 0, 0" 
-                               IsEnabled="{Binding UserSelection.IsAutoRestartDisabled}"
+                               IsEnabled="{Binding UserSelection.IsAutoRestartEnabled}"
                                HorizontalOptions="Fill"                           
                                Text="{Binding UserSelection.Entity.AutoRestartTime}"
                                Grid.Row="1"
@@ -102,7 +114,7 @@
                     </Button>
                     
                     <Button Margin="5"
-                            IsEnabled="{Binding UserSelection.IsAutoRunDisabled}"
+                            IsEnabled="{Binding UserSelection.IsAutoRunEnabled, Converter={StaticResource IsValidConverter}}"
                             Command="{Binding PingAllCommand}"
                             Text="Stop"
                             FlexLayout.Grow="1"/>

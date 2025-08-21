@@ -74,7 +74,7 @@ namespace LazyPinger.Core.ViewModels
                 OnPropertyChanged(nameof(UserSelectionsVm));
                 OnPropertyChanged(nameof(DevicesPing));
 
-                if (value is not null && value.IsAutoRunDisabled)
+                if (value is not null && value.IsAutoRunEnabled)
                     return;
 
             }
