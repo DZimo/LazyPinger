@@ -81,7 +81,7 @@
 
                 <FlexLayout Grid.Row="2">
                     <Button Margin="5"
-                            IsEnabled="{Binding UserSelection.IsAutoRunDisabled}"
+                            IsEnabled="{Binding IsPingIdle}"
                             Command="{Binding PingAllCommand}"      
                             Text="Ping"
                             FlexLayout.Grow="1">
@@ -93,6 +93,7 @@
                     <Button Margin="5"
                             Command="{Binding PingAllCommand}"
                             Text="Restart"
+                            IsEnabled="{Binding IsPingIdle}"
                             FlexLayout.Grow="1">
                         <Button.CommandParameter>
                             <sys:Boolean>True</sys:Boolean>

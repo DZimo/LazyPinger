@@ -49,11 +49,14 @@ namespace LazyPingerMAUI.ViewModels
 
         private const int Total_Device_Number = 30000;
 
+        [ObservableProperty]
+        private bool isPingIdle = true;
+
         public MainViewModel(INetworkService networkService)
         {
             InitMainVm(networkService);
             _ = InitDatabaseData();
-
+            AutoRestart();
             _ = Task.Run(async () =>
             {
                 while (true) {
@@ -63,7 +66,27 @@ namespace LazyPingerMAUI.ViewModels
             });
 
             NetworkService = networkService;
-            //this.networkService = networkService;
+        }
+
+        private void AutoRestart()
+        {
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    if (ListenVm.Instance.UserSelectionsVm is null)
+                        continue;
+
+                    if (ListenVm.Instance.UserSelectionsVm.IsAutoRestartDisabled)
+                    {
+                        await Task.Delay(1000);
+                        continue;
+                    }
+
+                    PingAll(true);
+                    await Task.Delay(UserSelection.Entity.AutoRestartTime);
+                }
+            });
         }
 
         private async Task InitDatabaseData()
@@ -81,9 +104,14 @@ namespace LazyPingerMAUI.ViewModels
 
             var userSelection = db.UserSelections.FirstOrDefault();
 
+            if (userSelection is not null)
+                ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
+
             if (userSelection is null)
             {
-                db.Add(new UserSelection { AutoRun = true, FastPing = true });
+                var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
+                db.Add(user);
+                ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
                 await db.SaveChangesAsync();
             }
 
@@ -112,12 +140,13 @@ namespace LazyPingerMAUI.ViewModels
         public void PingAll(bool isRestart)
         {
             MainThread.InvokeOnMainThreadAsync(async () => {
-
+                IsPingIdle = false;
                 if (isRestart)
                     DetectedDevices.Clear();
 
                 await NetworkService.PingAll(DetectedDevices);
                 OrderDevices();
+                IsPingIdle = true;
             });
         }
 
@@ -133,8 +162,12 @@ namespace LazyPingerMAUI.ViewModels
             NetworkService.NetworkSettings.SubnetAddress = res;
 
             MainThread.InvokeOnMainThreadAsync(async () => {
+                IsPingIdle = false;
+
                 await NetworkService.PingAll(DetectedDevices);
                 OrderDevices();
+
+                IsPingIdle = true;
             });
         }
 

@@ -29,7 +29,12 @@ namespace LazyPinger.Core.ViewModels
             this.Entity.AutoRun = value;
         partial void OnIsFastPingDisabledChanged(bool value) =>
             this.Entity.FastPing = value;
-        partial void OnIsAutoRestartDisabledChanged(bool value) =>
+        partial void OnIsAutoRestartDisabledChanged(bool value)
+        {
             this.Entity.AutoRestart = value;
+
+            if (value is false)
+                return;
+        }
     }
 }
