@@ -34,13 +34,13 @@ Too lazy ? then
 
 Choose your specific platform first:
 
-  *  Windows:
-            * Executable binaries with microsoft required DLL ( direct run without installing )  ✅ Available
-            * MSIX Package ( Appx ) or as executable. ❌ Soon
-            * Download directly from Microsoft Store ❌ Soon
-  *  Android:
-            * F-Droid or Playstore APK ❌ Soon
-            * Direct apk from release ❌ Soon
+   Windows:
+*           Executable binaries with microsoft required DLL ( direct run without installing )  ✅ Available
+            MSIX Package ( Appx ) or as executable. ❌ Soon
+            Download directly from Microsoft Store ❌ Soon
+  Android:
+*           F-Droid or Playstore APK ❌ Soon
+            Direct apk from release ❌ Soon
 
 
 # FAQ?
