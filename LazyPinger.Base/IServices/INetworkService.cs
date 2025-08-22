@@ -19,6 +19,6 @@ namespace LazyPinger.Base.IServices
 
         public List<string> GetMacAddresses();
 
-        public bool SendUdpMessage(string selectedIP, string messageToSedn, int defaultPort);
+        public bool SendUDP(string selectedIP, string messageToSedn, int defaultPort, bool broadcast = false);
     }
 }

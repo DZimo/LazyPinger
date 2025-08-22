@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text;
 
 namespace LazyPinger.Core.Services
 {
@@ -52,12 +53,42 @@ namespace LazyPinger.Core.Services
 
         public List<string> GetMacAddresses()
         {
-            throw new NotImplementedException();
+            var macs = new List<string>();
+            var adapters = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (var adapter in adapters)
+            {
+                macs.Add(adapter.GetPhysicalAddress().ToString());
+
+                var adapterProperties = adapter.GetIPProperties();
+
+                var result = adapterProperties.UnicastAddresses
+                    .Select(o => o.Address.ToString())
+                    .ToList();
+
+                result.ForEach(Console.WriteLine);
+            }
+
+            return macs;
         }
 
-        public bool SendUdpMessage(string selectedIP, string messageToSedn, int defaultPort)
+        public bool SendUDP(string selectedIP, string msg, int defaultPort, bool broadcast = false)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                var addressToSend = IPAddress.Parse(selectedIP);
+                var endPoint = new IPEndPoint(addressToSend, defaultPort);
+                udpSocket.EnableBroadcast = broadcast;
+
+                byte[] msgBuffer = Encoding.ASCII.GetBytes(msg);
+
+                udpSocket.SendTo(msgBuffer, endPoint);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> PingAllAsync(ObservableCollection<DevicePing> foundDevices)

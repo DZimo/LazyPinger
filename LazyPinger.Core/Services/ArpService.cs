@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace LazyPinger.Core.Services;
 
-public class ArpDetectorService : IArpDetectorService
+public class ArpService : IArpDetectorService
 {
     private List<string> MacList = new();
     public ArpType ArpType { get; set; } = new();
@@ -19,7 +19,7 @@ public class ArpDetectorService : IArpDetectorService
     private string IpAddressToPing;
 
 
-    public ArpDetectorService(INetworkService networkService)
+    public ArpService(INetworkService networkService)
     {
         _networkService = networkService;
 

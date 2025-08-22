@@ -91,10 +91,15 @@ namespace LazyPingerMAUI.ViewModels
                         continue;
                     }
 
-                    await MainThread.InvokeOnMainThreadAsync(() =>
+                    try
                     {
                         PingAll(true);
-                    });
+                    }
+
+                    catch
+                    {
+
+                    }
 
                     if (UserSelection.Entity.AutoRestartTime < 10)
                         UserSelection.Entity.AutoRestartTime = 1000;
