@@ -69,15 +69,15 @@
                 <!-- Device Ping  -->
 
                 <Border    Grid.Row="1"
-                               Grid.Column="0" 
-                               Margin="20"
-                               Stroke="{StaticResource Primary}">
+                           Grid.Column="0" 
+                           Margin="20"
+                           Stroke="{StaticResource Primary}">
 
                     <FlexLayout Direction="Column"
                                 JustifyContent="Center"
                                 AlignItems="Stretch">
 
-                        <Label Margin="5" Style="{StaticResource SubHeadlineAlternative}" Text="New Device"></Label>
+                        <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="New Device"></Label>
 
                         <StackLayout FlexLayout.Grow="1" VerticalOptions="Center" HorizontalOptions="Fill">
                             <Label Margin="20, 0, 10, 10" Text="Name"/>
@@ -121,7 +121,7 @@
                                 <RadioButton Margin="10" Content="Range"/>
                             </HorizontalStackLayout>
                         </StackLayout>
-                        <Button Margin="20, 0, 10, 10" 
+                        <Button Margin="20, 10, 10, 5"
                                     Text="Create"
                                     VerticalOptions="Center"
                                     IsEnabled="{Binding CanCreateDevice}"
@@ -147,7 +147,7 @@
                                 JustifyContent="Center"
                                 AlignItems="Stretch">
 
-                        <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="New Device Group"></Label>
+                        <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="New Device Group"/>
 
                         <StackLayout FlexLayout.Grow="1" 
                                          VerticalOptions="Center" 
@@ -158,15 +158,15 @@
                             <Entry Margin="20, 0, 10, 5"  Text="{Binding DeviceGroupTemp.Type}"/>
                         </StackLayout>
                         <StackLayout  FlexLayout.Grow="1" 
-                                          VerticalOptions="Center" 
-                                          HorizontalOptions="Fill">
+                                      VerticalOptions="Center" 
+                                      HorizontalOptions="Fill">
                             <Label  Margin="20, 0, 10, 5" Text="Color"/>
                             <Picker ItemsSource="{Binding MainVm.ExistingColors}" 
-                                        SelectedItem="{Binding DeviceGroupTemp.Color}" 
-                                        Margin="20, 0, 10, 5"/>
+                                    SelectedItem="{Binding DeviceGroupTemp.Color}" 
+                                    Margin="20, 0, 10, 5"/>
                         </StackLayout>
 
-                        <Button Margin="20, 0, 10, 5"
+                        <Button Margin="20, 10, 10, 5"
                                     MaximumWidthRequest="400" 
                                     IsEnabled="{Binding CanCreateDeviceGroup}"
                                     Command="{Binding CreateNewDeviceGroupCommand}"

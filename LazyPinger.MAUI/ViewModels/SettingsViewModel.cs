@@ -12,7 +12,7 @@ namespace LazyPingerMAUI.ViewModels
         public MainViewModel MainVm { get; set; }
 
         [ObservableProperty]
-        private bool isIpBased;
+        private bool isIpBased = true;
 
         public DevicePing devicePingTemp { get; set; } = new();
 
