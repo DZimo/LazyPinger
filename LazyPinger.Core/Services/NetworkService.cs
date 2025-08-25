@@ -29,8 +29,22 @@ namespace LazyPinger.Core.Services
 
         public async Task<IPAddress[]> GetHostIPs()
         {
-            var ipHostInfo = await Dns.GetHostEntryAsync(Dns.GetHostName());
-            return ipHostInfo.AddressList;
+            var ipList = new List<IPAddress>();
+
+            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+            networkInterfaces.ToList().ForEach(o =>
+            {
+                var ipProperties = o.GetIPProperties();
+                ipProperties.UnicastAddresses.ToList().ForEach(p =>
+                {
+                    if (p.Address.AddressFamily != AddressFamily.InterNetwork || IPAddress.IsLoopback(p.Address))
+                        return;
+
+                    ipList.Add(p.Address);
+                });
+
+            });
+            return ipList.ToArray();
         }
 
         public async Task<TcpListener?> StartServer(string selectedIP, int selectedPort)

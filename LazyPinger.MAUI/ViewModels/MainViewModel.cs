@@ -213,9 +213,6 @@ namespace LazyPingerMAUI.ViewModels
 
         partial void OnSelectedNetworkInterfaceChanged(string value)
         {
-            if (ListenVm.Instance.UserSelectionsVm is not null && !ListenVm.Instance.UserSelectionsVm.IsAutoRunEnabled)
-                return;
-
             detectedDevices.Clear();
 
             var res = GetSubnetFromIp(value);
@@ -224,6 +221,9 @@ namespace LazyPingerMAUI.ViewModels
                 return;
 
             NetworkService.NetworkSettings.SubnetAddress = res;
+
+            if (ListenVm.Instance.UserSelectionsVm is not null && !ListenVm.Instance.UserSelectionsVm.IsAutoRunEnabled)
+                return;
 
             PingAll(true);
         }
