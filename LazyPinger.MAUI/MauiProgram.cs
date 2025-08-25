@@ -45,7 +45,7 @@ namespace LazyPingerMAUI
         {
             mauiAppBuilder.Services.AddSingleton<INetworkService, NetworkService>();
             mauiAppBuilder.Services.AddSingleton<IPingerService, PingerService>();
-            mauiAppBuilder.Services.AddSingleton<IArpDetectorService, ArpDetectorService>();
+            mauiAppBuilder.Services.AddSingleton<IArpDetectorService, ArpService>();
             mauiAppBuilder.Services.AddTransient<IImageService<ImageSource>, ImageService>();
 
             return mauiAppBuilder;
