@@ -83,18 +83,37 @@
                                         SelectedItem="{Binding DevicePingTemp.Image}"/>
                         </StackLayout>
                         <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
-                            <Label Margin="20, 0, 10, 10" Text="IP"/>
-                            <Entry Margin="20, 0, 10, 10"  Text="{Binding DevicePingTemp.IP}"/>
-                        </StackLayout>
-                        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
                             <Label Margin="20, 0, 10, 10" Text="Device Group"/>
                             <Picker Margin="20, 0, 10, 10" 
-                                        ItemDisplayBinding="{Binding Type}"
-                                        ItemsSource="{Binding DevicesGroupVm, Source={x:Static vmcore:ListenVm.Instance}}"
-                                        SelectedItem="{Binding VmDeviceGroupTemp}">
+                                    ItemDisplayBinding="{Binding Type}"
+                                    ItemsSource="{Binding DevicesGroupVm, Source={x:Static vmcore:ListenVm.Instance}}"
+                                    SelectedItem="{Binding VmDeviceGroupTemp}">   
                             </Picker>
                         </StackLayout>
+                        <StackLayout>
+                            <Label Margin="20, 0, 10, 10" HorizontalOptions="Center" Text="Classify by IP or Range"/>
 
+                            <StackLayout IsVisible="{Binding IsIpBased}" VerticalOptions="Center" HorizontalOptions="Fill">
+                                <Entry Margin="20, 0, 10, 10" Placeholder="IP" Text="{Binding DevicePingTemp.IP}"/>
+                            </StackLayout>
+
+                            <Grid IsVisible="{Binding IsIpBased, Converter={StaticResource IsValidConverter}}" ColumnDefinitions="*,*" HorizontalOptions="Fill">
+
+                                <Entry Grid.Column="0" 
+                                       Margin="20, 0, 10, 10" 
+                                       Placeholder="Range Min"
+                                       Text="{Binding DevicePingTemp.SubnetRangeMin}"/>
+
+                                <Entry Grid.Column="1" 
+                                       Margin="20, 0, 10, 10" 
+                                       Placeholder="Range Max"
+                                       Text="{Binding DevicePingTemp.SubnetRangeMax}"/>
+                            </Grid>
+                            <HorizontalStackLayout HorizontalOptions="Center" >
+                                <RadioButton Margin="10" IsChecked="{Binding IsIpBased}" Content="IP"/>
+                                <RadioButton Margin="10" Content="Range"/>
+                            </HorizontalStackLayout>
+                        </StackLayout>
                         <Button Margin="20, 0, 10, 10" 
                                     Text="Create"
                                     IsEnabled="{Binding CanCreateDevice}"

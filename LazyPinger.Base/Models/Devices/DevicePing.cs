@@ -19,7 +19,13 @@ namespace LazyPinger.Base.Models.Devices
 
         public string? Description { get; set; }
 
+        public bool IsIpBased { get; set; }
+
         public string? IP {  get; set; }
+
+        public string? SubnetRangeMin { get; set; }
+
+        public string? SubnetRangeMax { get; set; }
 
         public string? Port { get; set; }
 

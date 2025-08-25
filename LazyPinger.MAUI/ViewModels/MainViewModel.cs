@@ -104,7 +104,7 @@ namespace LazyPingerMAUI.ViewModels
                     if (ListenVm.Instance.UserSelectionsVm.Entity.AutoRestartTime < 10)
                         ListenVm.Instance.UserSelectionsVm.Entity.AutoRestartTime = 1000;
 
-                    await Task.Delay(UserSelection.Entity.AutoRestartTime);
+                    await Task.Delay(ListenVm.Instance.UserSelectionsVm.Entity.AutoRestartTime);
                 }
             });
         }

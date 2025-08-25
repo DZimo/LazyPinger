@@ -11,6 +11,9 @@ namespace LazyPingerMAUI.ViewModels
     {
         public MainViewModel MainVm { get; set; }
 
+        [ObservableProperty]
+        private bool isIpBased;
+
         public DevicePing devicePingTemp { get; set; } = new();
 
         public DevicePing DevicePingTemp 
@@ -21,6 +24,7 @@ namespace LazyPingerMAUI.ViewModels
 
                 if (res.Count() > 0)
                 {
+                    //CanCreateDevice = false;
                     // Notification
                     return devicePingTemp;
                 }
@@ -30,6 +34,13 @@ namespace LazyPingerMAUI.ViewModels
             }
             set
             {
+                var res = devicePingTemp.Validate(null);
+
+                if (res.Count() > 0)
+                {
+                    CanCreateDevice = false;
+                }
+
                 devicePingTemp = value;
             }
         }
@@ -44,6 +55,7 @@ namespace LazyPingerMAUI.ViewModels
 
                 if (res.Count() > 0)
                 {
+                    //CanCreateDeviceGroup = false;
                     // Notification
                     return deviceGroupTemp;
                 }
@@ -53,6 +65,13 @@ namespace LazyPingerMAUI.ViewModels
             }
             set
             {
+                var res = deviceGroupTemp.Validate(null);
+
+                if (res.Count() > 0)
+                {
+                    CanCreateDeviceGroup = false;
+                }
+
                 deviceGroupTemp = value;
             }
         }
