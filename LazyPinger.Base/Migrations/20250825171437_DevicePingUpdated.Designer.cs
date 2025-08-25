@@ -2,6 +2,7 @@
 using LazyPinger.Base.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LazyPinger.Base.Migrations
 {
     [DbContext(typeof(LazyPingerDbContext))]
-    partial class LazyPingerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250825171437_DevicePingUpdated")]
+    partial class DevicePingUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.8");
@@ -41,9 +44,6 @@ namespace LazyPinger.Base.Migrations
                     b.Property<byte[]>("Image")
                         .IsRequired()
                         .HasColumnType("BLOB");
-
-                    b.Property<bool>("IsIpBased")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MacAddress")
                         .HasColumnType("TEXT");
