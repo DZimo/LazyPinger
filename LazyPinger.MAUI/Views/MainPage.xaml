@@ -12,7 +12,7 @@
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:MainViewModel">
 
-    <Grid RowDefinitions="125, *">
+    <Grid RowDefinitions="100, *">
 
         <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
                      BindingContext="{Binding SloganRandomText}"/>
@@ -20,10 +20,12 @@
         <!-- MAIN -->
 
         <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">
+            
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
+                
                 <FlexLayout Grid.Row="{Binding AnimationHandler.DevicesRow}"
                             Grid.RowSpan="{Binding AnimationHandler.DevicesRowSpan}"
-                            Margin="15"
+                            Margin="40, 0, 40, 5"
                             FlexLayout.Grow="1"
                             Wrap="Wrap"
                             VerticalOptions="End">
@@ -39,14 +41,14 @@
                         </Picker>
                     </VerticalStackLayout>
 
-                    <Grid FlexLayout.Grow="1" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *, *" FlexLayout.AlignSelf="Stretch">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Range" Margin="10, 0, 20, 20"/>
+                    <Grid Margin="0, 2, 0, 5" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *, *" FlexLayout.AlignSelf="Stretch">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Range" Margin="10, 0, 0, 5"/>
 
-                        <Label Grid.Row="0" Grid.Column="1"  Text="Timeout (ms)" Margin="20, 0, 0, 20"/>
+                        <Label Grid.Row="0" Grid.Column="1"  Text="Timeout (ms)" Margin="20, 0, 0, 5"/>
 
-                        <Label Grid.Row="0" Grid.Column="2"  Text="Restart Time (ms)" Margin="20, 0, 0, 20"/>
+                        <Label Grid.Row="0" Grid.Column="2"  Text="Restart Time (ms)" Margin="20, 0, 0, 5"/>
 
-                        <Grid RowDefinitions="Auto, Auto" Margin="10, 0, 20, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
+                        <Grid RowDefinitions="*, *" Margin="10, 0, 20, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
                             <Entry Grid.Column="0"
                                    Keyboard="Numeric" 
                                    IsEnabled="False"
@@ -83,13 +85,8 @@
                     </Grid>
                 </FlexLayout>
 
-                <FlexLayout Grid.Row="2">
-
-                    <!--<Label  TextColor="Yellow"
-                            FontFamily="MaterialDesign" 
-                            Text="{x:Static helpers:MaterialIcons.Rocket_launch}"
-                            FontSize="50"
-                            HorizontalOptions="Center"/>-->
+                <FlexLayout Grid.Row="2"
+                            Margin="40, 10, 40, 5">
 
                     <Button Margin="5"
                             IsEnabled="{Binding IsPingIdle}"
@@ -139,7 +136,7 @@
 
                 </FlexLayout>
 
-                <Border Margin="10" Stroke="{StaticResource Primary}" Grid.Row="3">
+                <Border Margin="40, 10, 40, 5" Stroke="{StaticResource Primary}" Grid.Row="3">
                     <FlexLayout Margin="10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
                         <Grid>
                             <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
@@ -162,6 +159,7 @@
                     </FlexLayout>
                 </ScrollView>
             </Grid>
+            
         </ScrollView>
 
         <!-- SPLASH -->

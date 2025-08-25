@@ -39,12 +39,15 @@
 
     <ControlTemplate x:Key="LazyPingerHeader">
         <Grid Background="{StaticResource BlueGradient}">
-            <HorizontalStackLayout VerticalOptions="Center" 
-                                   Margin="0, 25, 0, 25"
+            <FlexLayout VerticalOptions="Center" 
+                        Wrap="Wrap"
+                        Direction="Row"
+                        FlexLayout.AlignSelf="Center"
+                                   Margin="15, 25, 0, 15"
                                    HorizontalOptions="Center">
                 <Label  Style="{StaticResource Headline}" 
-                                                VerticalOptions="Center" 
-
+                        VerticalOptions="Center" 
+                        LineBreakMode="WordWrap" 
                         TextColor="{StaticResource Primary}"
                         Text="{Binding }">
                 </Label>
@@ -54,7 +57,7 @@
                         Aspect="AspectFill"
                         WidthRequest="75"
                         HeightRequest="75"/>
-            </HorizontalStackLayout>
+            </FlexLayout>
         </Grid>
     </ControlTemplate>
 
