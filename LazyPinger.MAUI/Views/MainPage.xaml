@@ -7,6 +7,7 @@
              xmlns:strings="clr-namespace:LazyPinger.Base.Localization;assembly=LazyPinger.Base"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="LazyPingerMAUI.Views.MainPage"
+             xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
              xmlns:vmcore="clr-namespace:LazyPinger.Core.ViewModels;assembly=LazyPinger.Core"
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:MainViewModel">
@@ -20,7 +21,6 @@
 
         <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
-
                 <FlexLayout Grid.Row="{Binding AnimationHandler.DevicesRow}"
                             Grid.RowSpan="{Binding AnimationHandler.DevicesRowSpan}"
                             Margin="15"
@@ -84,11 +84,23 @@
                 </FlexLayout>
 
                 <FlexLayout Grid.Row="2">
+
+                    <!--<Label  TextColor="Yellow"
+                            FontFamily="MaterialDesign" 
+                            Text="{x:Static helpers:MaterialIcons.Rocket_launch}"
+                            FontSize="50"
+                            HorizontalOptions="Center"/>-->
+
                     <Button Margin="5"
                             IsEnabled="{Binding IsPingIdle}"
                             Command="{Binding PingAllCommand}"      
-                            Text="Ping"
+                            Text="Ping" 
                             FlexLayout.Grow="1">
+                        <Button.ImageSource>
+                            <FontImageSource 
+                             FontFamily="MaterialDesign"
+                             Glyph="{x:Static helpers:MaterialIcons.Sync_desktop}"/>
+                        </Button.ImageSource>
                         <Button.CommandParameter>
                             <sys:Boolean>False</sys:Boolean>
                         </Button.CommandParameter>

@@ -20,6 +20,7 @@ namespace LazyPingerMAUI
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
+                    fonts.AddFont("MaterialDesign.ttf", "MaterialDesign");
                     fonts.AddFont("NotoSans-Regular.ttf", "NotoSans");
                     fonts.AddFont("NotoSans-Semibold.ttf", "NotoSansSemiBold");
                     fonts.AddFont("NotoSans-Medium.ttf", "NotoSansMedium");
