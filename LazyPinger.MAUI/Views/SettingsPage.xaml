@@ -7,6 +7,7 @@
              xmlns:vmcore="clr-namespace:LazyPinger.Core.ViewModels;assembly=LazyPinger.Core"
              xmlns:strings="clr-namespace:LazyPinger.Base.Localization;assembly=LazyPinger.Base"
              x:Class="LazyPingerMAUI.Views.SettingsPage"
+             xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:SettingsViewModel">
 
@@ -53,8 +54,14 @@
                             <Button Margin="20" 
                                         MaximumWidthRequest="400" 
                                         Command="{Binding ApplyUserSelectionCommand}" 
-                                        Text="Apply"/>
-
+                                        VerticalOptions="Center"
+                                        Text="Apply">
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="MaterialDesign"
+                                                 Size="18"
+                                                 Glyph="{x:Static helpers:MaterialIcons.Approval}"/>
+                                </Button.ImageSource>
+                            </Button>
                         </VerticalStackLayout>
                     </Border>
                 </FlexLayout>
@@ -116,9 +123,16 @@
                         </StackLayout>
                         <Button Margin="20, 0, 10, 10" 
                                     Text="Create"
+                                    VerticalOptions="Center"
                                     IsEnabled="{Binding CanCreateDevice}"
                                     MaximumWidthRequest="400"
-                                    Command="{Binding CreateNewDeviceCommand}"/>
+                                    Command="{Binding CreateNewDeviceCommand}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                                 Size="18"
+                                                 Glyph="{x:Static helpers:MaterialIcons.Create_new_folder}"/>
+                            </Button.ImageSource>
+                        </Button>
                     </FlexLayout>
                 </Border>
 
@@ -156,7 +170,13 @@
                                     MaximumWidthRequest="400" 
                                     IsEnabled="{Binding CanCreateDeviceGroup}"
                                     Command="{Binding CreateNewDeviceGroupCommand}"
+                                    VerticalOptions="Center"
                                     Text="Create">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                                 Size="18"
+                                                 Glyph="{x:Static helpers:MaterialIcons.Create_new_folder}"/>
+                            </Button.ImageSource>
                         </Button>
                     </FlexLayout>
                 </Border>

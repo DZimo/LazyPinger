@@ -111,51 +111,64 @@ namespace LazyPingerMAUI.ViewModels
 
         private async Task InitDatabaseData()
         {
-            var db = ListenVm.Instance.dbContext;
-
             try {
+                var db = ListenVm.Instance.dbContext;
 
                 _ = Task.Run(() =>
                 {
-                    var devicesPing = db.DevicePings.Include(o => o.DevicesGroup).ToList().Select((o) => new VmDevicePing(o)
+                    lock (db)
                     {
-                        Name = o.Name,
-                        Image = o.Image,
-                        Group = o.DevicesGroup,
-                        Ip = o?.IP,
-                    }).ToList();
+                        var devicesPingDb = db.DevicePings.Include(o => o.DevicesGroup).ToList().Select((o) => new VmDevicePing(o)
+                        {
+                            Name = o.Name,
+                            Image = o.Image,
+                            Group = o.DevicesGroup,
+                            Ip = o?.IP,
+                        }).ToList();
 
-                    DevicesPing = new ObservableCollection<VmDevicePing>(devicesPing);
+                        if (devicesPingDb is null)
+                            return;
+
+                        DevicesPing = new ObservableCollection<VmDevicePing>(devicesPingDb);
+                    }
+                  
                 });
 
 
                 _ = Task.Run(async () =>
                 {
-                    var userSelection = db.UserSelections.FirstOrDefault();
-
-                    if (userSelection is not null)
-                        ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
-
-                    if (userSelection is null)
+                    lock (db)
                     {
-                        var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
-                        db.Add(user);
-                        ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
-                        await db.SaveChangesAsync();
+                        var userSelection = db.UserSelections.FirstOrDefault();
+
+                        if (userSelection is not null)
+                            ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
+
+                        if (userSelection is null)
+                        {
+                            var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
+                            db.Add(user);
+                            ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
+                        }
                     }
+                    await db.SaveChangesAsync();
+
                 });
 
 
                 _ = Task.Run(() =>
                 {
-                    var res = ListenVm.Instance.DevicesGroupVm.First().Entity;
+                    lock (db)
+                    {
+                        var res = ListenVm.Instance.DevicesGroupVm.First().Entity;
 
-                    var userSelection = db.UserSelections.FirstOrDefault();
+                        var userSelection = db.UserSelections.FirstOrDefault();
 
-                    if (userSelection is null)
-                        return;
+                        if (userSelection is null)
+                            return;
 
-                    UserSelection = new VmUserSelection(userSelection);
+                        UserSelection = new VmUserSelection(userSelection);
+                    }
                 });
             }
             catch { }

@@ -95,11 +95,12 @@
                             IsEnabled="{Binding IsPingIdle}"
                             Command="{Binding PingAllCommand}"      
                             Text="Ping" 
+                            VerticalOptions="Center"
                             FlexLayout.Grow="1">
                         <Button.ImageSource>
-                            <FontImageSource 
-                             FontFamily="MaterialDesign"
-                             Glyph="{x:Static helpers:MaterialIcons.Sync_desktop}"/>
+                            <FontImageSource FontFamily="MaterialDesign"
+                                Size="18"
+                                Glyph="{x:Static helpers:MaterialIcons.Network_node}"/>
                         </Button.ImageSource>
                         <Button.CommandParameter>
                             <sys:Boolean>False</sys:Boolean>
@@ -109,17 +110,30 @@
                     <Button Margin="5"
                             Command="{Binding PingAllCommand}"
                             Text="Restart"
+                            VerticalOptions="Center"
                             IsEnabled="{Binding IsPingIdle}"
                             FlexLayout.Grow="1">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Restart_alt}"/>
+                        </Button.ImageSource>
                         <Button.CommandParameter>
                             <sys:Boolean>True</sys:Boolean>
                         </Button.CommandParameter>
                     </Button>
-                    
+
                     <Button Margin="5"
                             Command="{Binding PingAllCommand}"
                             Text="Stop"
-                            FlexLayout.Grow="1"/>
+                            VerticalOptions="Center"
+                            FlexLayout.Grow="1">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Stop_circle}"/>
+                        </Button.ImageSource>
+                    </Button>
 
                     <!--IsEnabled="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}, Converter={StaticResource IsValidConverter}}"-->
 
