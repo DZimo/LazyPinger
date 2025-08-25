@@ -34,6 +34,7 @@
                             Grid.RowSpan="{Binding AnimationHandler.DevicesRowSpan}"
                             Margin="15"
                             FlexLayout.Grow="1"
+                            Wrap="Wrap"
                             VerticalOptions="End">
 
                     <VerticalStackLayout FlexLayout.Grow="1">

@@ -60,89 +60,89 @@
                 </FlexLayout>
 
                 <!-- Device Ping  -->
-                    
-                    <Border    Grid.Row="1"
+
+                <Border    Grid.Row="1"
                                Grid.Column="0" 
                                Margin="20"
                                Stroke="{StaticResource Primary}">
 
-                        <FlexLayout Direction="Column"
+                    <FlexLayout Direction="Column"
                                 JustifyContent="Center"
                                 AlignItems="Stretch">
 
-                            <Label Margin="5" Style="{StaticResource SubHeadlineAlternative}">New Device</Label>
+                        <Label Margin="5" Style="{StaticResource SubHeadlineAlternative}" Text="New Device"></Label>
 
-                            <StackLayout FlexLayout.Grow="1" VerticalOptions="Center" HorizontalOptions="Fill">
-                                <Label Margin="20, 0, 0, 10" Text="Name"/>
-                                <Entry Margin="20" Text="{Binding DevicePingTemp.Name}"/>
-                            </StackLayout>
-                            <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
-                                <Label Margin="20, 0, 0, 10" Text="Image"/>
-                                <Picker Margin="20" 
+                        <StackLayout FlexLayout.Grow="1" VerticalOptions="Center" HorizontalOptions="Fill">
+                            <Label Margin="20, 0, 10, 10" Text="Name"/>
+                            <Entry Margin="20, 0, 10, 10" Text="{Binding DevicePingTemp.Name}"/>
+                        </StackLayout>
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
+                            <Label Margin="20, 0, 10, 10" Text="Image"/>
+                            <Picker Margin="20, 0, 10, 10"  
                                         ItemsSource="{Binding MainVm.ExistingImages}" 
                                         SelectedItem="{Binding DevicePingTemp.Image}"/>
-                            </StackLayout>
-                            <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
-                                <Label Margin="20, 0, 0, 10" Text="IP"/>
-                                <Entry Margin="20" Text="{Binding DevicePingTemp.IP}"/>
-                            </StackLayout>
-                            <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
-                                <Label Margin="20, 0, 0, 10" Text="Device Group"/>
-                                <Picker Margin="20"
+                        </StackLayout>
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
+                            <Label Margin="20, 0, 10, 10" Text="IP"/>
+                            <Entry Margin="20, 0, 10, 10"  Text="{Binding DevicePingTemp.IP}"/>
+                        </StackLayout>
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
+                            <Label Margin="20, 0, 10, 10" Text="Device Group"/>
+                            <Picker Margin="20, 0, 10, 10" 
                                         ItemDisplayBinding="{Binding Type}"
                                         ItemsSource="{Binding DevicesGroupVm, Source={x:Static vmcore:ListenVm.Instance}}"
                                         SelectedItem="{Binding VmDeviceGroupTemp}">
-                                </Picker>
-                            </StackLayout>
+                            </Picker>
+                        </StackLayout>
 
-                            <Button Margin="20" 
+                        <Button Margin="20, 0, 10, 10" 
                                     Text="Create"
                                     IsEnabled="{Binding CanCreateDevice}"
                                     MaximumWidthRequest="400"
                                     Command="{Binding CreateNewDeviceCommand}"/>
-                        </FlexLayout>
-                    </Border>
+                    </FlexLayout>
+                </Border>
 
-                    <!-- Device Group -->
+                <!-- Device Group -->
 
-                    <Border Stroke="{StaticResource Primary}"
+                <Border Stroke="{StaticResource Primary}"
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="20">
 
-                        <FlexLayout Direction="Column"
+                    <FlexLayout Direction="Column"
                                 JustifyContent="Center"
                                 AlignItems="Stretch">
 
-                            <Label Margin="5" Style="{StaticResource SubHeadlineAlternative}">New Device Group</Label>
+                        <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="New Device Group"></Label>
 
-                            <StackLayout FlexLayout.Grow="1" 
+                        <StackLayout FlexLayout.Grow="1" 
                                          VerticalOptions="Center" 
                                          HorizontalOptions="Fill">
-                                <Label Margin="20, 0, 0, 5" 
+                            <Label Margin="20, 0, 10, 5" 
                                        Text="Type"/>
 
-                                <Entry Margin="20" Text="{Binding DeviceGroupTemp.Type}"/>
-                            </StackLayout>
-                            <StackLayout  FlexLayout.Grow="1" 
+                            <Entry Margin="20, 0, 10, 5"  Text="{Binding DeviceGroupTemp.Type}"/>
+                        </StackLayout>
+                        <StackLayout  FlexLayout.Grow="1" 
                                           VerticalOptions="Center" 
                                           HorizontalOptions="Fill">
-                                <Label  Margin="20, 0, 0, 5" Text="Color"/>
-                                <Picker ItemsSource="{Binding MainVm.ExistingColors}" 
+                            <Label  Margin="20, 0, 10, 5" Text="Color"/>
+                            <Picker ItemsSource="{Binding MainVm.ExistingColors}" 
                                         SelectedItem="{Binding DeviceGroupTemp.Color}" 
-                                        Margin="20"/>
-                            </StackLayout>
+                                        Margin="20, 0, 10, 5"/>
+                        </StackLayout>
 
-                            <Button Margin="20"
+                        <Button Margin="20, 0, 10, 5"
                                     MaximumWidthRequest="400" 
                                     IsEnabled="{Binding CanCreateDeviceGroup}"
                                     Command="{Binding CreateNewDeviceGroupCommand}"
                                     Text="Create">
-                            </Button>
-                        </FlexLayout>
-                    </Border>
-                    
-                </Grid>
+                        </Button>
+                    </FlexLayout>
+                </Border>
+
+            </Grid>
             </ScrollView>
         
     </Grid>
