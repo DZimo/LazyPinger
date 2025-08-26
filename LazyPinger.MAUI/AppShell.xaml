@@ -4,14 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:LazyPingerMAUI.Views"
+    xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
     Shell.FlyoutBehavior="Flyout"
     Shell.NavBarIsVisible="False"
-    Shell.BackgroundColor="DarkGoldenrod"
+    Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
     Title="Lazy Pinger - as fast as possible">
-
-    <!--<ShellContent
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />-->
 
     <Shell.TitleView>
         <Grid>
@@ -30,13 +28,26 @@
     </Shell.ToolbarItems>
 
     <FlyoutItem Title="Home"
-                    Icon="lazy_pinger_logo.png"
-                    x:Name="MainTab">
+                x:Name="MainTab">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialDesign"
+              Size="18"
+              Glyph="{x:Static helpers:MaterialIcons.Home}"/>
+        </FlyoutItem.Icon>
+        <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="main"/>
-        </FlyoutItem>
-        <FlyoutItem  Title="Settings" 
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem  Title="Settings" 
              x:Name="SettingsTab">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialDesign"
+              Size="18"
+              Glyph="{x:Static helpers:MaterialIcons.Settings}"/>   
+        </FlyoutItem.Icon>
+        <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="settings"/>
-        </FlyoutItem>
+        </Tab>
+    </FlyoutItem>
 
 </Shell>

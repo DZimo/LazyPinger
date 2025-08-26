@@ -33,7 +33,7 @@ namespace LazyPingerMAUI.ViewModels
         [ObservableProperty]
         public ObservableCollection<VmDevicePing> devicesPing;
 
-        private string[] listOfRandomText = ["Lazy Pinger - as fast as possible.", "Welcome to the world of pinging..", "Easy, and convenient", "Customize as you wish", "Are you tired of old pingers 😿"];
+        private string[] listOfRandomText = ["Lazy Pinger - as fast as possible.", "Welcome to the world of pinging..", "Easy, and convenient", "Customize as you wish", "Are you tired of old pingers"];
 
         [ObservableProperty]
         public string sloganRandomText = "Lazy Pinger * as fast as possible.";

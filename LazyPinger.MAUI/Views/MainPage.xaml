@@ -136,8 +136,8 @@
 
                 </FlexLayout>
 
-                <Border Margin="40, 10, 40, 5" Stroke="{StaticResource Primary}" Grid.Row="3">
-                    <FlexLayout Margin="10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
+                <Border Margin="50, 10, 50, 5" Stroke="{StaticResource Primary}" Grid.Row="3">
+                    <FlexLayout Margin="50, 10, 50, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
                         <Grid>
                             <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
                         </Grid>
