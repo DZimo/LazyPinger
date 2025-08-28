@@ -6,26 +6,10 @@
     xmlns:views="clr-namespace:LazyPingerMAUI.Views"
     xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
     Shell.FlyoutBehavior="Flyout"
-    Shell.NavBarIsVisible="False"
+    Shell.NavBarIsVisible="True"
     Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
     Title="Lazy Pinger - as fast as possible">
-
-    <Shell.TitleView>
-        <Grid>
-            <Button Text="☰" 
-                    Clicked="OnHamburgerClicked" 
-                    HorizontalOptions="Start" 
-                    BackgroundColor="Transparent" 
-                    FontSize="24"/>
-        </Grid>
-    </Shell.TitleView>
-
-    <Shell.ToolbarItems>
-        <ToolbarItem Text="☰"  
-                     Clicked="OnHamburgerClicked">
-        </ToolbarItem>
-    </Shell.ToolbarItems>
 
     <FlyoutItem Title="Home"
                 x:Name="MainTab">

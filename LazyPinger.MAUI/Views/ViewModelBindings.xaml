@@ -43,10 +43,11 @@
                         Wrap="Wrap"
                         Direction="Row"
                         FlexLayout.AlignSelf="Center"
-                                   Margin="15, 25, 0, 15"
+                                   Margin="15, 25, 0, 25"
                                    HorizontalOptions="Center">
-                <Label  Style="{StaticResource Headline}" 
+                <Label  Style="{StaticResource SubHeadline}" 
                         VerticalOptions="Center" 
+                        FlexLayout.Shrink="1"
                         LineBreakMode="WordWrap" 
                         TextColor="{StaticResource Primary}"
                         Text="{Binding }">

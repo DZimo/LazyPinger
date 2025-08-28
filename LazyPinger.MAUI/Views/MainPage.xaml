@@ -85,6 +85,8 @@
                     </Grid>
                 </FlexLayout>
 
+                <!-- BUTTONS -->
+                
                 <FlexLayout Grid.Row="2"
                             Margin="40, 10, 40, 5">
 
@@ -153,7 +155,14 @@
                                 AlignItems="Center">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="devices:DevicePing">
-                                <views:DeviceView DevicePing="{Binding}" WidthRequest="250" />
+                                <views:DeviceView DevicePing="{Binding}">
+                                    <views:DeviceView.MaximumWidthRequest>
+                                        <OnIdiom x:TypeArguments="x:Double"
+                                                 Phone="125"
+                                                 Desktop="250"
+                                                 Tablet="250" />
+                                    </views:DeviceView.MaximumWidthRequest>
+                                </views:DeviceView>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </FlexLayout>

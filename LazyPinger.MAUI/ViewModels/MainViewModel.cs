@@ -33,7 +33,7 @@ namespace LazyPingerMAUI.ViewModels
         [ObservableProperty]
         public ObservableCollection<VmDevicePing> devicesPing;
 
-        private string[] listOfRandomText = ["Lazy Pinger - as fast as possible.", "Welcome to the world of pinging..", "Easy, and convenient", "Customize as you wish", "Are you tired of old pingers"];
+        private string[] listOfRandomText = ["Lazy Pinger", "As fast as possible ", "Welcome to pinging", "Easy, and convenient", "Customize as you wish", "Tired of old tools"];
 
         [ObservableProperty]
         public string sloganRandomText = "Lazy Pinger * as fast as possible.";
@@ -190,6 +190,9 @@ namespace LazyPingerMAUI.ViewModels
         {
             MainThread.InvokeOnMainThreadAsync(async () =>
             {
+                if (NetworkService.NetworkSettings.SubnetAddress is null)
+                    return;
+
                 IsPingIdle = false;
 
                 if (isRestart)
@@ -200,7 +203,7 @@ namespace LazyPingerMAUI.ViewModels
                     await NetworkService.PingAll(DetectedDevices);
                     OrderDevices();
                 }
-                catch
+                catch (Exception ex)
                 {
 
                 }

@@ -132,10 +132,8 @@ namespace LazyPinger.Core.Services
                 if (i == 255)
                     continue;
 
-                byte[] bufferReply = { 00 };
                 var ipAddressToPing = NetworkSettings.SubnetAddress + i;
-
-                var sendPing = await ping.SendPingAsync(ipAddressToPing, NetworkSettings.PingTimeout, bufferReply);
+                var sendPing = await ping.SendPingAsync(ipAddressToPing, NetworkSettings.PingTimeout);
 
                 if (sendPing.Status != IPStatus.Success)
                     return;

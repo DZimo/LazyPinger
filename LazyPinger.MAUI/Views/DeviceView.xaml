@@ -17,8 +17,8 @@
                         Stroke="{StaticResource PrimaryDarkAlternative}">
 
                     <VerticalStackLayout>
-                        <Image WidthRequest="125"
-                           HeightRequest="125" 
+                        <Image MaximumWidthRequest="125"
+                           MaximumHeightRequest="125" 
                            Source="pcb_default.png"/>
 
                         <Line StrokeThickness="5" 
