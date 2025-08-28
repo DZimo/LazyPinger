@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.Models;
+using LazyPinger.Base.Models.User;
 
 namespace LazyPinger.Core.ViewModels
 {

@@ -4,6 +4,7 @@ using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Base.Models;
 using LazyPinger.Base.Models.Devices;
+using LazyPinger.Base.Models.User;
 using LazyPinger.Core.Utils;
 using LazyPinger.Core.ViewModels;
 using Microsoft.EntityFrameworkCore;

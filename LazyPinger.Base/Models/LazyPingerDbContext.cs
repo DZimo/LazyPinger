@@ -1,4 +1,5 @@
 ﻿using LazyPinger.Base.Models.Devices;
+using LazyPinger.Base.Models.User;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
