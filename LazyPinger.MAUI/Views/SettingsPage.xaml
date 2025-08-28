@@ -18,7 +18,7 @@
 
         <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">
 
-            <Grid RowDefinitions="Auto, *" 
+            <Grid RowDefinitions="Auto, Auto ,*" 
                       ColumnDefinitions="*, *" 
                       HorizontalOptions="Center">
 
@@ -68,7 +68,29 @@
 
                 <!-- Device Ping  -->
 
-                <Border    Grid.Row="1"
+                <Border Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="20">
+
+                    <FlexLayout Direction="Column"
+                                JustifyContent="Center"
+                                AlignItems="Stretch">
+
+
+                        <StackLayout FlexLayout.Grow="1" 
+                                     Margin="20"
+                                     VerticalOptions="Center" 
+                                     HorizontalOptions="Fill">  
+                            <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="User Preferences"/>
+                            <Picker ItemsSource="{Binding MainVm.ExistingColors}" 
+                                SelectedItem="{Binding DeviceGroupTemp.Color}" 
+                                Margin="20, 0, 10, 5"/>
+                        </StackLayout>
+                    </FlexLayout>
+                </Border>
+                
+                <Border    Grid.Row="2"
                            Grid.Column="0" 
                            Margin="20"
                            Stroke="{StaticResource Primary}">
@@ -139,7 +161,7 @@
                 <!-- Device Group -->
 
                 <Border Stroke="{StaticResource Primary}"
-                            Grid.Row="1"
+                            Grid.Row="2"
                             Grid.Column="1"
                             Margin="20">
 
