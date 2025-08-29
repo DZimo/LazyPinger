@@ -114,6 +114,8 @@ namespace LazyPinger.Core.ViewModels
                 OnPropertyChanged(nameof(CurrentUserPreferenceVm));
 
                 GetUserSelectionVm();
+                GetDevicePingVm();
+                GetDevicesGroupVm();
             }
         }
 
@@ -138,17 +140,15 @@ namespace LazyPinger.Core.ViewModels
 
         public Action GetDevicesGroupVm()
         {
-            return () =>
+            return async () =>
             {
                 try
                 {
-                    var res = dbContext.DevicesGroups.Include(o => o.DevicePings).ToList().Select((o) => new VmDevicesGroup(o)
-                    {
-                        Color = o.Color,
-                        Type = o.Type
-                    }).ToList();
+                    if (UserSelectionsVm is null)
+                        return;
 
-                    DevicesGroupVm = new ObservableCollection<VmDevicesGroup>(res);
+                    var res = await dbContext.DevicePings.Where(o => o.UserSelectionID == UserSelectionsVm.EntityID).Include(p => p.DevicesGroup).ToListAsync();
+                    DevicesGroupVm = new ObservableCollection<VmDevicesGroup>(res.Select(o => new VmDevicesGroup(o.DevicesGroup)));
                 }
                 catch (Exception ex)
                 {
@@ -157,14 +157,17 @@ namespace LazyPinger.Core.ViewModels
             };
         }
 
-        public Action GetDevicePing()
+        public Action GetDevicePingVm()
         {
-            return () =>
+            return async () =>
             {
                 try
                 {
-                    var res = dbContext.DevicePings.Include(o => o.DevicesGroup).ToList();
-                    //DevicesPingVm = new ObservableCollection<DevicePing>(res);
+                    if (UserSelectionsVm is null)
+                        return;
+
+                    var res = await dbContext.DevicePings.Where(o => o.UserSelectionID == UserSelectionsVm.EntityID).ToListAsync();
+                    DevicesPingVm = new ObservableCollection<VmDevicePing>(res.Select(o => new VmDevicePing(o)));
                 }
                 catch (Exception ex)
                 {
@@ -211,7 +214,7 @@ namespace LazyPinger.Core.ViewModels
 
         public static void LoadAll()
         {
-            List<Action> action = [ Instance.GetUserPreferences(), Instance.GetUserSelectionVm(), Instance.GetDevicesGroup(), Instance.GetDevicesGroupVm(), Instance.GetDevicePing() ];
+            List<Action> action = [ Instance.GetUserPreferences(), Instance.GetUserSelectionVm(), Instance.GetDevicesGroup(), Instance.GetDevicesGroupVm(), Instance.GetDevicePingVm() ];
 
             action.ToList().ForEach( o => o.Invoke());
         }
@@ -224,7 +227,7 @@ namespace LazyPinger.Core.ViewModels
                 VmUserSelection vmUserSelection => Instance.GetUserSelectionVm(),
                 DevicesGroup devicesGroup => Instance.GetDevicesGroup(),
                 VmDevicesGroup devicePing => Instance.GetDevicesGroupVm(),
-                DevicePing devicePing => Instance.GetDevicePing(),
+                VmDevicePing devicePing => Instance.GetDevicePingVm(),
             };
 
             action.Invoke();
