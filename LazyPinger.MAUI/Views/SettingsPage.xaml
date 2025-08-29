@@ -87,7 +87,7 @@
                             <Picker ItemsSource="{Binding UserPreferencesVm, Source={x:Static vmcore:ListenVm.Instance}}"
                                     SelectedIndex="0"
                                     ItemDisplayBinding="{Binding Name}"
-                                SelectedItem="{Binding DeviceGroupTemp.Color}" 
+                                SelectedItem="{Binding CurrentUserPreferenceVm, Source={x:Static vmcore:ListenVm.Instance}}"
                                 Margin="20, 0, 10, 5"/>
                         </StackLayout>
                     </FlexLayout>

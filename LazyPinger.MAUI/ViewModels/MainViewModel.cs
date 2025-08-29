@@ -123,20 +123,14 @@ namespace LazyPingerMAUI.ViewModels
                     {
                         var userPreference = db.UserPreferences.FirstOrDefault();
 
-                        if (userPreference is not null)
-                            ListenVm.Instance.UserPreferencesVm.Add(new VmUserPreference(userPreference));
-
                         if (userPreference is null)
                         {
                             var userSelectionTemp = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
                             var userPreferenceTemp = new UserPreference { Name = "Default Preference", UserSelection = userSelectionTemp };
 
                             db.Add(userPreferenceTemp);
-                            ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelectionTemp);
-                            ListenVm.Instance.UserPreferencesVm.Add(new VmUserPreference(userPreferenceTemp));
                         }
                     }
-
                 });
 
                 await Task.Run(() =>

@@ -142,22 +142,22 @@ namespace LazyPinger.Core.Services
                 //var arpDetector = new(ipAddressToPing)
                 //await ArpDetectorService.ArpInit();
 
-                var devicesPings = ListenVm.Instance.DevicesPing;
+                var devicesPings = ListenVm.Instance.DevicesPingVm;
 
                 if (foundDevices.ToList().Exists(o => o.IP == foundIP))
                     continue;
 
-                var found = devicesPings.Where(o => o.IP == foundIP).FirstOrDefault();
+                var found = devicesPings?.Where(o => o.Entity.IP == foundIP).FirstOrDefault();
 
                 foundDevices.Add(new DevicePing()
                 {
                     ID = foundDevices.Count,
                     Name = (found is null ) ? AppResources.Device+ i : found.Name,
                     IP = foundIP,
-                    Description = found?.Description,
+                    Description = found?.Entity.Description,
                     MacAddress = "XX:XX:XX:XX:XX",
-                    Type = (found is null )? DeviceType.Unknown.ToString() : found.DevicesGroup.Type,
-                    Color = (found is null) ? DeviceType.Unknown.ToString() : found.DevicesGroup.Color,
+                    Type = (found is null )? DeviceType.Unknown.ToString() : found.Entity.DevicesGroup.Type,
+                    Color = (found is null) ? DeviceType.Unknown.ToString() : found.Entity.DevicesGroup.Color,
                     Port = "-",
                     AnswerTime = $"{sendPing.RoundtripTime}ms",
                 });
