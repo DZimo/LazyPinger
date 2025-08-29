@@ -4,16 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LazyPinger.Base.Models.User
 {
-    public class UserPreferences : LazyPingerEntity
+    public class UserPreference : LazyPingerEntity
     {
         [Key]
         public int ID { get; set; }
 
         public string Name { get; set; }
 
-        public int UserSelectionID { get; set; }
-
-        [ForeignKey(nameof(UserSelection))]
         public UserSelection UserSelection { get; set; }
 
     }

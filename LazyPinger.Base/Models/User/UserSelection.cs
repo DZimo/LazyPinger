@@ -1,5 +1,7 @@
 ﻿using LazyPinger.Base.Entities;
+using LazyPinger.Base.Models.Devices;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LazyPinger.Base.Models.User
 {
@@ -17,6 +19,13 @@ namespace LazyPinger.Base.Models.User
         public bool AutoRestart { get; set; }
 
         public int AutoRestartTime { get; set; }
+
+        public ICollection<DevicePing>? DevicesPing { get; set; }
+
+        public int UserPreferenceID { get; set; }
+
+        [ForeignKey(nameof(UserPreferenceID))]
+        public UserPreference UserPreference { get; set; }
 
     }
 }
