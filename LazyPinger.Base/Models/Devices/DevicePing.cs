@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using LazyPinger.Base.Localization;
+using LazyPinger.Base.Models.User;
 
 namespace LazyPinger.Base.Models.Devices
 {
@@ -41,6 +42,11 @@ namespace LazyPinger.Base.Models.Devices
         public byte[]? Image { get; set; }
 
         public string? AnswerTime { get; set; } = "0ms";
+
+        public int UserSelectionID { get; set; }
+
+        [ForeignKey(nameof(UserSelectionID))]
+        public UserSelection UserSelection { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -11,7 +11,7 @@ namespace LazyPinger.Base.Models.Devices
 
         public string Color { get; set; } = string.Empty;
 
-        public List<DevicePing> DevicePings { get; set; } = new();
+        public ICollection<DevicePing> DevicePings { get; set; } = new List<DevicePing>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

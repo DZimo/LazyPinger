@@ -32,6 +32,7 @@ public partial class LazyPingerDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
+    public DbSet<UserPreference> UserPreferences { get; set; }
     public DbSet<UserSelection> UserSelections { get; set; }
     public DbSet<DevicePing> DevicePings { get; set; }
     public DbSet<DevicesGroup> DevicesGroups { get; set; }
