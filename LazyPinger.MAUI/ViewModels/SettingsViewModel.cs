@@ -92,17 +92,18 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public async Task CreateNewDevice()
         {
+            if (ListenVm.Instance.UserSelectionsVm is null)
+                return;
 
             var db = ListenVm.Instance.dbContext;
             var newDevice = new DevicePing()
             {
                 Name = DevicePingTemp.Name,
                 DevicesGroup = VmDeviceGroupTemp.Entity,
-                Image = DevicePingTemp.Image,
+                Image = [0, 2],
                 IP = DevicePingTemp.IP,
+                UserSelectionID = ListenVm.Instance.UserSelectionsVm.EntityID,
             };
-
-            MainVm.DevicesPing.Add(new VmDevicePing(newDevice));
 
             try
             {
@@ -119,11 +120,21 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public async Task CreateNewDeviceGroup()
         {
+            if (ListenVm.Instance.UserSelectionsVm is null)
+                return;
+
             var db = ListenVm.Instance.dbContext;
+
+            var newDevicesGroup = new DevicesGroup()
+            {
+                Color = DeviceGroupTemp.Color,
+                Type = DeviceGroupTemp.Type,
+                UserSelectionID = ListenVm.Instance.UserSelectionsVm.EntityID,
+            };
 
             try
             {
-                db.DevicesGroups.Add( new() { Color = DeviceGroupTemp.Color, Type = DeviceGroupTemp.Type });
+                db.DevicesGroups.Add(newDevicesGroup);
                 await db.SaveChangesAsync();
                 ListenVm.ReloadFromDatabase(DeviceGroupTemp);
             }

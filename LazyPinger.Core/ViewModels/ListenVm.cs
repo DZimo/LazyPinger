@@ -120,35 +120,14 @@ namespace LazyPinger.Core.ViewModels
         }
 
 
-        public Action GetDevicesGroup()
-        {
-            return () =>
-            {
-                try
-                {
-                    var res = dbContext.DevicesGroups.Include(o => o.DevicePings).ToList();
-                    Instance.DevicesGroup = new ObservableCollection<DevicesGroup>(res);
-                    Instance.DevicesGroupVm = new ObservableCollection<VmDevicesGroup>(res.Select(o => new VmDevicesGroup(o)));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Failed to load DevicesGroup from Database: {ex.Message}");
-                }
-            };
-        }
-
-
         public Action GetDevicesGroupVm()
         {
             return async () =>
             {
                 try
                 {
-                    if (UserSelectionsVm is null)
-                        return;
-
-                    var res = await dbContext.DevicePings.Where(o => o.UserSelectionID == UserSelectionsVm.EntityID).Include(p => p.DevicesGroup).ToListAsync();
-                    DevicesGroupVm = new ObservableCollection<VmDevicesGroup>(res.Select(o => new VmDevicesGroup(o.DevicesGroup)));
+                    var res = await dbContext.DevicesGroups.Where(o => o.UserSelectionID == UserSelectionsVm.EntityID).ToListAsync();
+                    DevicesGroupVm = new ObservableCollection<VmDevicesGroup>(res.Select(o => new VmDevicesGroup(o)));
                 }
                 catch (Exception ex)
                 {
@@ -214,7 +193,7 @@ namespace LazyPinger.Core.ViewModels
 
         public static void LoadAll()
         {
-            List<Action> action = [ Instance.GetUserPreferences(), Instance.GetUserSelectionVm(), Instance.GetDevicesGroup(), Instance.GetDevicesGroupVm(), Instance.GetDevicePingVm() ];
+            List<Action> action = [ Instance.GetUserPreferences(), Instance.GetUserSelectionVm(), Instance.GetDevicesGroupVm(), Instance.GetDevicesGroupVm(), Instance.GetDevicePingVm() ];
 
             action.ToList().ForEach( o => o.Invoke());
         }
@@ -223,14 +202,14 @@ namespace LazyPinger.Core.ViewModels
         {
             var action = type switch
             {
-                VmUserPreference vmUserPreference => Instance.GetUserPreferences(),
-                VmUserSelection vmUserSelection => Instance.GetUserSelectionVm(),
-                DevicesGroup devicesGroup => Instance.GetDevicesGroup(),
-                VmDevicesGroup devicePing => Instance.GetDevicesGroupVm(),
-                VmDevicePing devicePing => Instance.GetDevicePingVm(),
+                UserPreference vmUserPreference => Instance.GetUserPreferences(),
+                UserSelection vmUserSelection => Instance.GetUserSelectionVm(),
+                DevicesGroup devicesGroup => Instance.GetDevicesGroupVm(),
+                DevicePing devicePing => Instance.GetDevicePingVm(),
+                _ => null
             };
 
-            action.Invoke();
+            action?.Invoke();
         }
     }
 }

@@ -22,11 +22,38 @@
                       ColumnDefinitions="*, *" 
                       HorizontalOptions="Center">
 
+                <!-- User Preferences  -->
+
+                <Border Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="20">
+
+                    <FlexLayout Direction="Column"
+                                JustifyContent="Center"
+                                AlignItems="Stretch">
+
+
+                        <StackLayout FlexLayout.Grow="1" 
+                                     Margin="20"
+                                     VerticalOptions="Center" 
+                                     HorizontalOptions="Fill">
+                            <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="User Preferences"/>
+
+                            <Picker ItemsSource="{Binding UserPreferencesVm, Source={x:Static vmcore:ListenVm.Instance}}"
+                                    SelectedIndex="0"
+                                    ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding CurrentUserPreferenceVm, Source={x:Static vmcore:ListenVm.Instance}}"
+                                Margin="20, 0, 10, 5"/>
+                        </StackLayout>
+                    </FlexLayout>
+                </Border>
+
                 <!-- User Selection -->
 
                 <FlexLayout   Direction="Column"
                                   JustifyContent="Center"
-                                  Grid.Row="0"
+                                  Grid.Row="1"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="2"
                                   AlignItems="Stretch"
@@ -65,33 +92,6 @@
                         </VerticalStackLayout>
                     </Border>
                 </FlexLayout>
-
-                <!-- User Preferences  -->
-
-                <Border Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="20">
-
-                    <FlexLayout Direction="Column"
-                                JustifyContent="Center"
-                                AlignItems="Stretch">
-
-
-                        <StackLayout FlexLayout.Grow="1" 
-                                     Margin="20"
-                                     VerticalOptions="Center" 
-                                     HorizontalOptions="Fill">  
-                            <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="User Preferences"/>
-
-                            <Picker ItemsSource="{Binding UserPreferencesVm, Source={x:Static vmcore:ListenVm.Instance}}"
-                                    SelectedIndex="0"
-                                    ItemDisplayBinding="{Binding Name}"
-                                SelectedItem="{Binding CurrentUserPreferenceVm, Source={x:Static vmcore:ListenVm.Instance}}"
-                                Margin="20, 0, 10, 5"/>
-                        </StackLayout>
-                    </FlexLayout>
-                </Border>
 
                 <!-- Device Ping  -->
 

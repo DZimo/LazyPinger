@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LazyPinger.Base.Models.User;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LazyPinger.Base.Models.Devices
 {
@@ -12,6 +14,11 @@ namespace LazyPinger.Base.Models.Devices
         public string Color { get; set; } = string.Empty;
 
         public ICollection<DevicePing> DevicePings { get; set; } = new List<DevicePing>();
+
+        public int UserSelectionID { get; set; }
+
+        [ForeignKey(nameof(UserSelectionID))]
+        public UserSelection UserSelection { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
