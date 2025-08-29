@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using LazyPinger.Base.Models;
 using LazyPinger.Base.Models.Devices;
+using LazyPinger.Base.Models.User;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 
@@ -45,7 +46,7 @@ namespace LazyPinger.Core.ViewModels
             }
         }
 
-        private ObservableCollection<VmDevicesGroup> devicesGroupVm;
+        private ObservableCollection<VmDevicesGroup> devicesGroupVm = new();
         public ObservableCollection<VmDevicesGroup> DevicesGroupVm
         {
             get
@@ -58,6 +59,23 @@ namespace LazyPinger.Core.ViewModels
                 OnPropertyChanged(nameof(DevicesPing));
                 OnPropertyChanged(nameof(DevicesGroup));
                 OnPropertyChanged(nameof(DevicesGroupVm));
+            }
+        }
+
+        private ObservableCollection<VmUserPreference> userPreferencesVm = new();
+        public ObservableCollection<VmUserPreference> UserPreferencesVm
+        {
+            get
+            {
+                return userPreferencesVm;
+            }
+            set
+            {
+                userPreferencesVm = value;
+                OnPropertyChanged(nameof(DevicesPing));
+                OnPropertyChanged(nameof(DevicesGroup));
+                OnPropertyChanged(nameof(DevicesGroupVm));
+                OnPropertyChanged(nameof(UserPreferencesVm));
             }
         }
 
@@ -96,6 +114,7 @@ namespace LazyPinger.Core.ViewModels
                 }
             };
         }
+
 
         public Action GetDevicesGroupVm()
         {
@@ -149,6 +168,23 @@ namespace LazyPinger.Core.ViewModels
                 }
             };
         }
+
+        public Action GetUserPreferences()
+        {
+            return async () =>
+            {
+                try
+                {
+                    var res = await dbContext.UserPreferences.Include(o => o.UserSelection).ToListAsync();
+                    UserPreferencesVm = new ObservableCollection<VmUserPreference>(res.Select(p => new VmUserPreference(p)));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to load UserSelections from Database: {ex.Message}");
+                }
+            };
+        }
+
         public static void LoadAll()
         {
             List<Action> action = [ Instance.GetUserSelectionVm(), Instance.GetDevicesGroup(), Instance.GetDevicesGroupVm(), Instance.GetDevicePing() ];

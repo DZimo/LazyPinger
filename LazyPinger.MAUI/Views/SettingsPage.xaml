@@ -66,7 +66,7 @@
                     </Border>
                 </FlexLayout>
 
-                <!-- Device Ping  -->
+                <!-- User Preferences  -->
 
                 <Border Grid.Row="1"
                         Grid.Column="0"
@@ -83,13 +83,18 @@
                                      VerticalOptions="Center" 
                                      HorizontalOptions="Fill">  
                             <Label Margin="5 ,10 " Style="{StaticResource SubHeadlineAlternative}" Text="User Preferences"/>
-                            <Picker ItemsSource="{Binding MainVm.ExistingColors}" 
+
+                            <Picker ItemsSource="{Binding UserPreferencesVm, Source={x:Static vmcore:ListenVm.Instance}}"
+                                    SelectedIndex="0"
+                                    ItemDisplayBinding="{Binding Name}"
                                 SelectedItem="{Binding DeviceGroupTemp.Color}" 
                                 Margin="20, 0, 10, 5"/>
                         </StackLayout>
                     </FlexLayout>
                 </Border>
-                
+
+                <!-- Device Ping  -->
+
                 <Border    Grid.Row="2"
                            Grid.Column="0" 
                            Margin="20"

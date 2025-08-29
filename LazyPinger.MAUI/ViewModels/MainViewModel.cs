@@ -115,7 +115,31 @@ namespace LazyPingerMAUI.ViewModels
             try {
                 var db = ListenVm.Instance.dbContext;
 
-                _ = Task.Run(() =>
+
+                await Task.Run( async () =>
+                {
+                    var res = db.Database.GetDbConnection().DataSource;
+                    lock (db)
+                    {
+                        var userPreference = db.UserPreferences.FirstOrDefault();
+
+                        if (userPreference is not null)
+                            ListenVm.Instance.UserPreferencesVm.Add(new VmUserPreference(userPreference));
+
+                        if (userPreference is null)
+                        {
+                            var userSelectionTemp = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
+                            var userPreferenceTemp = new UserPreference { Name = "Default Preference", UserSelection = userSelectionTemp };
+
+                            db.Add(userPreferenceTemp);
+                            ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelectionTemp);
+                            ListenVm.Instance.UserPreferencesVm.Add(new VmUserPreference(userPreferenceTemp));
+                        }
+                    }
+
+                });
+
+                await Task.Run(() =>
                 {
                     lock (db)
                     {
@@ -135,44 +159,11 @@ namespace LazyPingerMAUI.ViewModels
                   
                 });
 
-
-                _ = Task.Run(async () =>
-                {
-                    lock (db)
-                    {
-                        var userSelection = db.UserSelections.FirstOrDefault();
-
-                        if (userSelection is not null)
-                            ListenVm.Instance.UserSelectionsVm = new VmUserSelection(userSelection);
-
-                        if (userSelection is null)
-                        {
-                            var user = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
-                            db.Add(user);
-                            ListenVm.Instance.UserSelectionsVm = new VmUserSelection(user);
-                        }
-                    }
-                    await db.SaveChangesAsync();
-
-                });
-
-
-                _ = Task.Run(() =>
-                {
-                    lock (db)
-                    {
-                        var res = ListenVm.Instance.DevicesGroupVm.First().Entity;
-
-                        var userSelection = db.UserSelections.FirstOrDefault();
-
-                        if (userSelection is null)
-                            return;
-
-                        UserSelection = new VmUserSelection(userSelection);
-                    }
-                });
+                await db.SaveChangesAsync();
             }
-            catch { }
+            catch (Exception ex) {
+                //
+            }
         }
 
         private void InitMainVm(INetworkService networkService)
