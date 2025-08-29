@@ -2,6 +2,7 @@
 using LazyPinger.Base.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LazyPinger.Base.Migrations
 {
     [DbContext(typeof(LazyPingerDbContext))]
-    partial class LazyPingerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250828203451_UserPreferencesFix")]
+    partial class UserPreferencesFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.8");
@@ -106,7 +109,12 @@ namespace LazyPinger.Base.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserSelectionID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("UserSelectionID");
 
                     b.ToTable("UserPreferences");
                 });
@@ -132,13 +140,7 @@ namespace LazyPinger.Base.Migrations
                     b.Property<bool>("FastnessLevel")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UserPreferenceID")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("UserPreferenceID")
-                        .IsUnique();
 
                     b.ToTable("UserSelections");
                 });
@@ -162,26 +164,20 @@ namespace LazyPinger.Base.Migrations
                     b.Navigation("UserSelection");
                 });
 
-            modelBuilder.Entity("LazyPinger.Base.Models.User.UserSelection", b =>
+            modelBuilder.Entity("LazyPinger.Base.Models.User.UserPreference", b =>
                 {
-                    b.HasOne("LazyPinger.Base.Models.User.UserPreference", "UserPreference")
-                        .WithOne("UserSelection")
-                        .HasForeignKey("LazyPinger.Base.Models.User.UserSelection", "UserPreferenceID")
+                    b.HasOne("LazyPinger.Base.Models.User.UserSelection", "UserSelection")
+                        .WithMany()
+                        .HasForeignKey("UserSelectionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserPreference");
+                    b.Navigation("UserSelection");
                 });
 
             modelBuilder.Entity("LazyPinger.Base.Models.Devices.DevicesGroup", b =>
                 {
                     b.Navigation("DevicePings");
-                });
-
-            modelBuilder.Entity("LazyPinger.Base.Models.User.UserPreference", b =>
-                {
-                    b.Navigation("UserSelection")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("LazyPinger.Base.Models.User.UserSelection", b =>
