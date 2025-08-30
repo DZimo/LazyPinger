@@ -15,6 +15,7 @@ namespace LazyPinger.Core.ViewModels
             IsAutoRunEnabled = Entity.AutoRun;
             IsFastPingEnabled = Entity.FastPing;
             IsAutoRestartEnabled = Entity.AutoRestart;
+            AutoRestartTime = Entity.AutoRestartTime;
         }
 
         [ObservableProperty]
@@ -26,16 +27,17 @@ namespace LazyPinger.Core.ViewModels
         [ObservableProperty]
         public bool isAutoRestartEnabled;
 
+        [ObservableProperty]
+        public int autoRestartTime;
+
         partial void OnIsAutoRunEnabledChanged(bool value) =>
             this.Entity.AutoRun = value;
         partial void OnIsFastPingEnabledChanged(bool value) =>
             this.Entity.FastPing = value;
-        partial void OnIsAutoRestartEnabledChanged(bool value)
-        {
-            this.Entity.AutoRestart = value;
+        partial void OnAutoRestartTimeChanged(int value) =>
+            this.Entity.AutoRestartTime = value;
 
-            if (value is false)
-                return;
-        }
+        partial void OnIsAutoRestartEnabledChanged(bool value) =>
+            this.Entity.AutoRestart = value;
     }
 }

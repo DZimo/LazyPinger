@@ -77,7 +77,7 @@
                                Margin="20, 0, 0, 0" 
                                IsEnabled="{Binding UserSelectionsVm.IsAutoRestartEnabled, Source={x:Static vmcore:ListenVm.Instance}}"
                                HorizontalOptions="Fill"                           
-                               Text="{Binding UserSelection.Entity.AutoRestartTime}"
+                               Text="{Binding UserSelectionsVm.AutoRestartTime, Source={x:Static vmcore:ListenVm.Instance}}"
                                Grid.Row="1"
                                Grid.Column="2"
                                Placeholder="10" />
