@@ -28,28 +28,12 @@ namespace LazyPinger.Core.ViewModels
 
         partial void OnTypeChanged(string value)
         {
-            var res = Validate(null);
-
-            if (res.Count() > 0)
-            {
-                CanCreateDeviceGroup = false;
-                return;
-            }
-
-            CanCreateDeviceGroup = true;
+            Validate(null);
         }
 
         partial void OnColorChanged(string value)
         {
-            var res = Validate(null);
-
-            if (res.Count() > 0)
-            {
-                CanCreateDeviceGroup = false;
-                return;
-            }
-
-            CanCreateDeviceGroup = true;
+            Validate(null);
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext? validationContext)
@@ -59,8 +43,13 @@ namespace LazyPinger.Core.ViewModels
             Validator.TryValidateProperty(this.Color, new ValidationContext(this, null, null) { MemberName = nameof(Color) }, results);
 
             if (Type == string.Empty || Color == string.Empty)
+            {
+                CanCreateDeviceGroup = false;
                 results.Add(new ValidationResult("Fields cannot be empty.."));
+                return results;
+            }
 
+            CanCreateDeviceGroup = true;
             return results;
         }
     }

@@ -141,7 +141,7 @@ namespace LazyPingerMAUI.ViewModels
                         {
                             Name = o.Name,
                             Image = o.Image,
-                            Group = o.DevicesGroup,
+                            Group = new VmDevicesGroup(o.DevicesGroup),
                             Ip = o?.IP,
                         }).ToList();
 

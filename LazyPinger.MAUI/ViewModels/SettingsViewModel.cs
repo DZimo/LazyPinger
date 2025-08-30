@@ -56,10 +56,10 @@ namespace LazyPingerMAUI.ViewModels
             var db = ListenVm.Instance.dbContext;
             var newDevice = new DevicePing()
             {
-                Name = DevicePingTemp.Name,
+                Name = VmDevicePingTemp.Name,
                 DevicesGroup = VmDeviceGroupTemp.Entity,
                 Image = [0, 2],
-                IP = DevicePingTemp.IP,
+                IP = VmDevicePingTemp.Entity.IP,
                 UserSelectionID = ListenVm.Instance.UserSelectionsVm.EntityID,
             };
 
