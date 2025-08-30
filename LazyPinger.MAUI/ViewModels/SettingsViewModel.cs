@@ -14,75 +14,33 @@ namespace LazyPingerMAUI.ViewModels
         [ObservableProperty]
         private bool isIpBased = true;
 
-        public DevicePing devicePingTemp { get; set; } = new();
-
-        public DevicePing DevicePingTemp 
+        public VmDevicePing vmDevicePingTemp = new VmDevicePing(new DevicePing());
+        public VmDevicePing VmDevicePingTemp
         {
             get
             {
-                var res = devicePingTemp.Validate(null);
-
-                if (res.Count() > 0)
-                {
-                    //CanCreateDevice = false;
-                    // Notification
-                    return devicePingTemp;
-                }
-                CanCreateDevice = true;
-
-                return devicePingTemp;
+                return vmDevicePingTemp;
             }
             set
             {
-                var res = devicePingTemp.Validate(null);
-
-                if (res.Count() > 0)
-                {
-                    CanCreateDevice = false;
-                }
-
-                devicePingTemp = value;
+                vmDevicePingTemp = value;
+                OnPropertyChanged(nameof(VmDevicePingTemp));
             }
         }
 
-
-        private DevicesGroup deviceGroupTemp = new();
-        public DevicesGroup DeviceGroupTemp 
+        public VmDevicesGroup vmDeviceGroupTemp = new VmDevicesGroup(new DevicesGroup());
+        public VmDevicesGroup VmDeviceGroupTemp
         {
-            get 
+            get
             {
-                var res = deviceGroupTemp.Validate(null);
-
-                if (res.Count() > 0)
-                {
-                    //CanCreateDeviceGroup = false;
-                    // Notification
-                    return deviceGroupTemp;
-                }
-                CanCreateDeviceGroup = true;
-
-                return deviceGroupTemp;
+                return vmDeviceGroupTemp;
             }
             set
             {
-                var res = deviceGroupTemp.Validate(null);
-
-                if (res.Count() > 0)
-                {
-                    CanCreateDeviceGroup = false;
-                }
-
-                deviceGroupTemp = value;
+                vmDeviceGroupTemp = value;
+                OnPropertyChanged(nameof(VmDeviceGroupTemp));
             }
         }
-
-        public VmDevicesGroup VmDeviceGroupTemp { get; set; }
-
-        [ObservableProperty]
-        public bool canCreateDevice;
-
-        [ObservableProperty]
-        public bool canCreateDeviceGroup;
 
         public SettingsViewModel(INetworkService networkService, MainViewModel mainViewModel)
         {
@@ -127,8 +85,8 @@ namespace LazyPingerMAUI.ViewModels
 
             var newDevicesGroup = new DevicesGroup()
             {
-                Color = DeviceGroupTemp.Color,
-                Type = DeviceGroupTemp.Type,
+                Color = VmDeviceGroupTemp.Color,
+                Type = VmDeviceGroupTemp.Type,
                 UserSelectionID = ListenVm.Instance.UserSelectionsVm.EntityID,
             };
 
@@ -136,7 +94,7 @@ namespace LazyPingerMAUI.ViewModels
             {
                 db.DevicesGroups.Add(newDevicesGroup);
                 await db.SaveChangesAsync();
-                ListenVm.ReloadFromDatabase(DeviceGroupTemp);
+                ListenVm.ReloadFromDatabase(VmDeviceGroupTemp);
             }
 
             catch (Exception ex)

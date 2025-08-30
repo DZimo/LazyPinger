@@ -30,6 +30,11 @@ namespace LazyPinger.Core.ViewModels
         [ObservableProperty]
         public string ip;
 
+        public string type;
+
+        [ObservableProperty]
+        public bool canCreateDevicePing;
+
         partial void OnGroupChanged(DevicesGroup value) =>
             this.Entity.DevicesGroup = value;
 
