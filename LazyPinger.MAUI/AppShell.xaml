@@ -7,11 +7,11 @@
     xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
     xmlns:vm="clr-namespace:LazyPingerMAUI.ViewModels"
     Shell.FlyoutBehavior="Flyout"
-    NavigationPage.HasNavigationBar="False"
-    Shell.NavBarIsVisible="True"
+    NavigationPage.HasNavigationBar="True"
+    FlyoutHeaderBehavior="CollapseOnScroll"
+    Shell.NavBarIsVisible="False"
     Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
-    x:DataType="vm:MainViewModel"
     Title="Lazy Pinger - as fast as possible">
 
     <!--<Shell.NavBarIsVisible>
@@ -30,28 +30,35 @@
         <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
                      BindingContext="{Binding SloganRandomText}"/>
     </Shell.FlyoutHeader>
-    
-    <FlyoutItem Title="Home"
-                x:Name="MainTab">
-        <FlyoutItem.Icon>
-            <FontImageSource FontFamily="MaterialDesign"
-              Size="18"
-              Glyph="{x:Static helpers:MaterialIcons.Home}"/>
-        </FlyoutItem.Icon>
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="main"/>
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem  Title="Settings" 
-             x:Name="SettingsTab">
-        <FlyoutItem.Icon>
-            <FontImageSource FontFamily="MaterialDesign"
-              Size="18"
-              Glyph="{x:Static helpers:MaterialIcons.Settings}"/>   
-        </FlyoutItem.Icon>
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="settings"/>
-        </Tab>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+            <Tab Title="Home">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialDesign"
+                 Size="18"
+                 Glyph="{x:Static helpers:MaterialIcons.Home}"/>
+            </Tab.Icon>
+                <ShellContent Title="Test"  ContentTemplate="{DataTemplate views:MainPage}" Route="main"/>
+            </Tab>
+            <Tab Title="Settings">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialDesign"
+                                 Size="18"
+                                 Glyph="{x:Static helpers:MaterialIcons.Settings}"/>  
+            </Tab.Icon>
+            <ShellContent Title="Test" ContentTemplate="{DataTemplate views:SettingsPage}" Route="settings"/>
+            </Tab>
     </FlyoutItem>
 
+    <!--<Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid Padding="10" Background="{StaticResource BlueGradient}">
+                <Label Text="{Binding Title}" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="4" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>-->
+    
 </Shell>
