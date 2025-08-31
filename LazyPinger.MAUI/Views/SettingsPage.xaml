@@ -110,12 +110,12 @@
                             <Label Margin="20, 0, 10, 10" Text="Name *"/>
                             <Entry Margin="20, 0, 10, 10" Text="{Binding VmDevicePingTemp.Name}"/>
                         </StackLayout>
-                        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
+                        <!--<StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
                             <Label Margin="20, 0, 10, 10" Text="Image"/>
                             <Picker Margin="20, 0, 10, 10"  
                                         ItemsSource="{Binding MainVm.ExistingImages}" 
                                         SelectedItem="{Binding VmDevicePingTemp.Image}"/>
-                        </StackLayout>
+                        </StackLayout>-->
                         <StackLayout VerticalOptions="Center" HorizontalOptions="Fill">
                             <Label Margin="20, 0, 10, 10" Text="Device Group ( Type ) *"/>
                             <Picker Margin="20, 0, 10, 10" 

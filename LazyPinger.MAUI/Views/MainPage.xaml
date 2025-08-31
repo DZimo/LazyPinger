@@ -27,11 +27,11 @@
 
                 <toolkit:Expander IsExpanded="{Binding IsQuickSettingsExpanded}">
                     <toolkit:Expander.Header>
-                        <Button Text="Quick Settings" Margin="20, 5, 20, 20" Background="Transparent">
+                        <Button Text="{Binding QuickSettingsText}" Margin="20, 5, 20, 20" Background="Transparent">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
-                                Size="18"
-                                Glyph="{x:Static helpers:MaterialIcons.Arrow_circle_down}"/>
+                                        Size="18"
+                                        Glyph="{x:Static helpers:MaterialIcons.Arrow_circle_down}"/>
                             </Button.ImageSource>
                         </Button>
                     </toolkit:Expander.Header>

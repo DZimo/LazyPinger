@@ -39,6 +39,9 @@ namespace LazyPingerMAUI.ViewModels
         [ObservableProperty]
         public string sloganRandomText = "Lazy Pinger * as fast as possible.";
 
+        [ObservableProperty]
+        public string quickSettingsText = "Expand Quick Settings";
+
         //[ObservableProperty]
         //public ObservableCollection<VmDevicesGroup> devicesGroup;
 
@@ -54,7 +57,7 @@ namespace LazyPingerMAUI.ViewModels
         private bool isPingIdle = true;
 
         [ObservableProperty]
-        private bool isPingIdle = true;
+        private bool isQuickSettingsExpanded = false;
 
         public MainViewModel(INetworkService networkService)
         {
@@ -233,6 +236,11 @@ namespace LazyPingerMAUI.ViewModels
             var order = new ObservableCollection<DevicePing>(DetectedDevices.OrderBy(o => o.IP));
             DetectedDevices.Clear();
             order.ToList().ForEach(o => { DetectedDevices.Add(o); });
+        }
+
+        partial void OnIsQuickSettingsExpandedChanged(bool oldValue, bool newValue)
+        {
+            QuickSettingsText = newValue ? "Hide Quick Settings" : "Expand Quick Settings";
         }
 
     }
