@@ -16,9 +16,11 @@ namespace LazyPinger.Core.Services
         private List<Task> pingTaskList = new List<Task>();
         public NetworkSettings NetworkSettings { get; set; } = new();
 
-        public NetworkService()
-        {
+        private ITextParserService textParserService;
 
+        public NetworkService(ITextParserService textParserService)
+        {
+            this.textParserService = textParserService;
         }
 
         public async Task InitNetworkSettings()
@@ -147,7 +149,8 @@ namespace LazyPinger.Core.Services
                 if (foundDevices.ToList().Exists(o => o.IP == foundIP))
                     continue;
 
-                var found = devicesPings?.Where(o => o.Entity.IP == foundIP).FirstOrDefault();
+                var found = devicesPings?.Where(o => o.Entity.IP == foundIP || ( textParserService.AddressToIntWithSubnet(o.MinRange) <= textParserService.AddressToIntWithSubnet(foundIP) 
+                                                                               && textParserService.AddressToIntWithSubnet(o.MaxRange) > textParserService.AddressToIntWithSubnet(foundIP))).FirstOrDefault();
 
                 foundDevices.Add(new DevicePing()
                 {

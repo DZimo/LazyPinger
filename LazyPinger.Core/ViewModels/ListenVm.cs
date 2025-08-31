@@ -204,8 +204,8 @@ namespace LazyPinger.Core.ViewModels
             {
                 UserPreference vmUserPreference => Instance.GetUserPreferences(),
                 UserSelection vmUserSelection => Instance.GetUserSelectionVm(),
-                DevicesGroup devicesGroup => Instance.GetDevicesGroupVm(),
-                DevicePing devicePing => Instance.GetDevicePingVm(),
+                VmDevicesGroup devicesGroup => Instance.GetDevicesGroupVm(),
+                VmDevicePing devicePing => Instance.GetDevicePingVm(),
                 _ => null
             };
 

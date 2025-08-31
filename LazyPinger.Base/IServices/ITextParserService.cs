@@ -10,6 +10,11 @@ namespace LazyPinger.Base.IServices
     {
         public string GetSubnetFromAddress(string address);
 
-        public string AddressToInt(string ip);
+        public string GetAddressFromSubnet(string ip);
+
+        public int AddressToInt(string address);
+
+        public int AddressToIntWithSubnet(string address);
+        
     }
 }

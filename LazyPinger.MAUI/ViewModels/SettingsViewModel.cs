@@ -57,10 +57,13 @@ namespace LazyPingerMAUI.ViewModels
             var newDevice = new DevicePing()
             {
                 Name = VmDevicePingTemp.Name,
-                DevicesGroup = VmDeviceGroupTemp.Entity,
+                DevicesGroup = VmDevicePingTemp.Group.Entity,
                 Image = [0, 2],
-                IP = VmDevicePingTemp.Entity.IP,
+                IP = VmDevicePingTemp.Ip,
                 UserSelectionID = ListenVm.Instance.UserSelectionsVm.EntityID,
+                SubnetRangeMax = VmDevicePingTemp.MaxRange,
+                SubnetRangeMin = VmDevicePingTemp.MinRange,
+                IsIpBased = VmDevicePingTemp.Ip is not null ? true : false,
             };
 
             try

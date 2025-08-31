@@ -44,6 +44,7 @@ namespace LazyPingerMAUI
 
         public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder mauiAppBuilder)
         {
+            mauiAppBuilder.Services.AddSingleton<ITextParserService, TextParserService>();
             mauiAppBuilder.Services.AddSingleton<INetworkService, NetworkService>();
             mauiAppBuilder.Services.AddSingleton<IPingerService, PingerService>();
             mauiAppBuilder.Services.AddSingleton<IArpDetectorService, ArpService>();

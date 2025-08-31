@@ -1,25 +1,34 @@
 ﻿using LazyPinger.Base.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LazyPinger.Core.Services
 {
     public class TextParserService : ITextParserService
     {
-        public string AddressToInt(string address)
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetSubnetFromAddress(string ip)
         {
             var list = ip.Split('.').ToList();
             var subnet = "";
             list.Take(list.Count - 1).ToList().ForEach(o => subnet += $"{o}.");
             return subnet;
+        }
+
+        public string GetAddressFromSubnet(string ip)
+        {
+            var list = ip.Split('.').ToList();
+            var address = "";
+            address = list.Last().ToString();
+            return address;
+        }
+
+        public int AddressToInt(string address)
+        {
+            return Int16.Parse(address);
+        }
+
+        public int AddressToIntWithSubnet(string address)
+        {
+            var res = GetAddressFromSubnet(address);
+            return Int16.Parse(res);
         }
     }
 }
