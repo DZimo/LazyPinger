@@ -15,6 +15,8 @@ namespace LazyPinger.Core.ViewModels
 
         public LazyPingerDbContext dbContext { get; set; } = new();
 
+        public readonly SemaphoreSlim dbLockSemaphore = new SemaphoreSlim(1, 1);
+
         private ListenVm() { }
 
         public ObservableCollection<DevicesGroup> devicesGroup;
@@ -96,7 +98,6 @@ namespace LazyPinger.Core.ViewModels
             {
                 userPreferencesVm = value;
                 OnPropertyChanged(nameof(UserPreferencesVm));
-
             }
         }
 
@@ -191,7 +192,7 @@ namespace LazyPinger.Core.ViewModels
             };
         }
 
-        public static void LoadAll()
+        public static void ReloadAllFromDatabase()
         {
             List<Action> action = [ Instance.GetUserPreferences(), Instance.GetUserSelectionVm(), Instance.GetDevicesGroupVm(), Instance.GetDevicesGroupVm(), Instance.GetDevicePingVm() ];
 

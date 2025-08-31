@@ -128,45 +128,68 @@ namespace LazyPingerMAUI.ViewModels
             try {
                 var db = ListenVm.Instance.dbContext;
 
-
-                await Task.Run( async () =>
+                try
                 {
+                    await db.Database.MigrateAsync();
+                    ListenVm.Instance.dbLockSemaphore.Release();
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                await Task.Run(async () =>
+                {
+                    await ListenVm.Instance.dbLockSemaphore.WaitAsync();
+
                     var res = db.Database.GetDbConnection().DataSource;
-                    lock (db)
+                    var userPreference = await db.UserPreferences.FirstOrDefaultAsync();
+
+                    if (userPreference is not null)
+                        return;
+
+                    var userSelectionTemp = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 10000 };
+                    var userPreferenceTemp = new UserPreference { Name = "Default Preference", UserSelection = userSelectionTemp };
+
+                    db.Add(userPreferenceTemp);
+
+                    var devicesGroupDefault = new DevicesGroup()
                     {
-                        var userPreference = db.UserPreferences.FirstOrDefault();
+                        Type = "Unknown",
+                        Color = "Yellow",
+                        UserSelection = userSelectionTemp,
+                    };
 
-                        if (userPreference is null)
-                        {
-                            var userSelectionTemp = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 10000 };
-                            var userPreferenceTemp = new UserPreference { Name = "Default Preference", UserSelection = userSelectionTemp };
-
-                            db.Add(userPreferenceTemp);
-                        }
-                    }
+                    db.Add(devicesGroupDefault);
+                    ListenVm.Instance.dbLockSemaphore.Release();
                 });
 
-                await Task.Run(() =>
-                {
-                    lock (db)
-                    {
-                        var devicesPingDb = db.DevicePings.Include(o => o.DevicesGroup).ToList().Select((o) => new VmDevicePing(o)
-                        {
-                            Name = o.Name,
-                            Image = o.Image,
-                            Group = new VmDevicesGroup(o.DevicesGroup),
-                            Ip = o?.IP,
-                        }).ToList();
 
-                        if (devicesPingDb is null)
-                            return;
+                //await Task.Run(async () =>
+                //{
+                //    await ListenVm.Instance.dbLockSemaphore.WaitAsync();
 
-                        DevicesPing = new ObservableCollection<VmDevicePing>(devicesPingDb);
-                    }
-                  
-                });
+
+                //    if (db.DevicePings is not null)
+                //        return;
+
+                //    var devicesPingDb = db.DevicePings?.Include(o => o.DevicesGroup).ToList().Select((o) => new VmDevicePing(o)
+                //    {
+                //        Name = o.Name,
+                //        Image = o?.Image,
+                //        Group = new VmDevicesGroup(o.DevicesGroup),
+                //        Ip = o?.IP,
+                //    }).ToList();
+
+                //    if (devicesPingDb is null)
+                //        return;
+
+                //    DevicesPing = new ObservableCollection<VmDevicePing>(devicesPingDb);
+                //    ListenVm.Instance.dbLockSemaphore.Release();
+                //});
 
                 await db.SaveChangesAsync();
+                ListenVm.ReloadAllFromDatabase();
             }
             catch (Exception ex) {
                 //
@@ -176,7 +199,6 @@ namespace LazyPingerMAUI.ViewModels
         private void InitMainVm(INetworkService networkService)
         {
             MainThread.InvokeOnMainThreadAsync( async () => {
-                ListenVm.LoadAll();
                  await networkService.InitNetworkSettings();
                  var addresses = networkService.NetworkSettings.HostAddresses.Where(o => o.AddressFamily == AddressFamily.InterNetwork).Select(o => o.ToString());
                  DetectedNetworkInterfaces = new ObservableCollection<string>(addresses);

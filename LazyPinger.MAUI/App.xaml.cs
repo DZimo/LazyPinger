@@ -15,17 +15,9 @@ namespace LazyPingerMAUI
             MainPage = new AppShell(services);
             Services = services;
 
-            using (var context = new LazyPingerDbContext())
-            {
-                try
-                {
-                    context.Database.Migrate();
-                }
-                catch (Exception ex) 
-                { 
+            using var context = new LazyPingerDbContext();
 
-                }
-            }
+         
         }
     }
 }

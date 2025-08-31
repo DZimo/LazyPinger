@@ -1,4 +1,5 @@
-﻿using LazyPinger.Core.Services;
+﻿using LazyPinger.Base.IServices;
+using LazyPinger.Core.Services;
 
 namespace LazyPinger.Tests.Services
 {
@@ -8,7 +9,7 @@ namespace LazyPinger.Tests.Services
         [TestMethod]
         public void InitNetworkSettingsTest()
         {
-            var networkService = new NetworkService();
+            var networkService = new NetworkService(new TextParserService());
             var res = networkService.InitNetworkSettings();
             Assert.IsNotNull(res);
         }
