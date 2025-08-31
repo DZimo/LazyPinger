@@ -17,7 +17,14 @@ namespace LazyPingerMAUI
 
             using (var context = new LazyPingerDbContext())
             {
-                context.Database.Migrate();
+                try
+                {
+                    context.Database.Migrate();
+                }
+                catch (Exception ex) 
+                { 
+
+                }
             }
         }
     }

@@ -6,11 +6,18 @@
     xmlns:views="clr-namespace:LazyPingerMAUI.Views"
     xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
     Shell.FlyoutBehavior="Flyout"
-    Shell.NavBarIsVisible="True"
+    NavigationPage.HasNavigationBar="False"
     Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
     Title="Lazy Pinger - as fast as possible">
 
+    <Shell.NavBarIsVisible>
+        <OnPlatform x:TypeArguments="x:Boolean">
+            <On Platform="Android" Value="True"/>
+            <On Platform="Windows" Value="False"/>
+        </OnPlatform>
+    </Shell.NavBarIsVisible>
+    
     <FlyoutItem Title="Home"
                 x:Name="MainTab">
         <FlyoutItem.Icon>

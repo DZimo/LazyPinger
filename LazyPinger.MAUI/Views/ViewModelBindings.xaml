@@ -43,9 +43,9 @@
                         Wrap="Wrap"
                         Direction="Row"
                         FlexLayout.AlignSelf="Center"
-                                   Margin="15, 25, 0, 25"
+                                   Margin="0, 0, 0, 0"
                                    HorizontalOptions="Center">
-                <Label  Style="{StaticResource SubHeadline}" 
+                <Label  Style="{StaticResource Defaultline}" 
                         VerticalOptions="Center" 
                         FlexLayout.Shrink="1"
                         LineBreakMode="WordWrap" 
@@ -56,8 +56,8 @@
                         VerticalOptions="Center" 
                         HorizontalOptions="Center"
                         Aspect="AspectFill"
-                        WidthRequest="75"
-                        HeightRequest="75"/>
+                        WidthRequest="50"
+                        HeightRequest="50"/>
             </FlexLayout>
         </Grid>
     </ControlTemplate>

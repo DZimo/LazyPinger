@@ -234,6 +234,14 @@
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 
+    <Style TargetType="Label" x:Key="MiniLine">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource SecondaryDarkText}, Dark={StaticResource White}}" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontFamily" Value="NotoSansMedium"/>
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
     <Style TargetType="ListView">
         <Setter Property="SeparatorColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
         <Setter Property="RefreshControlColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />

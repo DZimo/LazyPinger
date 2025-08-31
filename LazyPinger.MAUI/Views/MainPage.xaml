@@ -12,26 +12,26 @@
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:MainViewModel">
 
-    <Grid RowDefinitions="100, *">
+    <Grid RowDefinitions="50, *">
 
         <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
                      BindingContext="{Binding SloganRandomText}"/>
 
         <!-- MAIN -->
 
-        <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">
+        <ScrollView Grid.Row="1" Margin="20, 5, 20, 0">
             
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
                 
                 <FlexLayout Grid.Row="{Binding AnimationHandler.DevicesRow}"
                             Grid.RowSpan="{Binding AnimationHandler.DevicesRowSpan}"
-                            Margin="40, 0, 40, 5"
+                            Margin="0, 0, 5, 0"
                             FlexLayout.Grow="1"
                             Wrap="Wrap"
                             VerticalOptions="End">
 
                     <VerticalStackLayout FlexLayout.Grow="1">
-                        <Label Text="Network interface" Margin="5, 0, 0, 20"/>
+                        <Label Style="{StaticResource MiniLine}" Text="Network interface" Margin="0, 0, 0, 5"/>
 
                         <Picker FlexLayout.Grow="1"
                                 FlexLayout.Shrink="1"
@@ -41,18 +41,17 @@
                         </Picker>
                     </VerticalStackLayout>
 
-                    <Grid Margin="0, 2, 0, 5" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *, *" FlexLayout.AlignSelf="Stretch">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Range" Margin="10, 0, 0, 5"/>
+                    <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *, *" FlexLayout.AlignSelf="Stretch">
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="Range" Padding="0" Margin="0"/>
 
-                        <Label Grid.Row="0" Grid.Column="1"  Text="Timeout (ms)" Margin="20, 0, 0, 5"/>
+                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MiniLine}" Text="Timeout (ms)" Margin="0, 0, 0, 0"/>
 
-                        <Label Grid.Row="0" Grid.Column="2"  Text="Restart Time (ms)" Margin="20, 0, 0, 5"/>
+                        <Label Grid.Row="0" Grid.Column="2"  Style="{StaticResource MiniLine}" Text="Restart Time (ms)" Margin="0, 0, 0, 0"/>
 
-                        <Grid RowDefinitions="*, *" Margin="10, 0, 20, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
+                        <Grid RowDefinitions="*, *" Margin="0, 0, 0, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
                             <Entry Grid.Column="0"
                                    Keyboard="Numeric" 
                                    IsEnabled="False"
-                                   Margin="2, 0"
                                    MaxLength="3"
                                    Text="{Binding NetworkService.NetworkSettings.MinSubnetRange}"
                                    Placeholder="Min Range - 0" />
@@ -65,7 +64,6 @@
                         </Grid>
 
                         <Entry Keyboard="Numeric" 
-                               Margin="20, 0, 0, 0" 
                                HorizontalOptions="Fill"
                                Text="{Binding NetworkService.NetworkSettings.PingTimeout}"
                                Grid.Row="1"
@@ -74,7 +72,6 @@
 
                         <Entry Keyboard="Numeric" 
                                ClearButtonVisibility="WhileEditing"                            
-                               Margin="20, 0, 0, 0" 
                                IsEnabled="{Binding UserSelectionsVm.IsAutoRestartEnabled, Source={x:Static vmcore:ListenVm.Instance}}"
                                HorizontalOptions="Fill"                           
                                Text="{Binding UserSelectionsVm.AutoRestartTime, Source={x:Static vmcore:ListenVm.Instance}}"
@@ -88,13 +85,13 @@
                 <!-- BUTTONS -->
                 
                 <FlexLayout Grid.Row="2"
-                            Margin="40, 10, 40, 5">
+                            Margin="0, 10, 0, 0"
+                            Wrap="Wrap">
 
-                    <Button Margin="5"
+                    <Button 
                             IsEnabled="{Binding IsPingIdle}"
                             Command="{Binding PingAllCommand}"      
                             Text="Ping" 
-                            VerticalOptions="Center"
                             FlexLayout.Grow="1">
                         <Button.ImageSource>
                             <FontImageSource FontFamily="MaterialDesign"
@@ -106,10 +103,9 @@
                         </Button.CommandParameter>
                     </Button>
 
-                    <Button Margin="5"
+                    <Button 
                             Command="{Binding PingAllCommand}"
                             Text="Restart"
-                            VerticalOptions="Center"
                             IsEnabled="{Binding IsPingIdle}"
                             FlexLayout.Grow="1">
                         <Button.ImageSource>
@@ -122,10 +118,9 @@
                         </Button.CommandParameter>
                     </Button>
 
-                    <Button Margin="5"
+                    <Button 
                             Command="{Binding PingAllCommand}"
                             Text="Stop"
-                            VerticalOptions="Center"
                             FlexLayout.Grow="1">
                         <Button.ImageSource>
                             <FontImageSource FontFamily="MaterialDesign"
@@ -138,8 +133,8 @@
 
                 </FlexLayout>
 
-                <Border Margin="50, 10, 50, 5" Stroke="{StaticResource Primary}" Grid.Row="3">
-                    <FlexLayout Margin="50, 10, 50, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
+                <Border Margin="0, 10, 0, 0" Stroke="{StaticResource Primary}" Grid.Row="3">
+                    <FlexLayout Margin="0, 10, 0, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
                         <Grid>
                             <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
                         </Grid>
