@@ -36,7 +36,6 @@ namespace LazyPinger.Core.ViewModels
             this.Entity.FastPing = value;
         partial void OnAutoRestartTimeChanged(int value) =>
             this.Entity.AutoRestartTime = value;
-
         partial void OnIsAutoRestartEnabledChanged(bool value) =>
             this.Entity.AutoRestart = value;
     }

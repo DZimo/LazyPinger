@@ -1,5 +1,8 @@
-﻿using LazyPinger.Base.IServices;
+﻿using LazyPinger.Base.Entities;
+using LazyPinger.Base.IServices;
+using LazyPinger.Base.Models;
 using LazyPinger.Core.Utils;
+using LazyPinger.Core.ViewModels;
 using LazyPingerMAUI.ViewModels;
 
 namespace LazyPingerMAUI.Views
@@ -51,6 +54,20 @@ namespace LazyPingerMAUI.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            try
+            {
+                ListenVm.Instance.dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) 
+            {
+                
+            }
         }
     }
 

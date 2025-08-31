@@ -158,10 +158,8 @@ namespace LazyPinger.Core.Services
                     Name = (found is null ) ? AppResources.Device+ i : found.Name,
                     IP = foundIP,
                     Description = found?.Entity.Description,
-                    MacAddress = "XX:XX:XX:XX:XX",
                     Type = (found is null )? DeviceType.Unknown.ToString() : found.Entity.DevicesGroup.Type,
                     Color = (found is null) ? DeviceType.Unknown.ToString() : found.Entity.DevicesGroup.Color,
-                    Port = "-",
                     AnswerTime = $"{sendPing.RoundtripTime}ms",
                 });
             }

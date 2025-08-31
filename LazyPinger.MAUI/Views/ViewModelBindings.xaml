@@ -63,7 +63,10 @@
     </ControlTemplate>
 
     <toolkit:BoolToObjectConverter x:Key="IsValidConverter" 
-                 TrueObject="False"
-        FalseObject="True" />   
+                                   TrueObject="False"
+                                   FalseObject="True" />
+
+    <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+
 
 </ResourceDictionary>
