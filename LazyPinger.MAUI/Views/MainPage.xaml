@@ -24,10 +24,9 @@
             
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
 
-
                 <toolkit:Expander IsExpanded="{Binding IsQuickSettingsExpanded}">
                     <toolkit:Expander.Header>
-                        <Button Text="{Binding QuickSettingsText}" Margin="20, 5, 20, 20" Background="Transparent">
+                        <Button Text="{Binding QuickSettingsText}" Margin="20, 5, 20, 7" Background="Transparent">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
                                         Size="18"
@@ -35,6 +34,7 @@
                             </Button.ImageSource>
                         </Button>
                     </toolkit:Expander.Header>
+
                     <VerticalStackLayout>
 
                         <!-- QUICK SETTINGS -->
@@ -51,6 +51,7 @@
 
                                 <Picker FlexLayout.Grow="1"
                                 FlexLayout.Shrink="1"
+                                Margin="2"
                                 VerticalOptions="Fill"
                                 SelectedItem="{Binding SelectedNetworkInterface}"
                                 ItemsSource="{Binding DetectedNetworkInterfaces}">
@@ -68,12 +69,14 @@
                                     <Entry Grid.Column="0"
                                    Keyboard="Numeric" 
                                    IsEnabled="False"
+                                   Margin="2"
                                    MaxLength="3"
                                    Text="{Binding NetworkService.NetworkSettings.MinSubnetRange}"
                                    Placeholder="Min Range - 0" />
 
                                     <Entry Grid.Column="1"
                                    Keyboard="Numeric" 
+                                   Margin="2"
                                    MaxLength="3"
                                    Text="{Binding NetworkService.NetworkSettings.MaxSubnetRange}"
                                    Placeholder="Max Range - 255" />
@@ -83,6 +86,7 @@
                                HorizontalOptions="Fill"
                                Text="{Binding NetworkService.NetworkSettings.PingTimeout}"
                                Grid.Row="1"
+                               Margin="2"
                                Grid.Column="1"
                                Placeholder="10" />
 
@@ -92,6 +96,7 @@
                                HorizontalOptions="Fill"                           
                                Text="{Binding UserSelectionsVm.AutoRestartTime, Source={x:Static vmcore:ListenVm.Instance}}"
                                Grid.Row="1"
+                               Margin="2"        
                                Grid.Column="2"
                                Placeholder="10" />
 
@@ -108,6 +113,7 @@
                             IsEnabled="{Binding IsPingIdle}"
                             Command="{Binding PingAllCommand}"      
                             Text="Ping" 
+                            Margin="2"    
                             FlexLayout.Grow="1">
                                 <Button.ImageSource>
                                     <FontImageSource FontFamily="MaterialDesign"
@@ -122,6 +128,7 @@
                             <Button 
                             Command="{Binding PingAllCommand}"
                             Text="Restart"
+                            Margin="2"    
                             IsEnabled="{Binding IsPingIdle}"
                             FlexLayout.Grow="1">
                                 <Button.ImageSource>
@@ -137,6 +144,7 @@
                             <Button 
                             Command="{Binding PingAllCommand}"
                             Text="Stop"
+                            Margin="2"    
                             FlexLayout.Grow="1">
                                 <Button.ImageSource>
                                     <FontImageSource FontFamily="MaterialDesign"
@@ -151,16 +159,18 @@
 
                         <!-- INFOS -->
 
-                        <Border Margin="0, 10, 0, 0" Stroke="{StaticResource Primary}" Grid.Row="3">
-                            <FlexLayout Margin="0, 10, 0, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
-                                <Grid>
-                                    <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
-                                </Grid>
-                            </FlexLayout>
-                        </Border>
+                     
                     </VerticalStackLayout>
                 </toolkit:Expander>
 
+                <Border Margin="20, 10, 20, 20" Grid.Row="3">
+                    <FlexLayout Margin="0, 10, 0, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
+                        <Grid>
+                            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
+                        </Grid>
+                    </FlexLayout>
+                </Border>
+                
                 <!-- DEVICES -->
 
                 <ScrollView Grid.Row="4">
@@ -182,6 +192,7 @@
                         </BindableLayout.ItemTemplate>
                     </FlexLayout>
                 </ScrollView>
+                
             </Grid>
             
         </ScrollView>
