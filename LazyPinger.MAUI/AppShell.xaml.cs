@@ -1,14 +1,13 @@
-﻿namespace LazyPingerMAUI
+﻿using LazyPingerMAUI.ViewModels;
+
+namespace LazyPingerMAUI
 {
     public partial class AppShell : Shell
     {
-        public AppShell()
+        public AppShell(IServiceProvider service)
         {
             InitializeComponent();
-        }
-        private void OnHamburgerClicked(object sender, EventArgs e)
-        {
-            Shell.Current.FlyoutIsPresented = true;
+            this.BindingContext = service.GetServices<MainViewModel>().First();
         }
     }
 }

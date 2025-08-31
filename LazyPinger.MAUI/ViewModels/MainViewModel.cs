@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
-using LazyPinger.Base.Models;
 using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.User;
 using LazyPinger.Core.Utils;
@@ -10,7 +9,6 @@ using LazyPinger.Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Net.Sockets;
-using System.Reflection.Metadata;
 
 namespace LazyPingerMAUI.ViewModels
 {
@@ -37,7 +35,7 @@ namespace LazyPingerMAUI.ViewModels
         private string[] listOfRandomText = ["Lazy Pinger", "As fast as possible ", "Welcome to pinging", "Easy, and convenient", "Customize as you wish", "Tired of old tools"];
 
         [ObservableProperty]
-        public string sloganRandomText = "Lazy Pinger * as fast as possible.";
+        public string sloganRandomText = "Lazy Pinger";
 
         [ObservableProperty]
         public string quickSettingsText = "Expand Quick Settings";
@@ -69,9 +67,18 @@ namespace LazyPingerMAUI.ViewModels
                 AutoRestart();
 
                 while (true) {
+                    var rand = listOfRandomText[Random.Shared.Next(listOfRandomText.Count())];
+
                     await MainThread.InvokeOnMainThreadAsync(() =>
                     {
-                        SloganRandomText = listOfRandomText[Random.Shared.Next(listOfRandomText.Count())];
+                        try
+                        {
+                            SloganRandomText = rand;
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
                     });
                     await Task.Delay(5000);
                 }

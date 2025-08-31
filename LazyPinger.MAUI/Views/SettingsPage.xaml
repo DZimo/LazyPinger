@@ -11,12 +11,9 @@
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:SettingsViewModel">
 
-    <Grid RowDefinitions="50, *">
+    <Grid RowDefinitions="*">
 
-        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
-                     BindingContext="{Binding MainVm.SloganRandomText}"/>
-
-        <ScrollView Grid.Row="1" Margin="0, 25, 0, 0">
+        <ScrollView Grid.Row="0" Margin="0, 25, 0, 0">
 
             <Grid RowDefinitions="Auto, Auto ,*" 
                       ColumnDefinitions="*, *" 
@@ -63,7 +60,7 @@
                         <VerticalStackLayout Margin="20">
                             <Label Style="{StaticResource SubHeadlineAlternative}">Set your settings</Label>
 
-                            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <FlexLayout HorizontalOptions="Center" Direction="Row" AlignContent="Center" AlignItems="Center" Wrap="Wrap">
                                 <HorizontalStackLayout Margin="0, 20, 0, 20">
                                     <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Auto Run"/>
                                     <CheckBox VerticalOptions="Center" IsChecked="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}}"/>
@@ -76,7 +73,7 @@
                                     <Label VerticalOptions="Center" Margin="0, 0, 20, 0" Text="Auto Restart"/>
                                     <CheckBox VerticalOptions="Center" IsChecked="{Binding UserSelectionsVm.IsAutoRestartEnabled, Source={x:Static vmcore:ListenVm.Instance}}"/>
                                 </HorizontalStackLayout>
-                            </HorizontalStackLayout>
+                            </FlexLayout>
 
                             <Button Margin="20" 
                                         MaximumWidthRequest="400" 

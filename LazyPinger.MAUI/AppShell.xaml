@@ -5,18 +5,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:LazyPingerMAUI.Views"
     xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
+    xmlns:vm="clr-namespace:LazyPingerMAUI.ViewModels"
     Shell.FlyoutBehavior="Flyout"
     NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="True"
     Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}"
+    x:DataType="vm:MainViewModel"
     Title="Lazy Pinger - as fast as possible">
 
-    <Shell.NavBarIsVisible>
+    <!--<Shell.NavBarIsVisible>
         <OnPlatform x:TypeArguments="x:Boolean">
             <On Platform="Android" Value="True"/>
             <On Platform="Windows" Value="False"/>
         </OnPlatform>
-    </Shell.NavBarIsVisible>
+    </Shell.NavBarIsVisible>-->
+
+    <Shell.TitleView>
+        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
+                     BindingContext="{Binding SloganRandomText}"/>
+    </Shell.TitleView>
+
+    <Shell.FlyoutHeader>
+        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
+                     BindingContext="{Binding SloganRandomText}"/>
+    </Shell.FlyoutHeader>
     
     <FlyoutItem Title="Home"
                 x:Name="MainTab">

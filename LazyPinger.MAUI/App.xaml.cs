@@ -12,7 +12,7 @@ namespace LazyPingerMAUI
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new AppShell(services);
             Services = services;
 
             using (var context = new LazyPingerDbContext())

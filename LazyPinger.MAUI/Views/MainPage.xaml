@@ -13,14 +13,14 @@
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:MainViewModel">
 
-    <Grid RowDefinitions="50, *">
+    <Grid RowDefinitions="*">
 
-        <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
-                     BindingContext="{Binding SloganRandomText}"/>
+        <!--<ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
+                     BindingContext="{Binding SloganRandomText}"/>-->
 
         <!-- MAIN -->
 
-        <ScrollView Grid.Row="1" Margin="20, 5, 20, 0">
+        <ScrollView Margin="20, 5, 20, 0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
             
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
 

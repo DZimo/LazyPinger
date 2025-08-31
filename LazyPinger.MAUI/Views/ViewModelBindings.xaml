@@ -50,7 +50,7 @@
                         FlexLayout.Shrink="1"
                         LineBreakMode="WordWrap" 
                         TextColor="{StaticResource Primary}"
-                        Text="{Binding }">
+                        Text="{Binding .}">
                 </Label>
                 <Image  Source="lazy_pinger_logo.png" 
                         VerticalOptions="Center" 
