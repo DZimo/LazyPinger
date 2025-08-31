@@ -11,7 +11,7 @@
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:SettingsViewModel">
 
-    <Grid RowDefinitions="125, *">
+    <Grid RowDefinitions="50, *">
 
         <ContentView ControlTemplate="{StaticResource LazyPingerHeader}"
                      BindingContext="{Binding MainVm.SloganRandomText}"/>

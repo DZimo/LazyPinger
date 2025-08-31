@@ -9,6 +9,7 @@
              x:Class="LazyPingerMAUI.Views.MainPage"
              xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
              xmlns:vmcore="clr-namespace:LazyPinger.Core.ViewModels;assembly=LazyPinger.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
              x:DataType="vm:MainViewModel">
 
@@ -22,55 +23,70 @@
         <ScrollView Grid.Row="1" Margin="20, 5, 20, 0">
             
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
-                
-                <FlexLayout Grid.Row="{Binding AnimationHandler.DevicesRow}"
+
+
+                <toolkit:Expander IsExpanded="{Binding IsQuickSettingsExpanded}">
+                    <toolkit:Expander.Header>
+                        <Button Text="Quick Settings" Margin="20, 5, 20, 20" Background="Transparent">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                Size="18"
+                                Glyph="{x:Static helpers:MaterialIcons.Arrow_circle_down}"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </toolkit:Expander.Header>
+                    <VerticalStackLayout>
+
+                        <!-- QUICK SETTINGS -->
+
+                        <FlexLayout Grid.Row="{Binding AnimationHandler.DevicesRow}"
                             Grid.RowSpan="{Binding AnimationHandler.DevicesRowSpan}"
                             Margin="0, 0, 5, 0"
                             FlexLayout.Grow="1"
                             Wrap="Wrap"
                             VerticalOptions="End">
 
-                    <VerticalStackLayout FlexLayout.Grow="1">
-                        <Label Style="{StaticResource MiniLine}" Text="Network interface" Margin="0, 0, 0, 5"/>
+                            <VerticalStackLayout FlexLayout.Grow="1">
+                                <Label Style="{StaticResource MiniLine}" Text="Network interface" Margin="0, 0, 0, 5"/>
 
-                        <Picker FlexLayout.Grow="1"
+                                <Picker FlexLayout.Grow="1"
                                 FlexLayout.Shrink="1"
                                 VerticalOptions="Fill"
                                 SelectedItem="{Binding SelectedNetworkInterface}"
                                 ItemsSource="{Binding DetectedNetworkInterfaces}">
-                        </Picker>
-                    </VerticalStackLayout>
+                                </Picker>
+                            </VerticalStackLayout>
 
-                    <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *, *" FlexLayout.AlignSelf="Stretch">
-                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="Range" Padding="0" Margin="0"/>
+                            <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *, *" FlexLayout.AlignSelf="Stretch">
+                                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="Range" Padding="0" Margin="0"/>
 
-                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MiniLine}" Text="Timeout (ms)" Margin="0, 0, 0, 0"/>
+                                <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MiniLine}" Text="Timeout (ms)" Margin="0, 0, 0, 0"/>
 
-                        <Label Grid.Row="0" Grid.Column="2"  Style="{StaticResource MiniLine}" Text="Restart Time (ms)" Margin="0, 0, 0, 0"/>
+                                <Label Grid.Row="0" Grid.Column="2"  Style="{StaticResource MiniLine}" Text="Restart Time (ms)" Margin="0, 0, 0, 0"/>
 
-                        <Grid RowDefinitions="*, *" Margin="0, 0, 0, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
-                            <Entry Grid.Column="0"
+                                <Grid RowDefinitions="*, *" Margin="0, 0, 0, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
+                                    <Entry Grid.Column="0"
                                    Keyboard="Numeric" 
                                    IsEnabled="False"
                                    MaxLength="3"
                                    Text="{Binding NetworkService.NetworkSettings.MinSubnetRange}"
                                    Placeholder="Min Range - 0" />
 
-                            <Entry Grid.Column="1"
+                                    <Entry Grid.Column="1"
                                    Keyboard="Numeric" 
                                    MaxLength="3"
                                    Text="{Binding NetworkService.NetworkSettings.MaxSubnetRange}"
                                    Placeholder="Max Range - 255" />
-                        </Grid>
+                                </Grid>
 
-                        <Entry Keyboard="Numeric" 
+                                <Entry Keyboard="Numeric" 
                                HorizontalOptions="Fill"
                                Text="{Binding NetworkService.NetworkSettings.PingTimeout}"
                                Grid.Row="1"
                                Grid.Column="1"
                                Placeholder="10" />
 
-                        <Entry Keyboard="Numeric" 
+                                <Entry Keyboard="Numeric" 
                                ClearButtonVisibility="WhileEditing"                            
                                IsEnabled="{Binding UserSelectionsVm.IsAutoRestartEnabled, Source={x:Static vmcore:ListenVm.Instance}}"
                                HorizontalOptions="Fill"                           
@@ -79,67 +95,71 @@
                                Grid.Column="2"
                                Placeholder="10" />
 
-                    </Grid>
-                </FlexLayout>
+                            </Grid>
+                        </FlexLayout>
 
-                <!-- BUTTONS -->
-                
-                <FlexLayout Grid.Row="2"
+                        <!-- BUTTONS -->
+
+                        <FlexLayout Grid.Row="2"
                             Margin="0, 10, 0, 0"
                             Wrap="Wrap">
 
-                    <Button 
+                            <Button 
                             IsEnabled="{Binding IsPingIdle}"
                             Command="{Binding PingAllCommand}"      
                             Text="Ping" 
                             FlexLayout.Grow="1">
-                        <Button.ImageSource>
-                            <FontImageSource FontFamily="MaterialDesign"
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="MaterialDesign"
                                 Size="18"
                                 Glyph="{x:Static helpers:MaterialIcons.Network_node}"/>
-                        </Button.ImageSource>
-                        <Button.CommandParameter>
-                            <sys:Boolean>False</sys:Boolean>
-                        </Button.CommandParameter>
-                    </Button>
+                                </Button.ImageSource>
+                                <Button.CommandParameter>
+                                    <sys:Boolean>False</sys:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
 
-                    <Button 
+                            <Button 
                             Command="{Binding PingAllCommand}"
                             Text="Restart"
                             IsEnabled="{Binding IsPingIdle}"
                             FlexLayout.Grow="1">
-                        <Button.ImageSource>
-                            <FontImageSource FontFamily="MaterialDesign"
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="MaterialDesign"
                                              Size="18"
                                              Glyph="{x:Static helpers:MaterialIcons.Restart_alt}"/>
-                        </Button.ImageSource>
-                        <Button.CommandParameter>
-                            <sys:Boolean>True</sys:Boolean>
-                        </Button.CommandParameter>
-                    </Button>
+                                </Button.ImageSource>
+                                <Button.CommandParameter>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
 
-                    <Button 
+                            <Button 
                             Command="{Binding PingAllCommand}"
                             Text="Stop"
                             FlexLayout.Grow="1">
-                        <Button.ImageSource>
-                            <FontImageSource FontFamily="MaterialDesign"
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="MaterialDesign"
                                              Size="18"
                                              Glyph="{x:Static helpers:MaterialIcons.Stop_circle}"/>
-                        </Button.ImageSource>
-                    </Button>
+                                </Button.ImageSource>
+                            </Button>
 
-                    <!--IsEnabled="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}, Converter={StaticResource IsValidConverter}}"-->
+                            <!--IsEnabled="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}, Converter={StaticResource IsValidConverter}}"-->
 
-                </FlexLayout>
+                        </FlexLayout>
 
-                <Border Margin="0, 10, 0, 0" Stroke="{StaticResource Primary}" Grid.Row="3">
-                    <FlexLayout Margin="0, 10, 0, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
-                        <Grid>
-                            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
-                        </Grid>
-                     </FlexLayout>
-                </Border>
+                        <!-- INFOS -->
+
+                        <Border Margin="0, 10, 0, 0" Stroke="{StaticResource Primary}" Grid.Row="3">
+                            <FlexLayout Margin="0, 10, 0, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
+                                <Grid>
+                                    <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
+                                </Grid>
+                            </FlexLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </toolkit:Expander>
 
                 <!-- DEVICES -->
 

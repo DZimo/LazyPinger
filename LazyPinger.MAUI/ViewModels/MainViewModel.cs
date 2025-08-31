@@ -53,6 +53,9 @@ namespace LazyPingerMAUI.ViewModels
         [ObservableProperty]
         private bool isPingIdle = true;
 
+        [ObservableProperty]
+        private bool isPingIdle = true;
+
         public MainViewModel(INetworkService networkService)
         {
             InitMainVm(networkService);
