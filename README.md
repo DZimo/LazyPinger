@@ -3,7 +3,7 @@
 ## A very fast C# pinger with a nice UI
 ## Are you tired of old pingers 😿 that are slow and have a very outdated UI? Then this is your new pinger tool 🤖!"
 
-![lazy_pinger gui](lazy_pinger_gui.png)
+![lazy_pinger gui](lazy_pinger_main_gui.gif)
 
 # How it works ?
 
@@ -42,6 +42,9 @@ Choose your specific platform first:
 *           F-Droid or Playstore APK ❌ Soon
             Direct apk from release ❌ Soon
 
+# Known Issues and limitations
+         * For windows there is no need to install the software as an Appx but dotnet must be installed in the machine.
+         * Android still have some UI and responsivness issue depending on the phone.
 
 # FAQ?
 
