@@ -183,7 +183,7 @@
                                 <views:DeviceView DevicePing="{Binding}">
                                     <views:DeviceView.MaximumWidthRequest>
                                         <OnIdiom x:TypeArguments="x:Double"
-                                                 Phone="125"
+                                                 Phone="150"
                                                  Desktop="250"
                                                  Tablet="250" />
                                     </views:DeviceView.MaximumWidthRequest>
