@@ -26,7 +26,7 @@
 
                 <toolkit:Expander IsExpanded="{Binding IsQuickSettingsExpanded}">
                     <toolkit:Expander.Header>
-                        <Button Text="{Binding QuickSettingsText}" Margin="20, 5, 20, 7" Background="Transparent">
+                        <Button Style="{StaticResource MiniLine}" Text="{Binding QuickSettingsText}" Margin="20, 5, 20, 7" Background="{StaticResource Tertiary}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
                                         Size="18"
