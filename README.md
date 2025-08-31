@@ -22,13 +22,13 @@ Too lazy ? then
 
 # Compatibility
 
-| OS              	| Status           | Tested    |
-| :---------------- | :------------    | --------: |
-| Windows       	  | ✅ Supported    | ✅ Tested |
-| Linux             | ❌ Not yet      | ❌ Not yet |
-| Android   		    | ❌ Not yet      | ❌ Not yet |
-| iOS		 	          | ❌ Not yet      | ❌ Not yet |
-| macOS  			      | ❌ Not yet      | ❌ Not yet |
+| OS              	| Status    | Tested Platform        |
+| :---------------- | :------------    | ---------------------: |
+| Windows       	  | ✅ Supported    | ✅ Windows 11          |
+| Android   	  | ✅ Supported    | ✅ Android 29 & 36     |
+| Linux             | ❌ Not yet      | ❌ Not yet             |
+| iOS		  | ❌ Not yet      | ❌ Not yet             |
+| macOS  	  | ❌ Not yet      | ❌ Not yet             |
 
 # How to run ?
 
