@@ -138,7 +138,7 @@ namespace LazyPingerMAUI.ViewModels
 
                         if (userPreference is null)
                         {
-                            var userSelectionTemp = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 1000 };
+                            var userSelectionTemp = new UserSelection { AutoRun = true, FastPing = true, AutoRestart = true, AutoRestartTime = 10000 };
                             var userPreferenceTemp = new UserPreference { Name = "Default Preference", UserSelection = userSelectionTemp };
 
                             db.Add(userPreferenceTemp);

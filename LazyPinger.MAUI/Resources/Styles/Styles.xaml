@@ -239,7 +239,7 @@
         <Setter Property="FontSize" Value="10" />
         <Setter Property="FontFamily" Value="NotoSansMedium"/>
         <!--<Setter Property="HorizontalOptions" Value="Center" />-->
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <!--<Setter Property="HorizontalTextAlignment" Value="Center" />-->
     </Style>
 
     <Style TargetType="ListView">
