@@ -32,22 +32,30 @@
     </Shell.FlyoutHeader>
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-            <Tab Title="Home">
+        <Tab Title="Home">
             <Tab.Icon>
                 <FontImageSource FontFamily="MaterialDesign"
                  Size="18"
                  Glyph="{x:Static helpers:MaterialIcons.Home}"/>
             </Tab.Icon>
-                <ShellContent Title="Test"  ContentTemplate="{DataTemplate views:MainPage}" Route="main"/>
-            </Tab>
-            <Tab Title="Settings">
+            <ShellContent Title="Home" ContentTemplate="{DataTemplate views:MainPage}" Route="main"/>
+        </Tab>
+        <Tab Title="Network">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialDesign"
+                Size="18"
+                Glyph="{x:Static helpers:MaterialIcons.Network_node}"/>
+            </Tab.Icon>
+            <ShellContent Title="Network"  ContentTemplate="{DataTemplate views:NetworkPage}" Route="network"/>
+        </Tab>
+        <Tab Title="Settings">
             <Tab.Icon>
                 <FontImageSource FontFamily="MaterialDesign"
                                  Size="18"
-                                 Glyph="{x:Static helpers:MaterialIcons.Settings}"/>  
+                                 Glyph="{x:Static helpers:MaterialIcons.Settings}"/>
             </Tab.Icon>
-            <ShellContent Title="Test" ContentTemplate="{DataTemplate views:SettingsPage}" Route="settings"/>
-            </Tab>
+            <ShellContent Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}" Route="settings"/>
+        </Tab>
     </FlyoutItem>
 
     <!--<Shell.ItemTemplate>

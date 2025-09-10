@@ -135,4 +135,10 @@
 	  <Folder Include="PublishProfiles\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Views\NetworkPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
+	</ItemGroup>
+
 </Project>
