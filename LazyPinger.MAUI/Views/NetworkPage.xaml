@@ -30,25 +30,25 @@
                             Wrap="Wrap"
                             VerticalOptions="End">
 
-                        <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *, *" FlexLayout.AlignSelf="Stretch">
+                        <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *" FlexLayout.AlignSelf="Stretch">
                             <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="TCP Port" Padding="0" Margin="0"/>
                             
-                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="UDP Port" Padding="0" Margin="0"/>
+                            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MiniLine}" Text="UDP Port" Padding="0" Margin="0"/>
 
                             <Entry Keyboard="Numeric" 
                                HorizontalOptions="Fill"
                                Grid.Row="1"
                                Margin="2"
-                               Grid.Column="1"
-                               Placeholder="10" />
+                               Grid.Column="0"
+                               Placeholder="1880" />
 
                             <Entry Keyboard="Numeric" 
                                ClearButtonVisibility="WhileEditing"                            
                                HorizontalOptions="Fill"                           
                                Grid.Row="1"
                                Margin="2"        
-                               Grid.Column="2"
-                               Placeholder="10" />
+                               Grid.Column="1"
+                               Placeholder="1880" />
 
                         </Grid>
                     
@@ -67,7 +67,7 @@
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
                                 Size="18"
-                                Glyph="{x:Static helpers:MaterialIcons.Network_node}"/>
+                                Glyph="{x:Static helpers:MaterialIcons.Enable}"/>
                             </Button.ImageSource>
                             <Button.CommandParameter>
                                 <sys:Boolean>False</sys:Boolean>
@@ -81,13 +81,70 @@
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
                                              Size="18"
-                                             Glyph="{x:Static helpers:MaterialIcons.Restart_alt}"/>
+                                             Glyph="{x:Static helpers:MaterialIcons.Enable}"/>
                             </Button.ImageSource>
                             <Button.CommandParameter>
                                 <sys:Boolean>True</sys:Boolean>
                             </Button.CommandParameter>
                         </Button>
                     </FlexLayout>
+
+                    
+                    <!-- Message -->
+                    
+                    <FlexLayout Direction="Row" Margin="10">
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Message" />
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Message"/>
+                    </FlexLayout>
+               
+                    <FlexLayout Direction="Row">
+                        
+                        <Entry Margin="10" HeightRequest="100" FlexLayout.Grow="1">
+                            
+                        </Entry>
+
+                        <Entry Margin="10" HeightRequest="100" FlexLayout.Grow="1">
+                            
+                        </Entry>
+                    </FlexLayout>
+
+
+                    <!-- BUTTONS -->
+
+                    <FlexLayout Grid.Row="2"
+                            Margin="0, 10, 0, 0"
+                            HorizontalOptions="Center"
+                            Wrap="Wrap">
+
+                        <Button 
+                            Text="Send TCP" 
+                            HorizontalOptions="Center" FlexLayout.Grow="1" 
+                            Margin="2">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                Size="18"
+                                Glyph="{x:Static helpers:MaterialIcons.Send}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>False</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+
+                        <Button 
+                            Text="Send UDP"
+                            HorizontalOptions="Center" FlexLayout.Grow="1" 
+                            Margin="2">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Send}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>True</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </FlexLayout>
+                    
                 </VerticalStackLayout>
             </Grid>
             
