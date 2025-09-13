@@ -49,13 +49,26 @@ namespace LazyPinger.Core.Services
             return ipList.ToArray();
         }
 
-        public async Task<TcpListener?> StartServer(string selectedIP, int selectedPort)
+        public async Task<TcpListener?> StartTcpServer(string selectedIP, int selectedPort)
         {
             await Task.Run(() =>
             {
                 var serverIP = IPAddress.Parse(selectedIP);
                 var server = new TcpListener(serverIP, selectedPort);
                 server.Start();
+                return server;
+            });
+            return null;
+        }
+
+
+        public async Task<UdpClient?> StartUdpServer(string selectedIP, int selectedPort)
+        {
+            await Task.Run(() =>
+            {
+                var serverIP = IPAddress.Parse(selectedIP);
+                var server = new UdpClient(selectedPort, AddressFamily.InterNetwork);
+                server.ReceiveAsync();
                 return server;
             });
             return null;

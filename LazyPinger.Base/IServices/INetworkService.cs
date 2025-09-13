@@ -11,7 +11,9 @@ namespace LazyPinger.Base.IServices
 
         public Task InitNetworkSettings();
 
-        public Task<TcpListener?> StartServer(string selectedIP, int selectedPort);
+        public Task<TcpListener?> StartTcpServer(string selectedIP, int selectedPort);
+
+        public Task<UdpClient?> StartUdpServer(string selectedIP, int selectedPort);
 
         public Task<bool> PingAll( ObservableCollection<DevicePing> foundDevices);
 
