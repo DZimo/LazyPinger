@@ -12,11 +12,20 @@ namespace LazyPinger.Base.Models.Network
 
         public string IpAddress { get; set; }
 
-        public List<IPAddress> HostAddresses { get; set; }
+        public List<IPAddress> HostAddresses { get; set; } = new();
 
-        public string SubnetAddress { get; set; }
+        private string subnetAddress = string.Empty;
 
-        public string GatewayAddress { get; set; }
+        public string SubnetAddress 
+        {
+            get => subnetAddress;
+            set
+            {
+                subnetAddress = value;
+            }
+        }
+
+        public string GatewayAddress { get; set; } = string.Empty;
 
 
         public string MacDictionaryFile = "ListofMAC.txt";

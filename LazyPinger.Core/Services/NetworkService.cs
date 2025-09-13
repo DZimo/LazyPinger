@@ -4,6 +4,7 @@ using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.Network;
 using LazyPinger.Core.ViewModels;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -27,6 +28,12 @@ namespace LazyPinger.Core.Services
         {
             var res = await GetHostIPs();
             NetworkSettings.HostAddresses = res.ToList();
+            var ip = res.FirstOrDefault();
+
+            if (ip is null)
+                return;
+  
+            NetworkSettings.IpAddress = ip.ToString();
         }
 
         public async Task<IPAddress[]> GetHostIPs()
@@ -54,24 +61,41 @@ namespace LazyPinger.Core.Services
             if (selectedIP is null)
                 return null;
 
+            var serverIP = IPAddress.Parse(selectedIP);
+            var server = new TcpListener(serverIP, selectedPort);
+            server.Start();
+            return server;
+        }
+
+        public async Task<UdpClient?> StartUdpServer(string? selectedIP, int selectedPort)
+        {
+            var serverIP = IPAddress.Parse(selectedIP);
+            var server = new UdpClient(selectedPort, AddressFamily.InterNetwork);
+            var res = await server.ReceiveAsync();
+            return server;
+        }
+
+        public async Task<TcpClient?> StartTcpClient(string? selectedIP, int selectedPort)
+        {
+            if (selectedIP is null)
+                return null;
+
+            var longIP = IpStringToLong(selectedIP);
+            var ipEndPoint = new IPEndPoint(longIP, selectedPort);
+            var client = new TcpClient();
+            await client.ConnectAsync(ipEndPoint);
+            return client;
+        }
+        public async Task<UdpClient?> StartUdpClient(string? selectedIP, int selectedPort)
+        {
+            if (selectedIP is null)
+                return null;
+
             await Task.Run(() =>
             {
                 var serverIP = IPAddress.Parse(selectedIP);
                 var server = new TcpListener(serverIP, selectedPort);
                 server.Start();
-                return server;
-            });
-            return null;
-        }
-
-
-        public async Task<UdpClient?> StartUdpServer(string selectedIP, int selectedPort)
-        {
-            await Task.Run(() =>
-            {
-                var serverIP = IPAddress.Parse(selectedIP);
-                var server = new UdpClient(selectedPort, AddressFamily.InterNetwork);
-                server.ReceiveAsync();
                 return server;
             });
             return null;
@@ -103,7 +127,27 @@ namespace LazyPinger.Core.Services
             return macs;
         }
 
-        public bool SendUDP(string selectedIP, string msg, int defaultPort, bool broadcast = false)
+        public async Task<bool> SendTCP(string? selectedIP, string msg, int defaultPort, bool broadcast = false)
+        {
+            try
+            {
+                var client = await StartTcpClient(selectedIP, defaultPort);
+                await using NetworkStream stream = client.GetStream();
+
+                string messageToSend = "TEST TCP";
+                byte[] messageBytes = Encoding.UTF8.GetBytes(messageToSend);
+                await stream.WriteAsync(messageBytes, 0, messageBytes.Length);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
+        public bool SendUDP(string? selectedIP, string msg, int defaultPort, bool broadcast = false)
         {
             try
             {
@@ -179,6 +223,13 @@ namespace LazyPinger.Core.Services
                     AnswerTime = $"{sendPing.RoundtripTime}ms",
                 });
             }
+        }
+
+        public static long IpStringToLong(string ipAddress)
+        {
+            var addressBytes = IPAddress.Parse(ipAddress).GetAddressBytes();
+            Array.Reverse(addressBytes);
+            return BitConverter.ToUInt32(addressBytes, 0);
         }
     }
 }

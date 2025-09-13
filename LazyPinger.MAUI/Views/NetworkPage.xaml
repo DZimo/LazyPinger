@@ -127,6 +127,7 @@
                         <Button 
                             Text="Send TCP" 
                             HorizontalOptions="Center" FlexLayout.Grow="1" 
+                            Command="{Binding SendTcpMessageCommand}"
                             Margin="2">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
@@ -141,6 +142,7 @@
                         <Button 
                             Text="Send UDP"
                             HorizontalOptions="Center" FlexLayout.Grow="1" 
+                            Command="{Binding SendUdpMessageCommand}"
                             Margin="2">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"

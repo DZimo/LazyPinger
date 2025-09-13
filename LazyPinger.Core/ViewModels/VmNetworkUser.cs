@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using LazyPinger.Base.Entities;
+using System.Net.Sockets;
 
 namespace LazyPinger.Core.ViewModels
 {
@@ -22,5 +23,11 @@ namespace LazyPinger.Core.ViewModels
 
         [ObservableProperty]
         private string sentUdpMessage = string.Empty;
+
+        [ObservableProperty]
+        private TcpListener? tcpListener;
+
+        [ObservableProperty]
+        private UdpClient? udpClient;
     }
 }

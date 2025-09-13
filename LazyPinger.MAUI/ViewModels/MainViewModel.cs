@@ -237,6 +237,8 @@ namespace LazyPingerMAUI.ViewModels
 
         partial void OnSelectedNetworkInterfaceChanged(string value)
         {
+            NetworkService.NetworkSettings.IpAddress = value;
+
             detectedDevices.Clear();
 
             var res = GetSubnetFromIp(value);
