@@ -1,8 +1,4 @@
-﻿using LazyPinger.Base.Entities;
-using LazyPinger.Base.IServices;
-using LazyPinger.Base.Models;
-using LazyPinger.Core.Utils;
-using LazyPinger.Core.ViewModels;
+﻿using LazyPinger.Base.IServices;
 using LazyPingerMAUI.ViewModels;
 
 namespace LazyPingerMAUI.Views
@@ -20,7 +16,7 @@ namespace LazyPingerMAUI.Views
             _networkService = networkService;
             _mainViewModel = mainVm;
 
-            this.BindingContext = _mainViewModel;
+            this.BindingContext = new NetworkViewModel(networkService, mainVm);
         }
 
         protected override void OnAppearing()

@@ -2,9 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
-using LazyPinger.Base.Models.Devices;
 using LazyPinger.Core.ViewModels;
-using CommunityToolkit.Maui;
 
 namespace LazyPingerMAUI.ViewModels
 {
@@ -13,10 +11,7 @@ namespace LazyPingerMAUI.ViewModels
         public MainViewModel MainVm { get; set; }
 
         [ObservableProperty]
-        private int tcpPort;
-
-        [ObservableProperty]
-        private int udpPort;
+        private VmNetworkUser vmNetworkUser = new();
 
         public NetworkViewModel(INetworkService networkService, MainViewModel mainViewModel)
         {
@@ -26,13 +21,13 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public async Task StartTcpServer()
         {
-           await MainVm.NetworkService.StartTcpServer(MainVm.NetworkService.NetworkSettings.IpAddress, TcpPort);
+           await MainVm.NetworkService.StartTcpServer(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.TcpPort);
         }
 
         [RelayCommand]
         public async Task StartUdpServer()
         {
-            await MainVm.NetworkService.StartUdpServer(MainVm.NetworkService.NetworkSettings.IpAddress, UdpPort);
+            await MainVm.NetworkService.StartUdpServer(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.UdpPort);
         }
     }
 }

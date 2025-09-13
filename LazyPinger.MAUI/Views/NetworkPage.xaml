@@ -11,7 +11,7 @@
              xmlns:vmcore="clr-namespace:LazyPinger.Core.ViewModels;assembly=LazyPinger.Core"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
-             x:DataType="vm:MainViewModel">
+             x:DataType="vm:NetworkViewModel">
 
     <Grid RowDefinitions="*">
 
@@ -39,6 +39,7 @@
                                HorizontalOptions="Fill"
                                Grid.Row="1"
                                Margin="2"
+                               Text="{Binding VmNetworkUser.TcpPort}"
                                Grid.Column="0"
                                Placeholder="1880" />
 
@@ -47,6 +48,7 @@
                                HorizontalOptions="Fill"                           
                                Grid.Row="1"
                                Margin="2"        
+                               Text="{Binding VmNetworkUser.UdpPort}"
                                Grid.Column="1"
                                Placeholder="1880" />
 
@@ -63,6 +65,7 @@
                         <Button 
                             Text="Open TCP" 
                             Margin="2"    
+                            Command="{Binding StartTcpServerCommand}"
                             FlexLayout.Grow="1">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
@@ -77,6 +80,7 @@
                         <Button 
                             Text="Open UDP"
                             Margin="2"    
+                            Command="{Binding StartUdpServerCommand}"
                             FlexLayout.Grow="1">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
@@ -93,23 +97,27 @@
                     <!-- Message -->
                     
                     <FlexLayout Direction="Row" Margin="10">
-                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Message" />
-                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Message"/>
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Sender" />
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Sender"/>
                     </FlexLayout>
                
                     <FlexLayout Direction="Row">
                         
-                        <Entry Margin="10" HeightRequest="100" FlexLayout.Grow="1">
+                        <Entry Margin="10" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.SentTcpMessage}">
                             
                         </Entry>
 
-                        <Entry Margin="10" HeightRequest="100" FlexLayout.Grow="1">
-                            
+                        <Entry Margin="10" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.SentUdpMessage}">
                         </Entry>
                     </FlexLayout>
 
-
-                    <!-- BUTTONS -->
+                    <!-- Buttons -->
 
                     <FlexLayout Grid.Row="2"
                             Margin="0, 10, 0, 0"
@@ -144,7 +152,34 @@
                             </Button.CommandParameter>
                         </Button>
                     </FlexLayout>
-                    
+        
+                    <!-- Received Message -->
+
+                    <FlexLayout Direction="Row" Margin="10">
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Receiver" />
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Receiver"/>
+                    </FlexLayout>
+
+                    <FlexLayout Direction="Row">
+
+                        <Entry Margin="10" 
+                               IsEnabled="False"
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.ReceivedTcpMessage}">
+
+                        </Entry>
+
+                        <Entry Margin="10" 
+                               IsEnabled="False" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.ReceivedUdpMessage}">
+
+                        </Entry>
+                    </FlexLayout>
+
+
                 </VerticalStackLayout>
             </Grid>
             

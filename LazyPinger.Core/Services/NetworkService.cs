@@ -49,8 +49,11 @@ namespace LazyPinger.Core.Services
             return ipList.ToArray();
         }
 
-        public async Task<TcpListener?> StartTcpServer(string selectedIP, int selectedPort)
+        public async Task<TcpListener?> StartTcpServer(string? selectedIP, int selectedPort)
         {
+            if (selectedIP is null)
+                return null;
+
             await Task.Run(() =>
             {
                 var serverIP = IPAddress.Parse(selectedIP);
