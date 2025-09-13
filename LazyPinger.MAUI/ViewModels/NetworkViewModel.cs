@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Core.ViewModels;
+using System.Net.Sockets;
 using System.Text;
 
 namespace LazyPingerMAUI.ViewModels

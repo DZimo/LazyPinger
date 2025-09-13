@@ -1,4 +1,5 @@
 ﻿using LazyPinger.Base.IServices;
+using System.Net;
 
 namespace LazyPinger.Core.Services
 {
@@ -29,6 +30,16 @@ namespace LazyPinger.Core.Services
         {
             var res = GetAddressFromSubnet(address);
             return Int16.Parse(res);
+        }
+
+        public long AddressToLong(string address, bool isReversed = false)
+        {
+            var addressBytes = IPAddress.Parse(address).GetAddressBytes();
+
+            if (isReversed)
+                addressBytes.Reverse();
+
+            return BitConverter.ToUInt32(addressBytes, 0);
         }
     }
 }

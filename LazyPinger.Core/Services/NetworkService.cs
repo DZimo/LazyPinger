@@ -32,7 +32,7 @@ namespace LazyPinger.Core.Services
 
             if (ip is null)
                 return;
-  
+
             NetworkSettings.IpAddress = ip.ToString();
         }
 
@@ -80,7 +80,7 @@ namespace LazyPinger.Core.Services
             if (selectedIP is null)
                 return null;
 
-            var longIP = IpStringToLong(selectedIP);
+            var longIP = textParserService.AddressToLong(selectedIP);
             var ipEndPoint = new IPEndPoint(longIP, selectedPort);
             var client = new TcpClient();
             await client.ConnectAsync(ipEndPoint);
@@ -134,8 +134,7 @@ namespace LazyPinger.Core.Services
                 var client = await StartTcpClient(selectedIP, defaultPort);
                 await using NetworkStream stream = client.GetStream();
 
-                string messageToSend = "TEST TCP";
-                byte[] messageBytes = Encoding.UTF8.GetBytes(messageToSend);
+                byte[] messageBytes = Encoding.UTF8.GetBytes(msg);
                 await stream.WriteAsync(messageBytes, 0, messageBytes.Length);
 
                 return true;
@@ -209,27 +208,20 @@ namespace LazyPinger.Core.Services
                 if (foundDevices.ToList().Exists(o => o.IP == foundIP))
                     continue;
 
-                var found = devicesPings?.Where(o => o.Entity.IP == foundIP || ( textParserService.AddressToIntWithSubnet(o.MinRange) <= textParserService.AddressToIntWithSubnet(foundIP) 
+                var found = devicesPings?.Where(o => o.Entity.IP == foundIP || (textParserService.AddressToIntWithSubnet(o.MinRange) <= textParserService.AddressToIntWithSubnet(foundIP)
                                                                                && textParserService.AddressToIntWithSubnet(o.MaxRange) > textParserService.AddressToIntWithSubnet(foundIP))).FirstOrDefault();
 
                 foundDevices.Add(new DevicePing()
                 {
                     ID = foundDevices.Count,
-                    Name = (found is null ) ? AppResources.Device+ i : found.Name,
+                    Name = (found is null) ? AppResources.Device + i : found.Name,
                     IP = foundIP,
                     Description = found?.Entity.Description,
-                    Type = (found is null )? DeviceType.Unknown.ToString() : found.Entity.DevicesGroup.Type,
+                    Type = (found is null) ? DeviceType.Unknown.ToString() : found.Entity.DevicesGroup.Type,
                     Color = (found is null) ? DeviceType.Unknown.ToString() : found.Entity.DevicesGroup.Color,
                     AnswerTime = $"{sendPing.RoundtripTime}ms",
                 });
             }
-        }
-
-        public static long IpStringToLong(string ipAddress)
-        {
-            var addressBytes = IPAddress.Parse(ipAddress).GetAddressBytes();
-            Array.Reverse(addressBytes);
-            return BitConverter.ToUInt32(addressBytes, 0);
         }
     }
 }
