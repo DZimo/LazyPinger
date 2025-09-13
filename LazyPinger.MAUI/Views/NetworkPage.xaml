@@ -77,6 +77,7 @@
 
                         <Button 
                             Text="Open TCP" 
+                            IsEnabled="{Binding VmNetworkUser.IsTcpConnected, Converter={StaticResource IsValidConverter}}"
                             Margin="2"    
                             Command="{Binding StartTcpServerCommand}"
                             FlexLayout.Grow="1">
@@ -85,11 +86,23 @@
                                 Size="18"
                                 Glyph="{x:Static helpers:MaterialIcons.Communication}"/>
                             </Button.ImageSource>
+                        </Button>
+
+
+                        <Button 
+                             Text="Close TCP" 
+                             IsEnabled="{Binding VmNetworkUser.IsTcpConnected}"
+                             Margin="2"    
+                             FlexLayout.Grow="1">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                 Size="18"
+                                 Glyph="{x:Static helpers:MaterialIcons.Communication}"/>
+                            </Button.ImageSource>
                             <Button.CommandParameter>
                                 <sys:Boolean>False</sys:Boolean>
                             </Button.CommandParameter>
                         </Button>
-
 
                         <Button 
                             Text="Send TCP" 
@@ -121,6 +134,20 @@
                             </Button.CommandParameter>
                         </Button>
 
+                        <Button 
+                              Text="Close UDP" 
+                              IsEnabled="{Binding VmNetworkUser.IsUdpConnected}"
+                              Margin="2"    
+                              FlexLayout.Grow="1">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                          Size="18"
+                          Glyph="{x:Static helpers:MaterialIcons.Communication}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>False</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
 
                         <Button 
                             Text="Send UDP"
