@@ -4,6 +4,7 @@ using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.User;
+using LazyPinger.Core.Services;
 using LazyPinger.Core.Utils;
 using LazyPinger.Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -57,7 +58,9 @@ namespace LazyPingerMAUI.ViewModels
         [ObservableProperty]
         private bool isQuickSettingsExpanded = false;
 
-        public MainViewModel(INetworkService networkService)
+        private ITextParserService textParserService;
+
+        public MainViewModel(INetworkService networkService, ITextParserService textParserService)
         {
             InitMainVm(networkService);
 
@@ -66,7 +69,8 @@ namespace LazyPingerMAUI.ViewModels
                 await InitDatabaseData();
                 AutoRestart();
 
-                while (true) {
+                while (true)
+                {
                     var rand = listOfRandomText[Random.Shared.Next(listOfRandomText.Count())];
 
                     await MainThread.InvokeOnMainThreadAsync(() =>
@@ -75,7 +79,7 @@ namespace LazyPingerMAUI.ViewModels
                         {
                             SloganRandomText = rand;
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
 
                         }
@@ -85,6 +89,7 @@ namespace LazyPingerMAUI.ViewModels
             });
 
             NetworkService = networkService;
+            this.textParserService = textParserService;
         }
 
         private void AutoRestart()
@@ -241,7 +246,7 @@ namespace LazyPingerMAUI.ViewModels
 
             detectedDevices.Clear();
 
-            var res = GetSubnetFromIp(value);
+            var res = textParserService.GetSubnetFromAddress(value);
 
             if (res is null)
                 return;
@@ -252,14 +257,6 @@ namespace LazyPingerMAUI.ViewModels
                 return;
 
             PingAll(true);
-        }
-
-        private string? GetSubnetFromIp(string ip)
-        {
-            var list = ip.Split('.').ToList();
-            var subnet = "";
-            list.Take(list.Count - 1).ToList().ForEach(o => subnet += $"{o}.");
-            return subnet;
         }
 
         private void OrderDevices()

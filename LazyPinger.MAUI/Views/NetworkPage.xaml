@@ -19,16 +19,29 @@
 
         <ScrollView Margin="20, 5, 20, 0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
 
-            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
+            <Grid RowDefinitions="*, *, *, *, *" ColumnDefinitions="*">
 
                 <VerticalStackLayout>
 
                     <!-- PORTS -->
 
+                    <VerticalStackLayout FlexLayout.Grow="1">
+                        <Label Style="{StaticResource MiniLine}" Text="Network interface" Margin="0, 0, 0, 5"/>
+
+                        <Picker FlexLayout.Grow="1"
+                             FlexLayout.Shrink="1"
+                             Margin="2"
+                             VerticalOptions="Fill"
+                             SelectedItem="{Binding MainVm.SelectedNetworkInterface}"
+                             ItemsSource="{Binding MainVm.DetectedNetworkInterfaces}">
+                        </Picker>
+                    </VerticalStackLayout>
+
                     <FlexLayout Margin="0, 0, 5, 0"
                             FlexLayout.Grow="1"
                             Wrap="Wrap"
                             VerticalOptions="End">
+
 
                         <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *" FlexLayout.AlignSelf="Stretch">
                             <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="TCP Port" Padding="0" Margin="0"/>
@@ -70,7 +83,23 @@
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
                                 Size="18"
-                                Glyph="{x:Static helpers:MaterialIcons.Enable}"/>
+                                Glyph="{x:Static helpers:MaterialIcons.Communication}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>False</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+
+
+                        <Button 
+                            Text="Send TCP" 
+                            FlexLayout.Grow="1" 
+                            Command="{Binding SendTcpMessageCommand}"
+                            Margin="2">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                Size="18"
+                                Glyph="{x:Static helpers:MaterialIcons.Send}"/>
                             </Button.ImageSource>
                             <Button.CommandParameter>
                                 <sys:Boolean>False</sys:Boolean>
@@ -85,63 +114,17 @@
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
                                              Size="18"
-                                             Glyph="{x:Static helpers:MaterialIcons.Enable}"/>
+                                             Glyph="{x:Static helpers:MaterialIcons.Connect_without_contact}"/>
                             </Button.ImageSource>
                             <Button.CommandParameter>
                                 <sys:Boolean>True</sys:Boolean>
                             </Button.CommandParameter>
                         </Button>
-                    </FlexLayout>
 
-                    
-                    <!-- Message -->
-                    
-                    <FlexLayout Direction="Row" Margin="10">
-                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Sender" />
-                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Sender"/>
-                    </FlexLayout>
-               
-                    <FlexLayout Direction="Row">
-                        
-                        <Entry Margin="10" 
-                               HeightRequest="100" 
-                               FlexLayout.Grow="1"
-                               Text="{Binding VmNetworkUser.SentTcpMessage}">
-                            
-                        </Entry>
-
-                        <Entry Margin="10" 
-                               HeightRequest="100" 
-                               FlexLayout.Grow="1"
-                               Text="{Binding VmNetworkUser.SentUdpMessage}">
-                        </Entry>
-                    </FlexLayout>
-
-                    <!-- Buttons -->
-
-                    <FlexLayout Grid.Row="2"
-                            Margin="0, 10, 0, 0"
-                            HorizontalOptions="Center"
-                            Wrap="Wrap">
-
-                        <Button 
-                            Text="Send TCP" 
-                            HorizontalOptions="Center" FlexLayout.Grow="1" 
-                            Command="{Binding SendTcpMessageCommand}"
-                            Margin="2">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="MaterialDesign"
-                                Size="18"
-                                Glyph="{x:Static helpers:MaterialIcons.Send}"/>
-                            </Button.ImageSource>
-                            <Button.CommandParameter>
-                                <sys:Boolean>False</sys:Boolean>
-                            </Button.CommandParameter>
-                        </Button>
 
                         <Button 
                             Text="Send UDP"
-                            HorizontalOptions="Center" FlexLayout.Grow="1" 
+                            FlexLayout.Grow="1" 
                             Command="{Binding SendUdpMessageCommand}"
                             Margin="2">
                             <Button.ImageSource>
@@ -154,14 +137,45 @@
                             </Button.CommandParameter>
                         </Button>
                     </FlexLayout>
+
+                    <!-- Message -->
+                    
+                    <FlexLayout Direction="Row" Margin="10">
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Sender" />
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Sender"/>
+                    </FlexLayout>
+               
+                    <FlexLayout Direction="Row">
+
+                        <Entry Margin="10" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.SentTcpMessage}"/>
+
+                        <Entry Margin="10" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.SentUdpMessage}"/>
+
+                    </FlexLayout>
+
+                    <!-- Buttons -->
+
+                    <FlexLayout Grid.Row="2"
+                            Margin="0"
+                            HorizontalOptions="Center"
+                            Wrap="Wrap">
+
+
+                    </FlexLayout>
         
                     <!-- Received Message -->
 
-                    <FlexLayout Direction="Row" Margin="10">
+                    <FlexLayout Direction="Row">
                         <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Receiver" />
                         <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Receiver"/>
                     </FlexLayout>
-
+                    
                     <FlexLayout Direction="Row">
 
                         <Entry Margin="10" 
@@ -180,11 +194,8 @@
 
                         </Entry>
                     </FlexLayout>
-
-
                 </VerticalStackLayout>
             </Grid>
-            
         </ScrollView>
     </Grid>
     
