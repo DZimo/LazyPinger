@@ -23,7 +23,19 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public async Task StartTcpServer()
         {
-           var res = await MainVm.NetworkService.StartTcpServer(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.TcpPort);
+            //if (!VmNetworkUser.TcpListener.Server.Connected)
+            //    return;
+
+            var res = await MainVm.NetworkService.StartTcpServer(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.TcpPort);
+
+            if (res is null)
+                return;
+
+           //if (!res.Server.Connected)
+           //     return;
+
+           VmNetworkUser.IsTcpConnected = true;
+           VmNetworkUser.TcpStatusColor = "#00FF00";
            VmNetworkUser.TcpListener = res;
            _ = TcpReceiver();
         }

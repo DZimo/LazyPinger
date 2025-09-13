@@ -29,5 +29,17 @@ namespace LazyPinger.Core.ViewModels
 
         [ObservableProperty]
         private UdpClient? udpClient;
+
+        [ObservableProperty]
+        private bool? isTcpConnected;
+
+        [ObservableProperty]
+        private bool? isUdpConnected;
+
+        [ObservableProperty]
+        private string? tcpStatusColor = "#FF0000";
+
+        [ObservableProperty]
+        private string? udpStatusColor = "#FF0000";
     }
 }

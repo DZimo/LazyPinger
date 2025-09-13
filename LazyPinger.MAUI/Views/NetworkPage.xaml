@@ -138,6 +138,31 @@
                         </Button>
                     </FlexLayout>
 
+                    <FlexLayout Margin="0, 10">
+
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" FlexLayout.Grow="1">
+                            <Label Text="Status"/>
+
+                            <Frame WidthRequest="10"
+                                HeightRequest="10"
+                                CornerRadius="20"
+                                BackgroundColor="{Binding VmNetworkUser.TcpStatusColor}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                            
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout HorizontalOptions="Center" FlexLayout.Grow="1">
+                            <Label Text="Status"/>
+
+                            <Frame WidthRequest="10"
+                                HeightRequest="10"
+                                CornerRadius="20"
+                                BackgroundColor="{Binding VmNetworkUser.UdpStatusColor}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </FlexLayout>
                     <!-- Message -->
                     
                     <FlexLayout Direction="Row" Margin="10">
