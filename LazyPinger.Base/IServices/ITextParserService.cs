@@ -9,7 +9,7 @@ namespace LazyPinger.Base.IServices
 {
     public interface ITextParserService
     {
-        public string GetSubnetFromAddress(string address);
+        public string? GetSubnetFromAddress(string? address);
 
         public string GetAddressFromSubnet(string ip);
 

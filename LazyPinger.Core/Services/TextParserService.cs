@@ -5,8 +5,11 @@ namespace LazyPinger.Core.Services
 {
     public class TextParserService : ITextParserService
     {
-        public string GetSubnetFromAddress(string ip)
+        public string? GetSubnetFromAddress(string? ip)
         {
+            if (ip is null)
+                return null;
+
             var list = ip.Split('.').ToList();
             var subnet = "";
             list.Take(list.Count - 1).ToList().ForEach(o => subnet += $"{o}.");
