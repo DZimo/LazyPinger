@@ -72,7 +72,6 @@ namespace LazyPinger.Core.Services
                 return null;
 
             var server = new UdpClient(selectedPort);
-            //server.Connect(selectedIP, selectedPort);
             return server;
         }
 
@@ -135,7 +134,7 @@ namespace LazyPinger.Core.Services
 
                 byte[] messageBytes = Encoding.UTF8.GetBytes(msg);
                 await stream.WriteAsync(messageBytes, 0, messageBytes.Length);
-
+                client.Close();
                 return true;
             }
             catch (Exception e)
@@ -152,6 +151,7 @@ namespace LazyPinger.Core.Services
                 var client = await StartUdpClient(selectedIP, defaultPort);
                 byte[] messageBytes = Encoding.UTF8.GetBytes(msg);
                 var res = await client.SendAsync(messageBytes, messageBytes.Length);
+                client.Close();
                 return true;
             }
             catch (Exception e)
