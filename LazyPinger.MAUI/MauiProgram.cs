@@ -5,6 +5,8 @@ using LazyPingerMAUI.ViewModels;
 using LazyPingerMAUI.Views;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
+using LazyPinger.MAUI.Views.Popups;
 
 namespace LazyPingerMAUI
 {
@@ -49,6 +51,9 @@ namespace LazyPingerMAUI
             mauiAppBuilder.Services.AddSingleton<IPingerService, PingerService>();
             mauiAppBuilder.Services.AddSingleton<IArpDetectorService, ArpService>();
             mauiAppBuilder.Services.AddTransient<IImageService<ImageSource>, ImageService>();
+
+            //mauiAppBuilder.Services.AddTransientPopup<SuccessfulPopup, SettingsViewModel>();
+
 
             return mauiAppBuilder;
         }

@@ -1,15 +1,21 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Base.Models.Devices;
 using LazyPinger.Core.ViewModels;
+using Microsoft.Maui.Controls.Shapes;
+using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Alerts;
 
 namespace LazyPingerMAUI.ViewModels
 {
     public partial class SettingsViewModel : ViewModelBase
     {
         public MainViewModel MainVm { get; set; }
+
+        private IPopupService popupService { get; set; }
 
         [ObservableProperty]
         private bool isIpBased = true;
@@ -42,9 +48,10 @@ namespace LazyPingerMAUI.ViewModels
             }
         }
 
-        public SettingsViewModel(INetworkService networkService, MainViewModel mainViewModel)
+        public SettingsViewModel(INetworkService networkService, MainViewModel mainViewModel, IPopupService popupService)
         {
             MainVm = mainViewModel;
+            this.popupService = popupService;
         }
 
         [RelayCommand]
@@ -71,6 +78,13 @@ namespace LazyPingerMAUI.ViewModels
                 db.DevicePings.Add(newDevice);
                 await db.SaveChangesAsync();
                 ListenVm.ReloadFromDatabase(newDevice);
+                VmDevicePingTemp = new(new DevicePing());
+
+                var currentPage = Application.Current?.MainPage;
+
+                if (currentPage != null)
+                    await currentPage.DisplayAlert("Successful", "Successfully saved the new device.", "OK");
+
             }
 
             catch (Exception ex) {
@@ -98,6 +112,13 @@ namespace LazyPingerMAUI.ViewModels
                 db.DevicesGroups.Add(newDevicesGroup);
                 await db.SaveChangesAsync();
                 ListenVm.ReloadFromDatabase(VmDeviceGroupTemp);
+                VmDeviceGroupTemp = new(new DevicesGroup());
+
+                var currentPage = Application.Current?.MainPage;
+
+                if (currentPage != null)
+                    await currentPage.DisplayAlert("Successful", "Successfully saved the new device group.", "OK");
+
             }
 
             catch (Exception ex)

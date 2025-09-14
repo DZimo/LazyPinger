@@ -14,10 +14,6 @@ namespace LazyPingerMAUI
 
             MainPage = new AppShell(services);
             Services = services;
-
-            using var context = new LazyPingerDbContext();
-
-         
         }
     }
 }
