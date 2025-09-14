@@ -39,7 +39,7 @@ namespace LazyPingerMAUI.ViewModels
         public string sloganRandomText = "Lazy Pinger";
 
         [ObservableProperty]
-        public string quickSettingsText = "Expand Quick Settings";
+        public string quickSettingsText = "Hide Quick Settings";
 
         //[ObservableProperty]
         //public ObservableCollection<VmDevicesGroup> devicesGroup;
@@ -56,7 +56,7 @@ namespace LazyPingerMAUI.ViewModels
         private bool isPingIdle = true;
 
         [ObservableProperty]
-        private bool isQuickSettingsExpanded = false;
+        private bool isQuickSettingsExpanded = true;
 
         private ITextParserService textParserService;
 

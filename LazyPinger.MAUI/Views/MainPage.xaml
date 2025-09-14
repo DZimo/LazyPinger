@@ -21,7 +21,7 @@
             
             <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
 
-                <toolkit:Expander IsExpanded="{Binding IsQuickSettingsExpanded}">
+                <toolkit:Expander IsExpanded="{Binding IsQuickSettingsExpanded, Mode=TwoWay}">
                     <toolkit:Expander.Header>
                         <Button Style="{StaticResource MiniLine}" Text="{Binding QuickSettingsText}" Margin="20, 5, 20, 7" Background="{StaticResource Tertiary}">
                             <Button.ImageSource>
