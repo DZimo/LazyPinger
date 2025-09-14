@@ -18,6 +18,9 @@ namespace LazyPingerMAUI.ViewModels
         public NetworkViewModel(INetworkService networkService, MainViewModel mainViewModel)
         {
             MainVm = mainViewModel;
+
+            _ = TcpReceiver();
+            _ = UdpReceiver();
         }
 
         [RelayCommand]
@@ -38,7 +41,6 @@ namespace LazyPingerMAUI.ViewModels
            VmNetworkUser.TcpStatusColor = "#00FF00";
            VmNetworkUser.TcpServer = res;
 
-           _ = TcpReceiver();
         }
 
         [RelayCommand]
@@ -60,8 +62,6 @@ namespace LazyPingerMAUI.ViewModels
             VmNetworkUser.IsUdpConnected = true;
             VmNetworkUser.UdpStatusColor = "#00FF00";
             VmNetworkUser.UdpServer = res;
-
-            _ = UdpReceiver();
         }
 
 

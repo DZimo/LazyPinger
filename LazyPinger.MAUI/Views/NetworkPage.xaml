@@ -108,6 +108,7 @@
                         <Button 
                             Text="Send TCP" 
                             FlexLayout.Grow="1" 
+                            IsEnabled="{Binding VmNetworkUser.IsTcpConnected}"
                             Command="{Binding SendTcpMessageCommand}"
                             Margin="2">
                             <Button.ImageSource>
@@ -155,6 +156,7 @@
                         <Button 
                             Text="Send UDP"
                             FlexLayout.Grow="1" 
+                            IsEnabled="{Binding VmNetworkUser.IsUdpConnected}"
                             Command="{Binding SendUdpMessageCommand}"
                             Margin="2">
                             <Button.ImageSource>
