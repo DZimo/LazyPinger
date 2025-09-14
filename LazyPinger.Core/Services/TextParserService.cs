@@ -1,11 +1,15 @@
 ﻿using LazyPinger.Base.IServices;
+using System.Net;
 
 namespace LazyPinger.Core.Services
 {
     public class TextParserService : ITextParserService
     {
-        public string GetSubnetFromAddress(string ip)
+        public string? GetSubnetFromAddress(string? ip)
         {
+            if (ip is null)
+                return null;
+
             var list = ip.Split('.').ToList();
             var subnet = "";
             list.Take(list.Count - 1).ToList().ForEach(o => subnet += $"{o}.");
@@ -29,6 +33,16 @@ namespace LazyPinger.Core.Services
         {
             var res = GetAddressFromSubnet(address);
             return Int16.Parse(res);
+        }
+
+        public long AddressToLong(string address, bool isReversed = false)
+        {
+            var addressBytes = IPAddress.Parse(address).GetAddressBytes();
+
+            if (isReversed)
+                addressBytes.Reverse();
+
+            return BitConverter.ToUInt32(addressBytes, 0);
         }
     }
 }

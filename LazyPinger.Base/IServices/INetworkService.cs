@@ -11,7 +11,13 @@ namespace LazyPinger.Base.IServices
 
         public Task InitNetworkSettings();
 
-        public Task<TcpListener?> StartServer(string selectedIP, int selectedPort);
+        public Task<TcpListener?> StartTcpServer(string? selectedIP, int selectedPort);
+
+        public Task<UdpClient?> StartUdpServer(string? selectedIP, int selectedPort);
+
+        public Task<TcpClient?> StartTcpClient(string? selectedIP, int selectedPort);
+
+        public Task<UdpClient?> StartUdpClient(string? selectedIP, int selectedPort);
 
         public Task<bool> PingAll( ObservableCollection<DevicePing> foundDevices);
 
@@ -19,6 +25,8 @@ namespace LazyPinger.Base.IServices
 
         public List<string> GetMacAddresses();
 
-        public bool SendUDP(string selectedIP, string messageToSedn, int defaultPort, bool broadcast = false);
+        public Task<bool> SendTCP(string? selectedIP, string messageToSend, int defaultPort, bool broadcast = false);
+
+        public Task<bool> SendUDP(string? selectedIP, string messageToSend, int defaultPort, bool broadcast = false);
     }
 }

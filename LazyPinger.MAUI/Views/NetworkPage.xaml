@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:LazyPingerMAUI.Views"
+             xmlns:vm="clr-namespace:LazyPingerMAUI.ViewModels"
+             xmlns:devices="clr-namespace:LazyPinger.Base.Models.Devices;assembly=LazyPinger.Base"
+             xmlns:strings="clr-namespace:LazyPinger.Base.Localization;assembly=LazyPinger.Base"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="LazyPingerMAUI.Views.NetworkPage"
+             xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
+             xmlns:vmcore="clr-namespace:LazyPinger.Core.ViewModels;assembly=LazyPinger.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
+             x:DataType="vm:NetworkViewModel">
+
+    <Grid RowDefinitions="*">
+
+        <!-- MAIN -->
+
+        <ScrollView Margin="20, 5, 20, 0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+
+            <Grid RowDefinitions="*, *, *, *, *" ColumnDefinitions="*">
+
+                <VerticalStackLayout>
+
+                    <!-- PORTS -->
+
+                    <VerticalStackLayout FlexLayout.Grow="1">
+                        <Label Style="{StaticResource MiniLine}" Text="Network interface" Margin="0, 0, 0, 5"/>
+
+                        <Picker FlexLayout.Grow="1"
+                             FlexLayout.Shrink="1"
+                             Margin="2"
+                             VerticalOptions="Fill"
+                             SelectedItem="{Binding MainVm.SelectedNetworkInterface}"
+                             ItemsSource="{Binding MainVm.DetectedNetworkInterfaces}">
+                        </Picker>
+                    </VerticalStackLayout>
+
+                    <FlexLayout Margin="0, 0, 5, 0"
+                            FlexLayout.Grow="1"
+                            Wrap="Wrap"
+                            VerticalOptions="End">
+
+
+                        <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *" FlexLayout.AlignSelf="Stretch">
+                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="TCP Port" Padding="0" Margin="0"/>
+                            
+                            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MiniLine}" Text="UDP Port" Padding="0" Margin="0"/>
+
+                            <Entry Keyboard="Numeric" 
+                               HorizontalOptions="Fill"
+                               Grid.Row="1"
+                               Margin="2"
+                               Text="{Binding VmNetworkUser.TcpPort}"
+                               Grid.Column="0"
+                               Placeholder="1880" />
+
+                            <Entry Keyboard="Numeric" 
+                               ClearButtonVisibility="WhileEditing"                            
+                               HorizontalOptions="Fill"                           
+                               Grid.Row="1"
+                               Margin="2"        
+                               Text="{Binding VmNetworkUser.UdpPort}"
+                               Grid.Column="1"
+                               Placeholder="1880" />
+
+                        </Grid>
+                    
+                    </FlexLayout>
+
+                    <!-- BUTTONS -->
+
+                    <FlexLayout Grid.Row="2"
+                            Margin="0, 10, 0, 0"
+                            Wrap="Wrap">
+
+                        <Button 
+                            Text="Open TCP" 
+                            IsEnabled="{Binding VmNetworkUser.IsTcpConnected, Converter={StaticResource IsValidConverter}}"
+                            Margin="2"    
+                            Command="{Binding StartTcpServerCommand}"
+                            FlexLayout.Grow="1">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                Size="18"
+                                Glyph="{x:Static helpers:MaterialIcons.Communication}"/>
+                            </Button.ImageSource>
+                        </Button>
+
+
+                        <Button 
+                             Text="Close TCP" 
+                             IsEnabled="{Binding VmNetworkUser.IsTcpConnected}"
+                             Margin="2"    
+                             Command="{Binding StopTcpServerCommand}"
+                             FlexLayout.Grow="1">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                 Size="18"
+                                 Glyph="{x:Static helpers:MaterialIcons.Communication}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>False</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+
+                        <Button 
+                            Text="Send TCP" 
+                            FlexLayout.Grow="1" 
+                            IsEnabled="{Binding VmNetworkUser.IsTcpConnected}"
+                            Command="{Binding SendTcpMessageCommand}"
+                            Margin="2">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                Size="18"
+                                Glyph="{x:Static helpers:MaterialIcons.Send}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>False</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+
+                        <Button 
+                            Text="Open UDP"
+                            Margin="2"    
+                            IsEnabled="{Binding VmNetworkUser.IsUdpConnected, Converter={StaticResource IsValidConverter}}"
+                            Command="{Binding StartUdpServerCommand}"
+                            FlexLayout.Grow="1">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Connect_without_contact}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>True</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+
+                        <Button 
+                              Text="Close UDP" 
+                              IsEnabled="{Binding VmNetworkUser.IsUdpConnected}"
+                              Command="{Binding StopUdpServerCommand}"
+                              Margin="2"    
+                              FlexLayout.Grow="1">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                          Size="18"
+                          Glyph="{x:Static helpers:MaterialIcons.Communication}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>False</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+
+                        <Button 
+                            Text="Send UDP"
+                            FlexLayout.Grow="1" 
+                            IsEnabled="{Binding VmNetworkUser.IsUdpConnected}"
+                            Command="{Binding SendUdpMessageCommand}"
+                            Margin="2">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Send}"/>
+                            </Button.ImageSource>
+                            <Button.CommandParameter>
+                                <sys:Boolean>True</sys:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </FlexLayout>
+
+                    <FlexLayout Margin="0, 10">
+
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" FlexLayout.Grow="1">
+                            <Label Text="Status"/>
+
+                            <Frame WidthRequest="10"
+                                HeightRequest="10"
+                                CornerRadius="20"
+                                BackgroundColor="{Binding VmNetworkUser.TcpStatusColor}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                            
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout HorizontalOptions="Center" FlexLayout.Grow="1">
+                            <Label Text="Status"/>
+
+                            <Frame WidthRequest="10"
+                                HeightRequest="10"
+                                CornerRadius="20"
+                                BackgroundColor="{Binding VmNetworkUser.UdpStatusColor}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </FlexLayout>
+                    
+                    <!-- Message -->
+                    
+                    <FlexLayout Direction="Row" Margin="10">
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Sender" />
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Sender"/>
+                    </FlexLayout>
+               
+                    <FlexLayout Direction="Row">
+
+                        <Entry Margin="10" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.SentTcpMessage}"/>
+
+                        <Entry Margin="10" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.SentUdpMessage}"/>
+
+                    </FlexLayout>
+
+                    <!-- Buttons -->
+
+                    <FlexLayout Grid.Row="2"
+                            Margin="0"
+                            HorizontalOptions="Center"
+                            Wrap="Wrap">
+
+
+                    </FlexLayout>
+        
+                    <!-- Received Message -->
+
+                    <FlexLayout Direction="Row">
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Receiver" />
+                        <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Receiver"/>
+                    </FlexLayout>
+                    
+                    <FlexLayout Direction="Row">
+
+                        <Entry Margin="10" 
+                               IsEnabled="False"
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.ReceivedTcpMessage}">
+
+                        </Entry>
+
+                        <Entry Margin="10" 
+                               IsEnabled="False" 
+                               HeightRequest="100" 
+                               FlexLayout.Grow="1"
+                               Text="{Binding VmNetworkUser.ReceivedUdpMessage}">
+
+                        </Entry>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+    </Grid>
+    
+</ContentPage>

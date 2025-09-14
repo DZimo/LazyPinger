@@ -62,9 +62,12 @@ namespace LazyPingerMAUI
         {
             mauiAppBuilder.Services.AddSingleton<MainViewModel>();
             mauiAppBuilder.Services.AddTransient<SettingsViewModel>();
+            mauiAppBuilder.Services.AddTransient<NetworkViewModel>();
 
             mauiAppBuilder.Services.AddTransient<MainPage>();
             mauiAppBuilder.Services.AddTransient<SettingsPage>();
+            mauiAppBuilder.Services.AddTransient<NetworkPage>();
+
             return mauiAppBuilder;
         }
     }
