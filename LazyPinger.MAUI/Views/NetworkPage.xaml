@@ -123,6 +123,7 @@
                         <Button 
                             Text="Open UDP"
                             Margin="2"    
+                            IsEnabled="{Binding VmNetworkUser.IsUdpConnected, Converter={StaticResource IsValidConverter}}"
                             Command="{Binding StartUdpServerCommand}"
                             FlexLayout.Grow="1">
                             <Button.ImageSource>

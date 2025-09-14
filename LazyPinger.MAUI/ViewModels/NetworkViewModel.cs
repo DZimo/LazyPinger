@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Core.ViewModels;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -57,7 +58,6 @@ namespace LazyPingerMAUI.ViewModels
         {
             var res = await MainVm.NetworkService.StartUdpServer(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.UdpPort);
 
-
             VmNetworkUser.IsUdpConnected = true;
             VmNetworkUser.UdpStatusColor = "#00FF00";
             VmNetworkUser.UdpClient = res;
@@ -87,7 +87,7 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public async Task SendUdpMessage()
         {
-            await MainVm.NetworkService.StartUdpServer(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.UdpPort);
+            await MainVm.NetworkService.SendUDP(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.SentUdpMessage, VmNetworkUser.UdpPort);
         }
 
         public async Task TcpReceiver()
@@ -122,15 +122,11 @@ namespace LazyPingerMAUI.ViewModels
                     continue;
                 }
 
-                var client = await VmNetworkUser.UdpClient.ReceiveAsync();
-                var test = client.ToString();
-                //using var stream = client.GetStream();
-                //var buffer = new byte[client.];
-                //var bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                var anyIP = new IPEndPoint(IPAddress.Any, 0);
+                var clientRes = await VmNetworkUser.UdpClient.ReceiveAsync();
+                var data = Encoding.ASCII.GetString(clientRes.Buffer);
 
-                //var response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-                VmNetworkUser.ReceivedTcpMessage = test;
+                VmNetworkUser.ReceivedUdpMessage = data;
                 await Task.Delay(1000);
             }
         }

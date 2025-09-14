@@ -56,7 +56,7 @@ namespace LazyPinger.Core.Services
             return ipList.ToArray();
         }
 
-        public async Task<TcpListener?> StartTcpServer(string? selectedIP, int selectedPort)
+        public Task<TcpListener?> StartTcpServer(string? selectedIP, int selectedPort)
         {
             if (selectedIP is null)
                 return null;
@@ -64,14 +64,16 @@ namespace LazyPinger.Core.Services
             var serverIP = IPAddress.Parse(selectedIP);
             var server = new TcpListener(serverIP, selectedPort);
             server.Start();
-            return server;
+            return Task.FromResult<TcpListener?>(server);
         }
 
         public async Task<UdpClient?> StartUdpServer(string? selectedIP, int selectedPort)
         {
-            var serverIP = IPAddress.Parse(selectedIP);
-            var server = new UdpClient(selectedPort, AddressFamily.InterNetwork);
-            var res = await server.ReceiveAsync();
+            if (selectedIP is null)
+                return null;
+
+            var server = new UdpClient(selectedPort);
+            //server.Connect(selectedIP, selectedPort);
             return server;
         }
 
@@ -91,14 +93,12 @@ namespace LazyPinger.Core.Services
             if (selectedIP is null)
                 return null;
 
-            await Task.Run(() =>
-            {
-                var serverIP = IPAddress.Parse(selectedIP);
-                var server = new TcpListener(serverIP, selectedPort);
-                server.Start();
-                return server;
-            });
-            return null;
+            var serverIP = IPAddress.Parse(selectedIP);
+            var ipEndPoint = new IPEndPoint(serverIP, selectedPort);
+
+            var server = new UdpClient();
+            server.Connect(ipEndPoint);
+            return server;
         }
 
         public async Task<bool> PingAll(ObservableCollection<DevicePing> foundDevices)
@@ -146,18 +146,23 @@ namespace LazyPinger.Core.Services
         }
 
 
-        public bool SendUDP(string? selectedIP, string msg, int defaultPort, bool broadcast = false)
+        public async Task<bool> SendUDP(string? selectedIP, string msg, int defaultPort, bool broadcast = false)
         {
             try
             {
-                var udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                var addressToSend = IPAddress.Parse(selectedIP);
-                var endPoint = new IPEndPoint(addressToSend, defaultPort);
-                udpSocket.EnableBroadcast = broadcast;
+                var client = await StartUdpClient(selectedIP, defaultPort);
+                byte[] messageBytes = Encoding.UTF8.GetBytes(msg);
 
-                byte[] msgBuffer = Encoding.ASCII.GetBytes(msg);
+                var res = await client.SendAsync(messageBytes, messageBytes.Length);
 
-                udpSocket.SendTo(msgBuffer, endPoint);
+                //var udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                //var addressToSend = IPAddress.Parse(selectedIP);
+                //var endPoint = new IPEndPoint(addressToSend, defaultPort);
+                //udpSocket.EnableBroadcast = broadcast;
+
+                //byte[] msgBuffer = Encoding.ASCII.GetBytes(msg);
+
+                //udpSocket.SendTo(msgBuffer, endPoint);
                 return true;
             }
             catch (Exception e)

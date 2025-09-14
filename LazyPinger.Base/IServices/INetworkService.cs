@@ -27,6 +27,6 @@ namespace LazyPinger.Base.IServices
 
         public Task<bool> SendTCP(string? selectedIP, string messageToSend, int defaultPort, bool broadcast = false);
 
-        public bool SendUDP(string? selectedIP, string messageToSend, int defaultPort, bool broadcast = false);
+        public Task<bool> SendUDP(string? selectedIP, string messageToSend, int defaultPort, bool broadcast = false);
     }
 }
