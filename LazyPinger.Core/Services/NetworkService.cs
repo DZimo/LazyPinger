@@ -4,7 +4,6 @@ using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.Network;
 using LazyPinger.Core.ViewModels;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -152,17 +151,7 @@ namespace LazyPinger.Core.Services
             {
                 var client = await StartUdpClient(selectedIP, defaultPort);
                 byte[] messageBytes = Encoding.UTF8.GetBytes(msg);
-
                 var res = await client.SendAsync(messageBytes, messageBytes.Length);
-
-                //var udpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                //var addressToSend = IPAddress.Parse(selectedIP);
-                //var endPoint = new IPEndPoint(addressToSend, defaultPort);
-                //udpSocket.EnableBroadcast = broadcast;
-
-                //byte[] msgBuffer = Encoding.ASCII.GetBytes(msg);
-
-                //udpSocket.SendTo(msgBuffer, endPoint);
                 return true;
             }
             catch (Exception e)

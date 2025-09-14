@@ -139,6 +139,7 @@
                         <Button 
                               Text="Close UDP" 
                               IsEnabled="{Binding VmNetworkUser.IsUdpConnected}"
+                              Command="{Binding StopUdpServerCommand}"
                               Margin="2"    
                               FlexLayout.Grow="1">
                             <Button.ImageSource>

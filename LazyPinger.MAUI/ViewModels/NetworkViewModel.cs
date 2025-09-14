@@ -4,7 +4,6 @@ using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Core.ViewModels;
 using System.Net;
-using System.Net.Sockets;
 using System.Text;
 
 namespace LazyPingerMAUI.ViewModels
@@ -37,7 +36,7 @@ namespace LazyPingerMAUI.ViewModels
 
            VmNetworkUser.IsTcpConnected = true;
            VmNetworkUser.TcpStatusColor = "#00FF00";
-           VmNetworkUser.TcpListener = res;
+           VmNetworkUser.TcpServer = res;
 
            _ = TcpReceiver();
         }
@@ -45,10 +44,10 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public void StopTcpServer()
         {
-            if (VmNetworkUser.TcpListener is null)
+            if (VmNetworkUser.TcpServer is null)
                 return;
 
-            VmNetworkUser.TcpListener.Stop();
+            VmNetworkUser.TcpServer.Stop();
             VmNetworkUser.IsTcpConnected = false;
             VmNetworkUser.TcpStatusColor = "#FF0000";
         }
@@ -60,7 +59,7 @@ namespace LazyPingerMAUI.ViewModels
 
             VmNetworkUser.IsUdpConnected = true;
             VmNetworkUser.UdpStatusColor = "#00FF00";
-            VmNetworkUser.UdpClient = res;
+            VmNetworkUser.UdpServer = res;
 
             _ = UdpReceiver();
         }
@@ -69,10 +68,10 @@ namespace LazyPingerMAUI.ViewModels
         [RelayCommand]
         public void StopUdpServer()
         {
-            if (VmNetworkUser.UdpClient is null)
+            if (VmNetworkUser.UdpServer is null)
                 return;
 
-            VmNetworkUser.UdpClient.Close();
+            VmNetworkUser.UdpServer.Close();
             VmNetworkUser.IsUdpConnected = false;
             VmNetworkUser.UdpStatusColor = "#FF0000";
         }
@@ -94,13 +93,13 @@ namespace LazyPingerMAUI.ViewModels
         {
             while (true)
             {
-                if (VmNetworkUser.TcpListener is null)
+                if (VmNetworkUser.TcpServer is null)
                 {
                     await Task.Delay(1);
                     continue;
                 }
 
-                var client = await VmNetworkUser.TcpListener.AcceptTcpClientAsync();
+                var client = await VmNetworkUser.TcpServer.AcceptTcpClientAsync();
                 using var stream = client.GetStream();
                 var buffer = new byte[client.ReceiveBufferSize];
                 var bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
@@ -116,14 +115,14 @@ namespace LazyPingerMAUI.ViewModels
         {
             while (true)
             {
-                if (VmNetworkUser.UdpClient is null)
+                if (VmNetworkUser.UdpServer is null)
                 {
                     await Task.Delay(1);
                     continue;
                 }
 
                 var anyIP = new IPEndPoint(IPAddress.Any, 0);
-                var clientRes = await VmNetworkUser.UdpClient.ReceiveAsync();
+                var clientRes = await VmNetworkUser.UdpServer.ReceiveAsync();
                 var data = Encoding.ASCII.GetString(clientRes.Buffer);
 
                 VmNetworkUser.ReceivedUdpMessage = data;

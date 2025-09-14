@@ -25,10 +25,10 @@ namespace LazyPinger.Core.ViewModels
         private string sentUdpMessage = string.Empty;
 
         [ObservableProperty]
-        private TcpListener? tcpListener;
+        private TcpListener? tcpServer;
 
         [ObservableProperty]
-        private UdpClient? udpClient;
+        private UdpClient? udpServer;
 
         [ObservableProperty]
         private bool isTcpConnected;
