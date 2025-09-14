@@ -93,6 +93,7 @@
                              Text="Close TCP" 
                              IsEnabled="{Binding VmNetworkUser.IsTcpConnected}"
                              Margin="2"    
+                             Command="{Binding StopTcpServerCommand}"
                              FlexLayout.Grow="1">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="MaterialDesign"
@@ -190,6 +191,7 @@
                                 VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                     </FlexLayout>
+                    
                     <!-- Message -->
                     
                     <FlexLayout Direction="Row" Margin="10">

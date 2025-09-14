@@ -41,6 +41,17 @@ namespace LazyPingerMAUI.ViewModels
         }
 
         [RelayCommand]
+        public void StopTcpServer()
+        {
+            if (VmNetworkUser.TcpListener is null)
+                return;
+
+            VmNetworkUser.TcpListener.Stop();
+            VmNetworkUser.IsTcpConnected = false;
+            VmNetworkUser.TcpStatusColor = "#FF0000";
+        }
+
+        [RelayCommand]
         public async Task StartUdpServer()
         {
             var res = await MainVm.NetworkService.StartUdpServer(MainVm.NetworkService.NetworkSettings.IpAddress, VmNetworkUser.UdpPort);
