@@ -10,8 +10,11 @@ public partial class LazyPingerDbContext : DbContext
 
     public LazyPingerDbContext()
     {
-        var localFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LazyPinger");
-        Directory.CreateDirectory(localFolder);
+        var localFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "LazyPinger");
+
+        if (!File.Exists(localFolder))
+            Directory.CreateDirectory(localFolder);
+
         DbFilePath = $"Data Source={Path.Combine(localFolder, "lazypinger_database.db")}";
     }
 
