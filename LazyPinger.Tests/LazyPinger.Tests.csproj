@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net8.0</TargetFrameworks>
-	<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>    <LangVersion>latest</LangVersion>
+	<TargetFrameworks>net10.0</TargetFrameworks>
+	<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>    
+	<LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	 <IsTestProject>true</IsTestProject>
+	<IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

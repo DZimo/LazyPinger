@@ -14,7 +14,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<WindowsPackageType>MSIX</WindowsPackageType>
+		<WindowsPackageType>none</WindowsPackageType>
 
 		<!-- Display name -->
 		<ApplicationTitle>LazyPingerMAUI</ApplicationTitle>
