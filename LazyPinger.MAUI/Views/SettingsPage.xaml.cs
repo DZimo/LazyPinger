@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using LazyPinger.Base.IServices;
 using LazyPingerMAUI.ViewModels;
+using CommunityToolkit.Maui;
 
 namespace LazyPingerMAUI.Views
 {
