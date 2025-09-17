@@ -1,20 +1,21 @@
 ﻿using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.User;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LazyPinger.Base.Models;
 
 public partial class LazyPingerDbContext : DbContext
 {
-    private static readonly string DbFilePath = $"Data Source={Path.Combine(AppContext.BaseDirectory, "lazypinger_database.db")}";
-
+    private string DbFilePath = $"Data Source={Path.Combine(AppContext.BaseDirectory, "lazypinger_database.db")}";
 
     public LazyPingerDbContext()
     {
+        var localFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "LazyPinger");
 
+        if (!File.Exists(localFolder))
+            Directory.CreateDirectory(localFolder);
+
+        DbFilePath = $"Data Source={Path.Combine(localFolder, "lazypinger_database.db")}";
     }
 
     public LazyPingerDbContext(DbContextOptions<LazyPingerDbContext> options)

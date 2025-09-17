@@ -3,6 +3,17 @@
     "Windows Machine": {
       "commandName": "Project",
       "nativeDebugging": false
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "MsixPackage": {
+      "commandName": "MsixPackage",
+      "nativeDebugging": "trueoid"
+    },
+    "Android Device": {
+      "commandName": "Android"
     }
   }
 }
