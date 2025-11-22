@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using LazyPinger.MAUI.Views.Popups;
+using LazyPinger.MAUI.Views.CAN;
+using LazyPingerMAUI.Views.TCP;
 
 namespace LazyPingerMAUI
 {
@@ -54,7 +56,6 @@ namespace LazyPingerMAUI
 
             //mauiAppBuilder.Services.AddTransientPopup<SuccessfulPopup, SettingsViewModel>();
 
-
             return mauiAppBuilder;
         }
 
@@ -65,8 +66,10 @@ namespace LazyPingerMAUI
             mauiAppBuilder.Services.AddTransient<NetworkViewModel>();
 
             mauiAppBuilder.Services.AddTransient<MainPage>();
+            mauiAppBuilder.Services.AddTransient<PingView>();
             mauiAppBuilder.Services.AddTransient<SettingsPage>();
             mauiAppBuilder.Services.AddTransient<NetworkPage>();
+            mauiAppBuilder.Services.AddTransient<CanPage>();
 
             return mauiAppBuilder;
         }

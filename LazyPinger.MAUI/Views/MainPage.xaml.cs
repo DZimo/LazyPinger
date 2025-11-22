@@ -1,6 +1,4 @@
-﻿using LazyPinger.Base.Entities;
-using LazyPinger.Base.IServices;
-using LazyPinger.Base.Models;
+﻿using LazyPinger.Base.IServices;
 using LazyPinger.Core.Utils;
 using LazyPinger.Core.ViewModels;
 using LazyPingerMAUI.ViewModels;
@@ -19,6 +17,7 @@ namespace LazyPingerMAUI.Views
 
             _networkService = networkService;
             _mainViewModel = mainVm;
+            _mainViewModel._MainPage = this;
 
             this.BindingContext = _mainViewModel;
 

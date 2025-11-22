@@ -207,6 +207,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\CAN\CanPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\DeviceView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -227,7 +230,6 @@
 	<ItemGroup>
 	  <Folder Include="Properties\" />
 	  <Folder Include="PublishProfiles\" />
-	  <Folder Include="Views\CAN\" />
 	</ItemGroup>
 
 	<ItemGroup>
