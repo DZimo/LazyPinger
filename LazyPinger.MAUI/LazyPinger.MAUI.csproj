@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks>$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
 		<!--<TargetFrameworks>net10.0-android;net10.0-windows10.0.19041.0</TargetFrameworks>-->
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
@@ -14,8 +15,8 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<WindowsPackageType>MSIX</WindowsPackageType>
-		<!--<WindowsPackageType>None</WindowsPackageType>-->
+		<!--<WindowsPackageType>MSIX</WindowsPackageType>-->
+		<WindowsPackageType>None</WindowsPackageType>
 
 		<!-- Display name -->
 		<ApplicationTitle>LazyPingerMAUI</ApplicationTitle>
@@ -41,9 +42,20 @@
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
+		<Platforms>AnyCPU;x86;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|x86'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
@@ -53,7 +65,27 @@
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-ios|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-ios|x86'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-maccatalyst|AnyCPU'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-maccatalyst|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-maccatalyst|x86'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
@@ -63,7 +95,27 @@
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows10.0.19041.0|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows10.0.19041.0|x86'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|x86'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
@@ -73,12 +125,42 @@
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-ios|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-ios|x86'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-maccatalyst|AnyCPU'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-maccatalyst|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-maccatalyst|x86'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows10.0.19041.0|x64'">
+	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
+	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows10.0.19041.0|x86'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
 	</PropertyGroup>
@@ -103,10 +185,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="12.2.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Maui.Core" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="10.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>
