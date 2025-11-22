@@ -198,6 +198,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\TCP\PingView.xaml.cs">
+	    <DependentUpon>PingView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\SettingsPage.xaml.cs">
 	    <DependentUpon>SettingsPage.xaml</DependentUpon>
 	  </Compile>
@@ -205,6 +208,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\DeviceView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TCP\PingView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Popups\SuccessfulPopup.xaml">
@@ -221,6 +227,7 @@
 	<ItemGroup>
 	  <Folder Include="Properties\" />
 	  <Folder Include="PublishProfiles\" />
+	  <Folder Include="Views\CAN\" />
 	</ItemGroup>
 
 	<ItemGroup>
