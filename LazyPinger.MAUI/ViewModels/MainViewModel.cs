@@ -89,7 +89,7 @@ namespace LazyPingerMAUI.ViewModels
                         }
                         catch (Exception ex)
                         {
-
+                            LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                         }
                     });
                     await Task.Delay(5000);
@@ -123,9 +123,9 @@ namespace LazyPingerMAUI.ViewModels
                         PingAll(true);
                     }
 
-                    catch
+                    catch(Exception ex)
                     {
-
+                        LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                     }
 
                     if (ListenVm.Instance.UserSelectionsVm.Entity.AutoRestartTime < 10)
@@ -148,7 +148,7 @@ namespace LazyPingerMAUI.ViewModels
                 }
                 catch (Exception ex)
                 {
-
+                    LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                 }
 
                 await Task.Run(async () =>
@@ -239,7 +239,7 @@ namespace LazyPingerMAUI.ViewModels
                 }
                 catch (Exception ex)
                 {
-
+                    LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                 }
                 finally
                 {
