@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using LazyPinger.Base.IServices;
 using LazyPingerMAUI.ViewModels;
-using CommunityToolkit.Maui;
 
 namespace LazyPingerMAUI.Views
 {
@@ -14,10 +13,20 @@ namespace LazyPingerMAUI.Views
         public SettingsPage(INetworkService networkService, MainViewModel mainViewModel, IPopupService popupService)
         {
             InitializeComponent();
-            BindingContext = new SettingsViewModel(networkService, mainViewModel, popupService);
 
             _networkService = networkService;
             _mainViewModel = mainViewModel;
+            BindingContext = new SettingsViewModel(networkService, mainViewModel, popupService);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
         }
     }
 
