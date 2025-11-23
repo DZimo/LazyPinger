@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:LazyPingerMAUI.Views"
+    xmlns:viewsTCP="clr-namespace:LazyPingerMAUI.Views.TCP"
     xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
     xmlns:vm="clr-namespace:LazyPingerMAUI.ViewModels"
     Shell.FlyoutBehavior="Flyout"
@@ -40,13 +41,23 @@
             </Tab.Icon>
             <ShellContent Title="Home" ContentTemplate="{DataTemplate views:MainPage}" Route="main"/>
         </Tab>
-        <Tab Title="Network">
+        <Tab Title="TCP/IP">
             <Tab.Icon>
                 <FontImageSource FontFamily="MaterialDesign"
                 Size="18"
                 Glyph="{x:Static helpers:MaterialIcons.Network_node}"/>
             </Tab.Icon>
-            <ShellContent Title="Network"  ContentTemplate="{DataTemplate views:NetworkPage}" Route="network"/>
+            <ShellContent Title="Ping"  ContentTemplate="{DataTemplate viewsTCP:PingView}" Route="network"/>
+
+            <ShellContent Title="Server/Client"  ContentTemplate="{DataTemplate views:NetworkPage}" Route="network"/>
+        </Tab>
+        <Tab Title="CAN">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialDesign"
+                Size="18"
+                Glyph="{x:Static helpers:MaterialIcons.Laptop_car}"/>
+            </Tab.Icon>
+            <ShellContent Title="CAN"  ContentTemplate="{DataTemplate views:NetworkPage}" Route="network"/>
         </Tab>
         <Tab Title="Settings">
             <Tab.Icon>

@@ -7,7 +7,11 @@ using LazyPinger.Base.Models.User;
 using LazyPinger.Core.Services;
 using LazyPinger.Core.Utils;
 using LazyPinger.Core.ViewModels;
+using LazyPinger.MAUI.Views.CAN;
+using LazyPingerMAUI.Views;
+using LazyPingerMAUI.Views.TCP;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.ObjectModel;
 using System.Net.Sockets;
 
@@ -59,6 +63,8 @@ namespace LazyPingerMAUI.ViewModels
         private bool isQuickSettingsExpanded = true;
 
         private ITextParserService textParserService;
+
+        public MainPage _MainPage { get; set; }
 
         public MainViewModel(INetworkService networkService, ITextParserService textParserService)
         {
@@ -239,6 +245,29 @@ namespace LazyPingerMAUI.ViewModels
                 }
             });
         }
+
+        [RelayCommand]
+        public async Task LoadView(string id)
+        {
+            switch (id)
+            {
+                case "0":
+                    await _MainPage.Navigation.PushAsync(App.Services.GetService<PingView>());
+                    break;
+                case "1":
+                    await _MainPage.Navigation.PushAsync(App.Services.GetService<NetworkPage>());
+                    break;
+                case "2":
+                    await _MainPage.Navigation.PushAsync(App.Services.GetService<CanPage>());
+                    break;
+                case "3":
+                    await _MainPage.Navigation.PushAsync(App.Services.GetService<SettingsPage>());
+                    break;
+                default:
+                    break;
+            }
+        }
+        
 
         partial void OnSelectedNetworkInterfaceChanged(string value)
         {

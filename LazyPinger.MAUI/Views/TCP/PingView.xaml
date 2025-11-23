@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:LazyPingerMAUI.Views"
+             xmlns:vm="clr-namespace:LazyPingerMAUI.ViewModels"
+             xmlns:devices="clr-namespace:LazyPinger.Base.Models.Devices;assembly=LazyPinger.Base"
+             xmlns:strings="clr-namespace:LazyPinger.Base.Localization;assembly=LazyPinger.Base"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="LazyPingerMAUI.Views.TCP.PingView"
+             xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
+             xmlns:vmcore="clr-namespace:LazyPinger.Core.ViewModels;assembly=LazyPinger.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
+             x:DataType="vm:MainViewModel">
+
+    <Grid RowDefinitions="*">
+
+        <!-- MAIN -->
+
+        <ScrollView Margin="20, 5, 20, 0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+            
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="*">
+
+                <toolkit:Expander IsExpanded="{Binding IsQuickSettingsExpanded, Mode=TwoWay}">
+                    <toolkit:Expander.Header>
+                        <Button Style="{StaticResource MiniLine}" Text="{Binding QuickSettingsText}" Margin="20, 5, 20, 7" Background="{StaticResource Tertiary}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                        Size="18"
+                                        Glyph="{x:Static helpers:MaterialIcons.Arrow_circle_down}"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </toolkit:Expander.Header>
+
+                    <VerticalStackLayout>
+
+                        <!-- QUICK SETTINGS -->
+
+                        <FlexLayout Grid.Row="{Binding AnimationHandler.DevicesRow}"
+                            Grid.RowSpan="{Binding AnimationHandler.DevicesRowSpan}"
+                            Margin="0, 0, 5, 0"
+                            FlexLayout.Grow="1"
+                            Wrap="Wrap"
+                            VerticalOptions="End">
+
+                            <VerticalStackLayout FlexLayout.Grow="1">
+                                <Label Style="{StaticResource MiniLine}" Text="Network interface" Margin="0, 0, 0, 5"/>
+
+                                <Picker FlexLayout.Grow="1"
+                                FlexLayout.Shrink="1"
+                                Margin="2"
+                                VerticalOptions="Fill"
+                                SelectedItem="{Binding SelectedNetworkInterface}"
+                                ItemsSource="{Binding DetectedNetworkInterfaces}">
+                                </Picker>
+                            </VerticalStackLayout>
+
+                            <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *, *" FlexLayout.AlignSelf="Stretch">
+                                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="Range" Padding="0" Margin="0"/>
+
+                                <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MiniLine}" Text="Timeout (ms)" Margin="0, 0, 0, 0"/>
+
+                                <Label Grid.Row="0" Grid.Column="2"  Style="{StaticResource MiniLine}" Text="Restart Time (ms)" Margin="0, 0, 0, 0"/>
+
+                                <Grid RowDefinitions="*, *" Margin="0, 0, 0, 0" ColumnDefinitions="*,*" Grid.Column="0" Grid.Row="1">
+                                    <Entry Grid.Column="0"
+                                   Keyboard="Numeric" 
+                                   IsEnabled="False"
+                                   Margin="2"
+                                   MaxLength="3"
+                                   Text="{Binding NetworkService.NetworkSettings.MinSubnetRange}"
+                                   Placeholder="Min Range - 0" />
+
+                                    <Entry Grid.Column="1"
+                                   Keyboard="Numeric" 
+                                   Margin="2"
+                                   MaxLength="3"
+                                   Text="{Binding NetworkService.NetworkSettings.MaxSubnetRange}"
+                                   Placeholder="Max Range - 255" />
+                                </Grid>
+
+                                <Entry Keyboard="Numeric" 
+                               HorizontalOptions="Fill"
+                               Text="{Binding NetworkService.NetworkSettings.PingTimeout}"
+                               Grid.Row="1"
+                               Margin="2"
+                               Grid.Column="1"
+                               Placeholder="10" />
+
+                                <Entry Keyboard="Numeric" 
+                               ClearButtonVisibility="WhileEditing"                            
+                               IsEnabled="{Binding UserSelectionsVm.IsAutoRestartEnabled, Source={x:Static vmcore:ListenVm.Instance}}"
+                               HorizontalOptions="Fill"                           
+                               Text="{Binding UserSelectionsVm.AutoRestartTime, Source={x:Static vmcore:ListenVm.Instance}}"
+                               Grid.Row="1"
+                               Margin="2"        
+                               Grid.Column="2"
+                               Placeholder="10" />
+
+                            </Grid>
+                        </FlexLayout>
+
+                        <!-- BUTTONS -->
+
+                        <FlexLayout Grid.Row="2"
+                            Margin="0, 10, 0, 0"
+                            Wrap="Wrap">
+
+                            <Button 
+                            IsEnabled="{Binding IsPingIdle}"
+                            Command="{Binding PingAllCommand}"      
+                            Text="Ping" 
+                            Margin="2"    
+                            FlexLayout.Grow="1">
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="MaterialDesign"
+                                Size="18"
+                                Glyph="{x:Static helpers:MaterialIcons.Network_node}"/>
+                                </Button.ImageSource>
+                                <Button.CommandParameter>
+                                    <sys:Boolean>False</sys:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
+
+                            <Button 
+                            Command="{Binding PingAllCommand}"
+                            Text="Restart"
+                            Margin="2"    
+                            IsEnabled="{Binding IsPingIdle}"
+                            FlexLayout.Grow="1">
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Restart_alt}"/>
+                                </Button.ImageSource>
+                                <Button.CommandParameter>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
+
+                            <Button 
+                            Command="{Binding PingAllCommand}"
+                            Text="Stop"
+                            Margin="2"    
+                            FlexLayout.Grow="1">
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Stop_circle}"/>
+                                </Button.ImageSource>
+                            </Button>
+
+                            <!--IsEnabled="{Binding UserSelectionsVm.IsAutoRunEnabled, Source={x:Static vmcore:ListenVm.Instance}, Converter={StaticResource IsValidConverter}}"-->
+
+                        </FlexLayout>
+
+                        <!-- INFOS -->
+
+                     
+                    </VerticalStackLayout>
+                </toolkit:Expander>
+
+                <Border Margin="20, 10, 20, 20" Grid.Row="3">
+                    <FlexLayout Margin="0, 10, 0, 10" AlignContent="Center" JustifyContent="Center" AlignItems="Center">
+                        <Grid>
+                            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding DetectedDevices.Count, StringFormat='Total Devices {0}'}"/>
+                        </Grid>
+                    </FlexLayout>
+                </Border>
+                
+                <!-- DEVICES -->
+
+                <ScrollView Grid.Row="4">
+                    <FlexLayout BindableLayout.ItemsSource="{Binding DetectedDevices}"
+                                Wrap="Wrap"
+                                JustifyContent="Center"
+                                AlignItems="Center">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="devices:DevicePing">
+                                <views:DeviceView DevicePing="{Binding}">
+                                    <views:DeviceView.MaximumWidthRequest>
+                                        <OnIdiom x:TypeArguments="x:Double"
+                                                 Phone="150"
+                                                 Desktop="250"
+                                                 Tablet="250" />
+                                    </views:DeviceView.MaximumWidthRequest>
+                                </views:DeviceView>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </ScrollView>
+                
+            </Grid>
+            
+        </ScrollView>
+
+        <!-- SPLASH -->
+        
+        <Grid IsVisible="{Binding AnimationHandler.IsGreyVisible}" 
+              Background="{StaticResource Gray900}"
+              Opacity="0.9"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              BackgroundColor="{StaticResource Gray900}">
+
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"> 
+                <Label HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       TextColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray100}}"
+                       Text="{x:Static strings:AppResources.SplashEntry}"/>
+                <ActivityIndicator HorizontalOptions="Center" IsRunning="true" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid IsVisible="{Binding AnimationHandler.IsSplashVisible}"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Label VerticalOptions="Center" 
+                   HorizontalOptions="Center" 
+                   Text="{Binding AnimationHandler.SplashRandomText}"/>
+
+                <Image Source="lazy_pinger_logo.png" 
+                   VerticalOptions="Center" 
+                          Aspect="AspectFit"
+                           WidthRequest="100"
+                           HeightRequest="100"
+                           HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+    
+</ContentPage>

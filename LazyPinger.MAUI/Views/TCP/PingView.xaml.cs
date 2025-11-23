@@ -3,21 +3,20 @@ using LazyPinger.Core.Utils;
 using LazyPinger.Core.ViewModels;
 using LazyPingerMAUI.ViewModels;
 
-namespace LazyPingerMAUI.Views
+namespace LazyPingerMAUI.Views.TCP
 {
-    public partial class MainPage : ContentPage
+    public partial class PingView : ContentPage
     {
         private INetworkService _networkService { get; set; }
 
         private MainViewModel _mainViewModel { get; set; }
 
-        public MainPage(INetworkService networkService, MainViewModel mainVm)
+        public PingView(INetworkService networkService, MainViewModel mainVm)
         {
             InitializeComponent();
 
             _networkService = networkService;
             _mainViewModel = mainVm;
-            _mainViewModel._MainPage = this;
 
             this.BindingContext = _mainViewModel;
 

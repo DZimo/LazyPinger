@@ -15,8 +15,6 @@
 
     <Grid RowDefinitions="*">
 
-        <!-- MAIN -->
-
         <ScrollView Margin="20, 5, 20, 0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
 
             <Grid RowDefinitions="*, *, *, *, *" ColumnDefinitions="*">
@@ -45,7 +43,7 @@
 
                         <Grid Margin="0, 0, 0, 0" FlexLayout.Grow="1" RowDefinitions="*, *" ColumnDefinitions="*, *" FlexLayout.AlignSelf="Stretch">
                             <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MiniLine}" Text="TCP Port" Padding="0" Margin="0"/>
-                            
+
                             <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MiniLine}" Text="UDP Port" Padding="0" Margin="0"/>
 
                             <Entry Keyboard="Numeric" 
@@ -66,7 +64,7 @@
                                Placeholder="1880" />
 
                         </Grid>
-                    
+
                     </FlexLayout>
 
                     <!-- BUTTONS -->
@@ -181,7 +179,7 @@
                                 BackgroundColor="{Binding VmNetworkUser.TcpStatusColor}"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"/>
-                            
+
                         </HorizontalStackLayout>
 
                         <HorizontalStackLayout HorizontalOptions="Center" FlexLayout.Grow="1">
@@ -195,14 +193,14 @@
                                 VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                     </FlexLayout>
-                    
+
                     <!-- Message -->
-                    
+
                     <FlexLayout Direction="Row" Margin="10">
                         <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Sender" />
                         <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Sender"/>
                     </FlexLayout>
-               
+
                     <FlexLayout Direction="Row">
 
                         <Entry Margin="10" 
@@ -226,14 +224,14 @@
 
 
                     </FlexLayout>
-        
+
                     <!-- Received Message -->
 
                     <FlexLayout Direction="Row">
                         <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="TCP Receiver" />
                         <Label HorizontalOptions="Center" FlexLayout.Grow="1" Text="UDP Receiver"/>
                     </FlexLayout>
-                    
+
                     <FlexLayout Direction="Row">
 
                         <Entry Margin="10" 
@@ -256,5 +254,5 @@
             </Grid>
         </ScrollView>
     </Grid>
-    
+
 </ContentPage>
