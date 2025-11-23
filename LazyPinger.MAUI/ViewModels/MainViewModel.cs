@@ -139,6 +139,8 @@ namespace LazyPingerMAUI.ViewModels
         private async Task InitDatabaseData()
         {
             try {
+                ListenVm.Instance.dbContext.IsAndroid = DeviceInfo.Current.Platform == DevicePlatform.Android;
+                ListenVm.Instance.dbContext.CheckDatabasePath();
                 var db = ListenVm.Instance.dbContext;
 
                 try
