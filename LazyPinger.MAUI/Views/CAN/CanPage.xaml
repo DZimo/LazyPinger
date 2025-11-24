@@ -1,12 +1,79 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
              x:Class="LazyPinger.MAUI.Views.CAN.CanPage"
              Title="CanPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <HorizontalStackLayout Margin="0, 15, 0, 0" HorizontalOptions="Center">
+            <ContentView Content="{Binding SelectedCanType}"/>
+        </HorizontalStackLayout>
+        <StackLayout Margin="10" HorizontalOptions="Start" Orientation="Horizontal" VerticalOptions="Center">
+            <Button Margin="2, 0"   
+                    Command="{Binding StartTcpServerCommand}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialDesign"
+                                     Size="18"
+                                     Glyph="{x:Static helpers:MaterialIcons.Play_circle}"/>
+                </Button.ImageSource>
+            </Button>
+            <Button Margin="2, 0"    
+                    Command="{Binding StartTcpServerCommand}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialDesign"
+                                     Size="18"
+                                     Glyph="{x:Static helpers:MaterialIcons.Stop_circle}"/>
+                </Button.ImageSource>
+            </Button>
+            <Button Margin="2, 0"
+                    Command="{Binding StartTcpServerCommand}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialDesign"
+                                     Size="18"
+                                     Glyph="{x:Static helpers:MaterialIcons.Settings_applications}"/>
+                </Button.ImageSource>
+            </Button>
+
+            <StackLayout Margin="20, 10 , 0, 0" VerticalOptions="End" Orientation="Horizontal">
+                <RadioButton Value="{Binding SelectedCanType, Mode=OneWay}" 
+                       VerticalOptions="Center"
+                       Content="Receiver"/>
+
+                <RadioButton Margin="20, 0" Value="{Binding SelectedCanType, Mode=OneWay}" 
+                       VerticalOptions="Center"
+                       Content="Sender"/>
+            </StackLayout>
+        </StackLayout>
+
+        <CollectionView ItemsSource="{Binding CanDataVm}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Monkey">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.RowSpan="2"
+                       Source="{Binding ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="60"
+                       WidthRequest="60" />
+                        <Label Grid.Column="1"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold" />
+                        <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding Location}"
+                       FontAttributes="Italic"
+                       VerticalOptions="End" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            ...
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
