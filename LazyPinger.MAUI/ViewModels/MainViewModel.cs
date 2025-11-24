@@ -5,15 +5,12 @@ using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.User;
-using LazyPinger.Core.Services;
 using LazyPinger.Core.Utils;
 using LazyPinger.Core.ViewModels;
 using LazyPinger.MAUI.Views.CAN;
 using LazyPingerMAUI.Views;
 using LazyPingerMAUI.Views.TCP;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Maui.Media;
 using System.Collections.ObjectModel;
 using System.Net.Sockets;
 
@@ -179,11 +176,9 @@ namespace LazyPingerMAUI.ViewModels
                     ListenVm.Instance.dbLockSemaphore.Release();
                 });
 
-
                 //await Task.Run(async () =>
                 //{
                 //    await ListenVm.Instance.dbLockSemaphore.WaitAsync();
-
 
                 //    if (db.DevicePings is not null)
                 //        return;

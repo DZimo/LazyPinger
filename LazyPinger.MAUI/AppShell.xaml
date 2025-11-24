@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:LazyPingerMAUI.Views"
     xmlns:viewsTCP="clr-namespace:LazyPingerMAUI.Views.TCP"
+    xmlns:viewsCAN="clr-namespace:LazyPinger.MAUI.Views.CAN"
     xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
     xmlns:vm="clr-namespace:LazyPingerMAUI.ViewModels"
     Shell.FlyoutBehavior="Flyout"
@@ -57,7 +58,7 @@
                 Size="18"
                 Glyph="{x:Static helpers:MaterialIcons.Laptop_car}"/>
             </Tab.Icon>
-            <ShellContent Title="CAN"  ContentTemplate="{DataTemplate views:NetworkPage}" Route="network"/>
+            <ShellContent Title="CAN"  ContentTemplate="{DataTemplate viewsCAN:CanPage}" Route="network"/>
         </Tab>
         <Tab Title="Settings">
             <Tab.Icon>
