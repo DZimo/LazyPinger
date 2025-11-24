@@ -8,8 +8,19 @@ namespace LazyPinger.MAUI.ViewModels
 {
     public partial class CanViewModel : ViewModelBase
     {
+        public CanViewModel() 
+        {
+            InitCanDataRandom();
+        }
 
-        public CanViewModel() { }
+        private void InitCanDataRandom()
+        {
+            CanDataVm.Add(new CanFrame() { ID = 0x100, Name = "Test", Message = "MESSAGE CAN"});
+            CanDataVm.Add(new CanFrame() { ID = 0x100, Name = "Test", Message = "MESSAGE CAN" });
+            CanDataVm.Add(new CanFrame() { ID = 0x100, Name = "Test", Message = "MESSAGE CAN" });
+            CanDataVm.Add(new CanFrame() { ID = 0x100, Name = "Test", Message = "MESSAGE CAN" });
+
+        }
 
         [ObservableProperty]
         private string selectedCanType = "Receiver";

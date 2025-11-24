@@ -1,14 +1,15 @@
-﻿using LazyPinger.Base.IServices;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
+using LazyPinger.Base.IServices;
 using LazyPinger.Base.Services;
 using LazyPinger.Core.Services;
+using LazyPinger.MAUI.ViewModels;
+using LazyPinger.MAUI.Views.CAN;
+using LazyPinger.MAUI.Views.Popups;
 using LazyPingerMAUI.ViewModels;
 using LazyPingerMAUI.Views;
-using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
-using CommunityToolkit.Maui.Core;
-using LazyPinger.MAUI.Views.Popups;
-using LazyPinger.MAUI.Views.CAN;
 using LazyPingerMAUI.Views.TCP;
+using Microsoft.Extensions.Logging;
 
 namespace LazyPingerMAUI
 {
@@ -64,7 +65,8 @@ namespace LazyPingerMAUI
             mauiAppBuilder.Services.AddSingleton<MainViewModel>();
             mauiAppBuilder.Services.AddTransient<SettingsViewModel>();
             mauiAppBuilder.Services.AddTransient<NetworkViewModel>();
-
+            mauiAppBuilder.Services.AddTransient<CanViewModel>();
+            
             mauiAppBuilder.Services.AddTransient<MainPage>();
             mauiAppBuilder.Services.AddTransient<PingView>();
             mauiAppBuilder.Services.AddTransient<SettingsPage>();

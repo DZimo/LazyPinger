@@ -2,13 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
+             xmlns:models="clr-namespace:LazyPinger.Base.Models.Network;assembly=LazyPinger.Base"
              x:Class="LazyPinger.MAUI.Views.CAN.CanPage"
              Title="CanPage">
-    <VerticalStackLayout>
-        <HorizontalStackLayout Margin="0, 15, 0, 0" HorizontalOptions="Center">
-            <ContentView Content="{Binding SelectedCanType}"/>
-        </HorizontalStackLayout>
-        <StackLayout Margin="10" HorizontalOptions="Start" Orientation="Horizontal" VerticalOptions="Center">
+
+    <FlexLayout Direction="Column" AlignContent="SpaceEvenly" AlignItems="Stretch">
+
+        <!--<HorizontalStackLayout Margin="0, 15, 0, 0" HorizontalOptions="Center">
+                <ContentView Content="{Binding SelectedCanType}"/>
+            </HorizontalStackLayout>-->
+        <StackLayout FlexLayout.Shrink="1" Margin="10" HorizontalOptions="Center" Orientation="Horizontal" VerticalOptions="Center">
             <Button Margin="2, 0"   
                     Command="{Binding StartTcpServerCommand}">
                 <Button.ImageSource>
@@ -45,35 +48,42 @@
             </StackLayout>
         </StackLayout>
 
-        <CollectionView ItemsSource="{Binding CanDataVm}">
+        <CollectionView FlexLayout.Grow="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CanDataVm}">
+            <CollectionView.Header>
+                <FlexLayout Direction="Row" Padding="5">
+                    <Label FlexLayout.Grow="1" Text="ID" FontAttributes="Bold"/>
+                    <Label FlexLayout.Grow="1" Text="Name" FontAttributes="Bold"/>
+                    <Label FlexLayout.Grow="1" Text="Message" FontAttributes="Bold"/>
+                </FlexLayout>
+            </CollectionView.Header>
+
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Monkey">
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.RowSpan="2"
-                       Source="{Binding ImageUrl}"
-                       Aspect="AspectFill"
-                       HeightRequest="60"
-                       WidthRequest="60" />
+                <DataTemplate x:DataType="models:CanFrame">
+                    <!--<Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>-->
+                    <FlexLayout Direction="Row">
+                        <Label FlexLayout.Grow="1"
+                               Margin="0, 0, 5, 2"
+                               Text="{Binding ID}"/>
                         <Label Grid.Column="1"
-                       Text="{Binding Name}"
-                       FontAttributes="Bold" />
+                               FlexLayout.Grow="1"
+                               Text="{Binding Name}"
+                               VerticalOptions="Center"
+                               Margin="0, 0, 5, 2"/>
                         <Label Grid.Row="1"
-                       Grid.Column="1"
-                       Text="{Binding Location}"
-                       FontAttributes="Italic"
-                       VerticalOptions="End" />
-                    </Grid>
+                               FlexLayout.Grow="1"
+                               Margin="0, 0, 5, 2"
+                               Text="{Binding Message}"/>
+                    </FlexLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            ...
         </CollectionView>
-    </VerticalStackLayout>
+    </FlexLayout>
 </ContentPage>
