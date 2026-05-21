@@ -53,6 +53,7 @@ namespace LazyPingerMAUI
             mauiAppBuilder.Services.AddSingleton<IPingerService, PingerService>();
             mauiAppBuilder.Services.AddSingleton<IArpDetectorService, ArpService>();
             mauiAppBuilder.Services.AddTransient<IImageService<ImageSource>, ImageService>();
+            mauiAppBuilder.Services.AddSingleton<ICanService, CanService>();
 
             //mauiAppBuilder.Services.AddTransientPopup<SuccessfulPopup, SettingsViewModel>();
 
@@ -64,6 +65,7 @@ namespace LazyPingerMAUI
             mauiAppBuilder.Services.AddSingleton<MainViewModel>();
             mauiAppBuilder.Services.AddTransient<SettingsViewModel>();
             mauiAppBuilder.Services.AddTransient<NetworkViewModel>();
+            mauiAppBuilder.Services.AddTransient<CanViewModel>();
 
             mauiAppBuilder.Services.AddTransient<MainPage>();
             mauiAppBuilder.Services.AddTransient<PingView>();
