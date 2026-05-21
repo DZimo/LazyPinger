@@ -1,17 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LazyPinger.Base.Common;
 using LazyPinger.Base.Entities;
 using LazyPinger.Base.IServices;
 using LazyPinger.Base.Models.Devices;
 using LazyPinger.Base.Models.User;
-using LazyPinger.Core.Services;
 using LazyPinger.Core.Utils;
 using LazyPinger.Core.ViewModels;
 using LazyPinger.MAUI.Views.CAN;
 using LazyPingerMAUI.Views;
 using LazyPingerMAUI.Views.TCP;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.ObjectModel;
 using System.Net.Sockets;
 
@@ -87,7 +86,7 @@ namespace LazyPingerMAUI.ViewModels
                         }
                         catch (Exception ex)
                         {
-
+                            LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                         }
                     });
                     await Task.Delay(5000);
@@ -121,9 +120,9 @@ namespace LazyPingerMAUI.ViewModels
                         PingAll(true);
                     }
 
-                    catch
+                    catch(Exception ex)
                     {
-
+                        LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                     }
 
                     if (ListenVm.Instance.UserSelectionsVm.Entity.AutoRestartTime < 10)
@@ -137,6 +136,8 @@ namespace LazyPingerMAUI.ViewModels
         private async Task InitDatabaseData()
         {
             try {
+                ListenVm.Instance.dbContext.IsAndroid = DeviceInfo.Current.Platform == DevicePlatform.Android;
+                ListenVm.Instance.dbContext.CheckDatabasePath();
                 var db = ListenVm.Instance.dbContext;
 
                 try
@@ -146,7 +147,7 @@ namespace LazyPingerMAUI.ViewModels
                 }
                 catch (Exception ex)
                 {
-
+                    LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                 }
 
                 await Task.Run(async () =>
@@ -175,11 +176,9 @@ namespace LazyPingerMAUI.ViewModels
                     ListenVm.Instance.dbLockSemaphore.Release();
                 });
 
-
                 //await Task.Run(async () =>
                 //{
                 //    await ListenVm.Instance.dbLockSemaphore.WaitAsync();
-
 
                 //    if (db.DevicePings is not null)
                 //        return;
@@ -203,7 +202,7 @@ namespace LazyPingerMAUI.ViewModels
                 ListenVm.ReloadAllFromDatabase();
             }
             catch (Exception ex) {
-                //
+                LazyLogger.LogAll(ex.Message, LogSeverity.Error);
             }
         }
 
@@ -237,7 +236,7 @@ namespace LazyPingerMAUI.ViewModels
                 }
                 catch (Exception ex)
                 {
-
+                    LazyLogger.LogAll(ex.Message, LogSeverity.Error);
                 }
                 finally
                 {

@@ -1,12 +1,160 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LazyPingerMAUI.ViewModels"
+             xmlns:helpers="clr-namespace:LazyPinger.Core.Utils;assembly=LazyPinger.Core"
+             xmlns:models="clr-namespace:LazyPinger.Base.Models.Network;assembly=LazyPinger.Base"
              x:Class="LazyPinger.MAUI.Views.CAN.CanPage"
-             Title="CanPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:DataType="vm:CanViewModel"
+             Background="{AppThemeBinding Light={StaticResource WhiteGradient}, Dark={StaticResource GreyGradient}}"
+             Title="CAN Bus">
+
+    <Grid RowDefinitions="*">
+        <ScrollView Margin="20, 5, 20, 0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+            <VerticalStackLayout Spacing="10">
+
+                <!-- CAN Interface Selection -->
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource MiniLine}" Text="CAN Interface" Margin="0, 0, 0, 5"/>
+                    <FlexLayout Wrap="Wrap" AlignItems="Center">
+                        <Picker FlexLayout.Grow="1"
+                                Margin="2"
+                                VerticalOptions="Fill"
+                                SelectedItem="{Binding SelectedInterface}"
+                                ItemsSource="{Binding AvailableInterfaces}"/>
+                        <Button Text="Refresh"
+                                Margin="2"
+                                Command="{Binding RefreshInterfacesCommand}"
+                                FlexLayout.Grow="0">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="MaterialDesign"
+                                                 Size="18"
+                                                 Glyph="{x:Static helpers:MaterialIcons.Refresh}"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </FlexLayout>
+                </VerticalStackLayout>
+
+                <!-- Baud Rate Selection -->
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource MiniLine}" Text="Baud Rate" Margin="0, 0, 0, 5"/>
+                    <Picker Margin="2"
+                            VerticalOptions="Fill"
+                            SelectedItem="{Binding SelectedBaudRateOption}"
+                            ItemsSource="{Binding BaudRateOptions}"/>
+                </VerticalStackLayout>
+
+                <!-- Open / Close / Clear Buttons -->
+                <FlexLayout Margin="0, 10, 0, 0" Wrap="Wrap">
+                    <Button Text="Open CAN"
+                            IsEnabled="{Binding IsConnected, Converter={StaticResource IsValidConverter}}"
+                            Margin="2"
+                            Command="{Binding OpenCanSocketCommand}"
+                            FlexLayout.Grow="1">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Play_circle}"/>
+                        </Button.ImageSource>
+                    </Button>
+
+                    <Button Text="Close CAN"
+                            IsEnabled="{Binding IsConnected}"
+                            Margin="2"
+                            Command="{Binding CloseCanSocketCommand}"
+                            FlexLayout.Grow="1">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Stop_circle}"/>
+                        </Button.ImageSource>
+                    </Button>
+
+                    <Button Text="Clear"
+                            Margin="2"
+                            Command="{Binding ClearMessagesCommand}"
+                            FlexLayout.Grow="1">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialDesign"
+                                             Size="18"
+                                             Glyph="{x:Static helpers:MaterialIcons.Delete}"/>
+                        </Button.ImageSource>
+                    </Button>
+                </FlexLayout>
+
+                <!-- Status -->
+                <FlexLayout Margin="0, 10" AlignItems="Center">
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" FlexLayout.Grow="1">
+                        <Label Text="Status: " VerticalOptions="Center"/>
+                        <Label Text="{Binding StatusText}" VerticalOptions="Center" Margin="5, 0, 10, 0"/>
+                        <Frame WidthRequest="10"
+                               HeightRequest="10"
+                               CornerRadius="20"
+                               BackgroundColor="{Binding StatusColor}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="Center" FlexLayout.Grow="1">
+                        <Label Text="Messages: " VerticalOptions="Center"/>
+                        <Label Text="{Binding MessageCount}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </FlexLayout>
+
+                <!-- CAN Messages Table Header -->
+                <Grid ColumnDefinitions="100, *, 60, 200"
+                      Padding="10, 5"
+                      BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}">
+                    <Label Grid.Column="0" Text="ID" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text="Data" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label Grid.Column="2" Text="DLC" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label Grid.Column="3" Text="Timestamp" FontAttributes="Bold" VerticalOptions="Center"/>
+                </Grid>
+
+                <!-- CAN Messages List -->
+                <CollectionView ItemsSource="{Binding CanFrames}"
+                                HeightRequest="400"
+                                VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:CanFrame">
+                            <Grid ColumnDefinitions="100, *, 60, 200"
+                                  Padding="10, 4"
+                                  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+                                <Label Grid.Column="0"
+                                       Text="{Binding IdHex}"
+                                       FontFamily="NotoSans"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding DataHex}"
+                                       FontFamily="NotoSans"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="2"
+                                       Text="{Binding DataLength}"
+                                       FontFamily="NotoSans"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="3"
+                                       Text="{Binding Timestamp, StringFormat='{0:HH:mm:ss.fff}'}"
+                                       FontFamily="NotoSans"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="20">
+                            <Label Text="No CAN messages received"
+                                   HorizontalOptions="Center"
+                                   FontAttributes="Italic"
+                                   Opacity="0.6"/>
+                            <Label Text="Open a CAN socket to start listening"
+                                   HorizontalOptions="Center"
+                                   FontAttributes="Italic"
+                                   Opacity="0.4"
+                                   FontSize="12"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

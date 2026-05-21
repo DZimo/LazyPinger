@@ -6,16 +6,13 @@ namespace LazyPinger.Base.Models;
 
 public partial class LazyPingerDbContext : DbContext
 {
-    private string DbFilePath = $"Data Source={Path.Combine(AppContext.BaseDirectory, "lazypinger_database.db")}";
+    private string DbFilePath = Path.Combine(AppContext.BaseDirectory, "lazypinger_database.db");
+    private string DbSecret = "";
+    public bool IsAndroid = false;
 
     public LazyPingerDbContext()
     {
-        var localFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "LazyPinger");
 
-        if (!File.Exists(localFolder))
-            Directory.CreateDirectory(localFolder);
-
-        DbFilePath = $"Data Source={Path.Combine(localFolder, "lazypinger_database.db")}";
     }
 
     public LazyPingerDbContext(DbContextOptions<LazyPingerDbContext> options)
@@ -24,7 +21,7 @@ public partial class LazyPingerDbContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlite(DbFilePath);
+        => optionsBuilder.UseSqlite(DbSecret);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,6 +29,21 @@ public partial class LazyPingerDbContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public void CheckDatabasePath()
+    {
+        DbSecret = $"Data Source={DbFilePath}";
+
+        if (File.Exists(DbFilePath) || IsAndroid)
+            return;
+
+        var localFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "LazyPinger");
+
+        if (!File.Exists(localFolder))
+            Directory.CreateDirectory(localFolder);
+
+        DbSecret = $"Data Source={Path.Combine(localFolder, "lazypinger_database.db")}";
+    }
 
     public DbSet<UserPreference> UserPreferences { get; set; }
     public DbSet<UserSelection> UserSelections { get; set; }

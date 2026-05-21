@@ -4,8 +4,8 @@
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <ActiveDebugFramework>net10.0-windows10.0.19041.0</ActiveDebugFramework>
     <ActiveDebugProfile>Windows Machine</ActiveDebugProfile>
-    <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
-    <DefaultDevice>Windows Subsystem for Android</DefaultDevice>
+    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
+    <DefaultDevice>pixel_7_-_api_36</DefaultDevice>
     <UapAppxPackageBuildMode>StoreAndSideload</UapAppxPackageBuildMode>
     <AppxShowAllApps>False</AppxShowAllApps>
     <_LastSelectedProfileId>MSIX-win-x64.pubxml</_LastSelectedProfileId>

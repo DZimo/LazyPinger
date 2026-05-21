@@ -48,16 +48,19 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|x64'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|x86'">
 	  <ApplicationTitle>Lazy Pinger</ApplicationTitle>
 	  <ApplicationId>com.dzimo.lazypinger</ApplicationId>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-ios|AnyCPU'">
@@ -198,6 +201,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\CAN\CanReadView.xaml.cs">
+	    <DependentUpon>CanReadView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\TCP\PingView.xaml.cs">
 	    <DependentUpon>PingView.xaml</DependentUpon>
 	  </Compile>
@@ -207,6 +213,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\CAN\CanReadView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CAN\CanPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
