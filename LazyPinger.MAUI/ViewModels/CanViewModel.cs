@@ -8,9 +8,10 @@ using System.Collections.ObjectModel;
 
 namespace LazyPingerMAUI.ViewModels;
 
-public partial class CanViewModel : ViewModelBase
+public partial class CanViewModel : ViewModelBase, IDisposable
 {
     private readonly ICanService _canService;
+    private bool _disposed;
 
     [ObservableProperty]
     private VmCanBus vmCanBus = new();
@@ -29,6 +30,15 @@ public partial class CanViewModel : ViewModelBase
         _canService.MessageReceived += OnCanMessageReceived;
 
         RefreshInterfaces();
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+            return;
+
+        _canService.MessageReceived -= OnCanMessageReceived;
+        _disposed = true;
     }
 
     [RelayCommand]

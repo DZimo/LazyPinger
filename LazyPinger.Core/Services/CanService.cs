@@ -112,8 +112,8 @@ public class CanService : ICanService
 
     public void Close()
     {
-        StopListener();
         CloseSocket();
+        StopListener();
         ConnectedInterface = null;
     }
 
@@ -159,16 +159,17 @@ public class CanService : ICanService
     {
         _listenerCts = new CancellationTokenSource();
         var token = _listenerCts.Token;
+        var socketFd = _socketHandle;
 
         _listenerTask = Task.Run(() =>
         {
             var buffer = new byte[CAN_MTU];
 
-            while (!token.IsCancellationRequested && _socketHandle >= 0)
+            while (!token.IsCancellationRequested && socketFd >= 0)
             {
-                var bytesRead = LinuxNative.Read(_socketHandle, buffer, CAN_MTU);
+                var bytesRead = LinuxNative.Read(socketFd, buffer, CAN_MTU);
                 if (bytesRead < CAN_MTU)
-                    continue;
+                    break;
 
                 var canId = BitConverter.ToUInt32(buffer, 0);
                 var dlc = buffer[4];
@@ -198,6 +199,16 @@ public class CanService : ICanService
     private void StopListener()
     {
         _listenerCts?.Cancel();
+
+        try
+        {
+            _listenerTask?.Wait(TimeSpan.FromSeconds(2));
+        }
+        catch
+        {
+            // Task may have faulted after socket close
+        }
+
         _listenerTask = null;
         _listenerCts?.Dispose();
         _listenerCts = null;
